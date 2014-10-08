@@ -114,16 +114,16 @@ var nwsAlertShortcodes;
 			controls.wrap.hide();
         },
         update: function () {
-            var errors = false;
-            var match = false;
-            var shortcode = '[nws_alert';
+            var errors = false,
+                match = false,
+                shortcode = '[nws_alert';
 
-            if (controlValues.zip !== controlValuesDefaults.zip) { shortcode += ' zip="' + controlValues.zip + '"' }
-            if (controlValues.city !== controlValuesDefaults.city) { shortcode += ' city="' + controlValues.city + '"' }
+            if (controlValues.zip !== controlValuesDefaults.zip) { shortcode += ' zip="' + controlValues.zip + '"'; }
+            if (controlValues.city !== controlValuesDefaults.city) { shortcode += ' city="' + controlValues.city + '"'; }
             shortcode += ' state="' + controlValues.state + '"';
-            if (controlValues.county !== controlValuesDefaults.county) { shortcode += ' county="' + controlValues.county + '"' }
-            if (controlValues.display !== controlValuesDefaults.display) { shortcode += ' display="' + controlValues.display + '"' }
-            if (controlValues.scope !== controlValuesDefaults.scope) { shortcode += ' scope="' + controlValues.scope + '"' }
+            if (controlValues.county !== controlValuesDefaults.county) { shortcode += ' county="' + controlValues.county + '"'; }
+            if (controlValues.display !== controlValuesDefaults.display) { shortcode += ' display="' + controlValues.display + '"'; }
+            if (controlValues.scope !== controlValuesDefaults.scope) { shortcode += ' scope="' + controlValues.scope + '"'; }
 
             shortcode += ']';
 
@@ -156,18 +156,19 @@ var nwsAlertShortcodes;
             }
         },
         controlListenerMulti: function (checkbox) {
-            var control = checkbox.getAttribute("data-control");
-            var controlParent = checkbox.getAttribute("data-control-parent");
+            var control = checkbox.getAttribute("data-control"),
+                controlParent = checkbox.getAttribute("data-control-parent"),
+                values = null,
+                valuesText = "",
+                valuesUpdated = [],
+                firstValueAdded = false;
             if (controlValues[controlParent] === "") {
-                var values = [];
+                values = [];
             } else if (controlValues[controlParent] !== "" && controlValues[controlParent].indexOf(",") !== -1) {
-                var values = controlValues[controlParent].split(",");
+                values = controlValues[controlParent].split(",");
             } else {
-                var values = [controlValues[controlParent]];
+                values = [controlValues[controlParent]];
             }
-            var valuesText = "";
-            var valuesUpdated = [];
-            var firstValueAdded = false;
 
             if (checkbox.checked) {
                 // Checked - add to controlValues
