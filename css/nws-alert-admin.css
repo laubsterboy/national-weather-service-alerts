@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+#nws-alert-shortcodes-backdrop {
+	display:none;
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	min-height:360px;
+	background:#000;
+	opacity:.7;
+	filter:alpha(opacity=70);
+	z-index:100100;
+}
+#nws-alert-shortcodes-wrap {
+	display: none;
+	background-color:#f1f1f1;
+	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.3);
+	box-shadow: 0 3px 6px rgba(0,0,0,.3);
+	width:800px;
+	overflow: hidden;
+	margin-left: -400px;
+	position: fixed;
+	top:30px;
+	bottom:30px;
+	left: 50%;
+	z-index: 100105;
+	-webkit-transition: height .2s,margin-top .2s;
+	transition: height .2s,margin-top .2s;
+}
+
+
+
+
+
+
+/* Modal Title */
+.nws-alert-modal-title {
+	background: #fcfcfc;
+	border-bottom: 1px solid #dfdfdf;
+	height: 36px;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 36px;
+	padding: 0 36px 0 16px;
+	top: 0;
+	right: 0;
+	left: 0;
+}
+.nws-alert-close {
+	color: #666;
+	cursor: pointer;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 36px;
+	height: 36px;
+	text-align: center;
+}
+.nws-alert-close:before {
+	font: 400 20px/36px dashicons;
+	vertical-align: top;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	width: 36px;
+	height: 36px;
+	content: '\f158';
+}
+.nws-alert-close:focus,
+.nws-alert-close:hover {
+	color: #2ea2cc;
+}
+
+
+
+
+
+/* Modal Options */
+.nws-alert-options {
+	position:absolute;
+	top:37px;
+	bottom:43px;
+	width:768px;
+	padding:16px;
+	overflow-y:auto;
+}
+.nws-alert-options label span {
+	display:inline-block;
+	width:176px;
+	text-align:right;
+	padding-right:4px;
+}
+.nws-alert-options table {
+	width:100%;
+}
+.nws-alert-options td {
+	border-bottom: 1px solid #dfdfdf;
+	padding: 16px;
+}
+.nws-alert-options h4 {
+	min-width:160px;
+}
+
+/* Modal Options Errors */
+.nws-alert-errors {
+    padding:16px;
+    border-left:4px solid #cc0000;
+    font-style:italic;
+    background-color:#fff;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+
+
+
+
+
+/* Modal Submit */
+.nws-alert-submitbox {
+	padding: 8px 16px;
+	background: #fcfcfc;
+	border-top: 1px solid #dfdfdf;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.nws-alert-cancel {
+	line-height: 25px;
+}
+.nws-alert-update {
+	line-height: 23px;
+	float: right;
+}
