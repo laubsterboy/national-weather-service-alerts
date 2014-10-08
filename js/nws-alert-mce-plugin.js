@@ -123,7 +123,7 @@ var nwsAlertShortcodes;
             shortcode += ' state="' + controlValues.state + '"';
             if (controlValues.county !== controlValuesDefaults.county) shortcode += ' county="' + controlValues.county + '"';
             if (controlValues.display !== controlValuesDefaults.display) shortcode += ' display="' + controlValues.display + '"';
-            if (controlValues.scope !== controlValuesDefaults.scope) shortcode += ' scope"' + controlValues.scope + '"';
+            if (controlValues.scope !== controlValuesDefaults.scope) shortcode += ' scope="' + controlValues.scope + '"';
 
             shortcode += ']';
 

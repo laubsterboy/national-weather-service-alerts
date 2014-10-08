@@ -602,7 +602,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
     /**
     * Sort Entries by alert type, urgency, and then severity
     *
-    * @return void
+    * @return array
     */
     public function sort_entries($entries) {
         if (empty($entries)) return $entries;
@@ -631,7 +631,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
                              'Flash Flood Statement',
                              'Flood Statement',
                              'Frost Advisory',
-                             'Heat Advisory',
+                             'Heat Advisory'
                             );
         /*
         * Urgency types
@@ -690,20 +690,20 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
 
                 // Sort by Severity
                 foreach ($entries_by_urgency as $entry) {
-                    if (!isset($entries_by_severity[$entry->cap_urgency])) $entries_by_severity[$entry->cap_urgency] = array();
-                    $entries_by_severity[$entry->cap_urgency][] = $entry;
+                    if (!isset($entries_by_severity[$entry->cap_severity])) $entries_by_severity[$entry->cap_severity] = array();
+                    $entries_by_severity[$entry->cap_severity][] = $entry;
                 }
                 $entries_by_severity = $this->utils->array_merge_by_order($entries_by_severity, $severity_types);
 
                 // Sort by Certainty
                 foreach ($entries_by_severity as $entry) {
-                    if (!isset($entries_by_certainty[$entry->cap_urgency])) $entries_by_certainty[$entry->cap_urgency] = array();
-                    $entries_by_certainty[$entry->cap_urgency][] = $entry;
+                    if (!isset($entries_by_certainty[$entry->cap_certainty])) $entries_by_certainty[$entry->cap_certainty] = array();
+                    $entries_by_certainty[$entry->cap_certainty][] = $entry;
                 }
                 $entries_by_certainty = $this->utils->array_merge_by_order($entries_by_certainty, $certainty_types);
 
                 // Merge into entries
-                $_entries = array_merge($entries, $entries_by_certainty);
+                $_entries = array_merge($_entries, $entries_by_certainty);
             }
         }
 
