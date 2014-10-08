@@ -1,5 +1,5 @@
 tinymce.create('tinymce.plugins.nws_alert', {
-    init: function(editor, url) {
+    init: function (editor, url) {
         editor.addButton('nws_alert_shortcodes', {
             //text: 'NWS Alert',
             title: 'National Weather Service Alerts Shortcode',
@@ -9,7 +9,7 @@ tinymce.create('tinymce.plugins.nws_alert', {
         });
 
         editor.addCommand('NWS_Alert_Shortcodes_Listener', function () {
-            if (typeof window.nwsAlertShortcodes !== 'undefined' ) {
+            if (typeof window.nwsAlertShortcodes !== 'undefined') {
                 window.nwsAlertShortcodes.open(editor.id);
             }
         });
@@ -65,11 +65,11 @@ var nwsAlertShortcodes;
 			$('.nws-alert-control-text-container input').keyup(function (event) {
 				nwsAlertShortcodes.controlListenerText(this);
 			});
-			controls.submit.click( function (event) {
+			controls.submit.click(function (event) {
 				event.preventDefault();
 				nwsAlertShortcodes.update();
 			});
-			controls.close.add( controls.backdrop ).add('#nws-alert-shortcodes-cancel a').click( function (event) {
+			controls.close.add(controls.backdrop).add('#nws-alert-shortcodes-cancel a').click(function (event) {
 				event.preventDefault();
 				nwsAlertShortcodes.close();
 			});
@@ -87,18 +87,18 @@ var nwsAlertShortcodes;
 				return;
 			}
 
-			this.textarea = $( '#' + window.wpActiveEditor ).get( 0 );
+			this.textarea = $('#' + window.wpActiveEditor).get(0);
 
-			if ( typeof tinymce !== 'undefined' ) {
-				ed = tinymce.get( wpActiveEditor );
+			if (typeof tinymce !== 'undefined') {
+				ed = tinymce.get(wpActiveEditor);
 
-				if ( ed && ! ed.isHidden() ) {
+				if (ed && !ed.isHidden()) {
 					editor = ed;
 				} else {
 					editor = null;
 				}
 
-				if ( editor && tinymce.isIE ) {
+				if (editor && tinymce.isIE) {
 					editor.windowManager.bookmark = editor.selection.getBookmark();
 				}
 			}
@@ -106,24 +106,24 @@ var nwsAlertShortcodes;
 			controls.backdrop.show();
 			controls.wrap.show();
         },
-        close: function() {
+        close: function () {
             editor.focus();
 
             controls.errors.empty().hide();
 			controls.backdrop.hide();
 			controls.wrap.hide();
         },
-        update: function() {
+        update: function () {
             var errors = false;
             var match = false;
             var shortcode = '[nws_alert';
 
-            if (controlValues.zip !== controlValuesDefaults.zip) shortcode += ' zip="' + controlValues.zip + '"';
-            if (controlValues.city !== controlValuesDefaults.city) shortcode += ' city="' + controlValues.city + '"';
+            if (controlValues.zip !== controlValuesDefaults.zip) { shortcode += ' zip="' + controlValues.zip + '"' }
+            if (controlValues.city !== controlValuesDefaults.city) { shortcode += ' city="' + controlValues.city + '"' }
             shortcode += ' state="' + controlValues.state + '"';
-            if (controlValues.county !== controlValuesDefaults.county) shortcode += ' county="' + controlValues.county + '"';
-            if (controlValues.display !== controlValuesDefaults.display) shortcode += ' display="' + controlValues.display + '"';
-            if (controlValues.scope !== controlValuesDefaults.scope) shortcode += ' scope="' + controlValues.scope + '"';
+            if (controlValues.county !== controlValuesDefaults.county) { shortcode += ' county="' + controlValues.county + '"' }
+            if (controlValues.display !== controlValuesDefaults.display) { shortcode += ' display="' + controlValues.display + '"' }
+            if (controlValues.scope !== controlValuesDefaults.scope) { shortcode += ' scope="' + controlValues.scope + '"' }
 
             shortcode += ']';
 
@@ -155,7 +155,7 @@ var nwsAlertShortcodes;
                 nwsAlertShortcodes.close();
             }
         },
-        controlListenerMulti: function(checkbox) {
+        controlListenerMulti: function (checkbox) {
             var control = checkbox.getAttribute("data-control");
             var controlParent = checkbox.getAttribute("data-control-parent");
             if (controlValues[controlParent] === "") {
