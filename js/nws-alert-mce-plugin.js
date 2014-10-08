@@ -5,19 +5,19 @@ tinymce.create('tinymce.plugins.nws_alert', {
             title: 'National Weather Service Alerts Shortcode',
             icon: true,
             image: url + '/../images/nws-alert-mce-icon.png',
-            onclick: function() { tinyMCE.activeEditor.execCommand('NWS_Alert_Shortcodes_Listener'); }
+            onclick: function () { tinyMCE.activeEditor.execCommand('NWS_Alert_Shortcodes_Listener'); }
         });
 
-        editor.addCommand( 'NWS_Alert_Shortcodes_Listener', function() {
+        editor.addCommand('NWS_Alert_Shortcodes_Listener', function () {
             if (typeof window.nwsAlertShortcodes !== 'undefined' ) {
                 window.nwsAlertShortcodes.open(editor.id);
             }
         });
     },
-    createControl: function(n, cm) {
+    createControl: function (n, cm) {
         return null;
     },
-    getInfo: function() {
+    getInfo: function () {
         return {
             longname : 'NWS Alert Plugin',
             author : 'laubsterboy',
@@ -30,11 +30,11 @@ tinymce.create('tinymce.plugins.nws_alert', {
 
 var nwsAlertShortcodes;
 
-(function($) {
+(function ($) {
     var controls = {}, editor, controlValues = {}, controlValuesDefaults;
 
     nwsAlertShortcodes = {
-        init: function() {
+        init: function () {
             controlValues.zip = '';
             controlValues.city = '';
             controlValues.state = 'AL';
@@ -53,28 +53,28 @@ var nwsAlertShortcodes;
 			controls.close = $('#nws-alert-shortcodes-close');
 
 			// Bind event handlers
-			$('.nws-alert-control-multi-container input').click(function(event) {
+			$('.nws-alert-control-multi-container input').click(function (event) {
 				nwsAlertShortcodes.controlListenerMulti(this);
 			});
-			$('.nws-alert-control-boolean-container input').click(function(event) {
+			$('.nws-alert-control-boolean-container input').click(function (event) {
 				nwsAlertShortcodes.controlListenerBoolean(this);
 			});
-			$('.nws-alert-control-select-container select').change(function(event) {
+			$('.nws-alert-control-select-container select').change(function (event) {
 				nwsAlertShortcodes.controlListenerSelect(this);
 			});
-			$('.nws-alert-control-text-container input').keyup(function(event) {
+			$('.nws-alert-control-text-container input').keyup(function (event) {
 				nwsAlertShortcodes.controlListenerText(this);
 			});
-			controls.submit.click( function( event ) {
+			controls.submit.click( function (event) {
 				event.preventDefault();
 				nwsAlertShortcodes.update();
 			});
-			controls.close.add( controls.backdrop ).add( '#nws-alert-shortcodes-cancel a' ).click( function( event ) {
+			controls.close.add( controls.backdrop ).add('#nws-alert-shortcodes-cancel a').click( function (event) {
 				event.preventDefault();
 				nwsAlertShortcodes.close();
 			});
         },
-        open: function(editorId) {
+        open: function (editorId) {
             var ed;
 
 			nwsAlertShortcodes.range = null;
@@ -83,7 +83,7 @@ var nwsAlertShortcodes;
 				window.wpActiveEditor = editorId;
 			}
 
-			if ( ! window.wpActiveEditor ) {
+			if (!window.wpActiveEditor) {
 				return;
 			}
 
