@@ -426,14 +426,12 @@ class NWS_Alert_Plugin {
 			$return_value .= '</tr>';
         } else if ($control === 'display') {
             $return_value .= '<tr>';
-				$return_value .= '<td><h4>Display</h4><p class="howto">Full: Location, Medium Graphic, Alert Type, Alert Description, and Google Map</p><p class="howto">Graphic: Location and Large Graphic</p><p class="howto">Basic: Location and Small Graphic</p><p class="howto">Map Only: Large Google Map</p></td>';
+				$return_value .= '<td><h4>Display</h4><p class="howto">Full: Graphic, Scope, Location, and Alert Type for the most severe current alert, and mouse over for all other alerts (including Alert Descriptions and Google Map) within the scope of the designated location.</p><p class="howto">Basic: Graphic, Scope, Location, and Alert Type for the most severe current alert, and no mouse over.</p></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alert-control-select-container">';
                         $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '">';
                             $return_value .= '<option value="full" selected="selected">Full</option>';
-                            $return_value .= '<option value="graphic">Graphic</option>';
                             $return_value .= '<option value="basic">Basic</option>';
-                            $return_value .= '<option value="map">Map Only</option>';
                         $return_value .= '</select>';
 					$return_value .= '</div>';
 				$return_value .= '</td>';

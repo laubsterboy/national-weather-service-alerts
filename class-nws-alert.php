@@ -872,39 +872,10 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         if (!$nws_alert) return '';
 
         if (!$nws_alert->error) {
-            $return_value;
+            $return_value = '';
 
             $return_value .= '<article class="nws-alert">';
-            $return_value .= $nws_alert->get_output_heading(array('graphic' => 1));
-            //$return_value .= $nws_alert->get_output_entries('<p>', '</p>', 1, false);
-            $return_value .= '</article>';
-
-            return $return_value;
-        } else {
-            return $nws_alert->error;
-        }
-    }
-
-
-
-
-    /**
-    * get_nws_alert_graphic
-    *
-    * Returns a string with html markup for purely a graphical representation of the alert information
-    *
-    * @param NWS_Alert $nws_alert a full populated NWS_Alert object
-    * @return string
-    */
-    public function get_output_graphic($nws_alert = false) {
-        // return a grahpical (iconographic) interpreted version of the nws_alert alert
-        if (!$nws_alert) return '';
-
-        if (!$nws_alert->error) {
-            $return_value;
-
-            $return_value .= '<article class="nws-alert">';
-            $return_value .= $nws_alert->get_output_heading('<h2>', '</h2>', 3);
+            $return_value .= $nws_alert->get_output_heading();
             $return_value .= '</article>';
 
             return $return_value;

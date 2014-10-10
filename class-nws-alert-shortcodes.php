@@ -42,8 +42,6 @@ class NWS_Alert_Shortcodes {
 
         if ($display == 'basic') {
             return $nws_alert_data->get_output_html_basic($nws_alert_data);
-        } else if ($display == 'graphic') {
-            return $nws_alert_data->get_output_graphic($nws_alert_data);
         } else {
             return $nws_alert_data->get_output_html_full($nws_alert_data);
         }
