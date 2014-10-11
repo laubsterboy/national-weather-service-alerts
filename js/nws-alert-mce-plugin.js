@@ -1,37 +1,7 @@
-tinymce.create('tinymce.plugins.nws_alert', {
-    init: function (editor, url) {
-        editor.addButton('nws_alert_shortcodes', {
-            //text: 'NWS Alert',
-            title: 'National Weather Service Alerts Shortcode',
-            icon: true,
-            image: url + '/../images/nws-alert-mce-icon.png',
-            onclick: function () { tinyMCE.activeEditor.execCommand('NWS_Alert_Shortcodes_Listener'); }
-        });
-
-        editor.addCommand('NWS_Alert_Shortcodes_Listener', function () {
-            if (typeof window.nwsAlertShortcodes !== 'undefined') {
-                window.nwsAlertShortcodes.open(editor.id);
-            }
-        });
-    },
-    createControl: function (n, cm) {
-        return null;
-    },
-    getInfo: function () {
-        return {
-            longname : 'NWS Alert Plugin',
-            author : 'laubsterboy',
-            authorurl : 'http://laubsterboy.com',
-            infourl : 'http://laubsterboy.com',
-            version : "1.0"
-        };
-    }
-});
-
-var nwsAlertShortcodes;
-
 (function ($) {
-    var controls = {}, editor, controlValues = {}, controlValuesDefaults;
+    "use strict";
+
+    var nwsAlertShortcodes, controls = {}, editor, controlValues = {}, controlValuesDefaults;
 
     nwsAlertShortcodes = {
         init: function () {
@@ -89,8 +59,8 @@ var nwsAlertShortcodes;
 
 			this.textarea = $('#' + window.wpActiveEditor).get(0);
 
-			if (typeof tinymce !== 'undefined') {
-				ed = tinymce.get(wpActiveEditor);
+			if (typeof window.tinymce !== 'undefined') {
+				ed = window.tinymce.get(window.wpActiveEditor);
 
 				if (ed && !ed.isHidden()) {
 					editor = ed;
@@ -98,7 +68,7 @@ var nwsAlertShortcodes;
 					editor = null;
 				}
 
-				if (editor && tinymce.isIE) {
+				if (editor && window.tinymce.isIE) {
 					editor.windowManager.bookmark = editor.selection.getBookmark();
 				}
 			}
@@ -161,7 +131,8 @@ var nwsAlertShortcodes;
                 values = null,
                 valuesText = "",
                 valuesUpdated = [],
-                firstValueAdded = false;
+                firstValueAdded = false,
+                i = 0;
             if (controlValues[controlParent] === "") {
                 values = [];
             } else if (controlValues[controlParent] !== "" && controlValues[controlParent].indexOf(",") !== -1) {
@@ -175,7 +146,7 @@ var nwsAlertShortcodes;
                 values.push(control);
             } else {
                 // Unchecked - remove from controlValues
-                for (var i = 0; i < values.length; i++) {
+                for (i = 0; i < values.length; i += 1) {
                     if (values[i] !== control) {
                         valuesUpdated.push(values[i]);
                     }
@@ -183,7 +154,7 @@ var nwsAlertShortcodes;
                 values = valuesUpdated;
             }
 
-            for (var i = 0; i < values.length; i++) {
+            for (i = 0; i < values.length; i += 1) {
                 if (firstValueAdded) {
                     valuesText += "," + values[i];
                 } else {
@@ -193,10 +164,10 @@ var nwsAlertShortcodes;
             }
             controlValues[controlParent] = valuesText;
         },
-        controlListenerBoolean: function(checkbox) {
-            var control = checkbox.getAttribute("data-control");
-            var controlParent = checkbox.getAttribute("data-control-parent");
-            var valueText = "";
+        controlListenerBoolean: function (checkbox) {
+            var control = checkbox.getAttribute("data-control"),
+                controlParent = checkbox.getAttribute("data-control-parent"),
+                valueText = "";
 
             if (checkbox.checked) {
                 // Checked
@@ -207,23 +178,51 @@ var nwsAlertShortcodes;
             }
             controlValues[controlParent] = valueText;
         },
-        controlListenerSelect: function(select) {
-            var control = select.getAttribute("data-control");
-            var controlParent = select.getAttribute("data-control-parent");
-            var valueText = $(select).val();
+        controlListenerSelect: function (select) {
+            var control = select.getAttribute("data-control"),
+                controlParent = select.getAttribute("data-control-parent"),
+                valueText = $(select).val();
             controlValues[controlParent] = valueText;
         },
-        controlListenerText: function(textbox) {
-            var control = textbox.getAttribute("data-control");
-            var controlParent = textbox.getAttribute("data-control-parent");
-            var valueText = textbox.value;
+        controlListenerText: function (textbox) {
+            var control = textbox.getAttribute("data-control"),
+                controlParent = textbox.getAttribute("data-control-parent"),
+                valueText = textbox.value;
             controlValues[controlParent] = valueText;
-        },
-    }
+        }
+    };
 
     $(document).ready(nwsAlertShortcodes.init);
-})(jQuery);
 
+    window.tinymce.create('tinymce.plugins.nws_alert', {
+        init: function (editor, url) {
+            editor.addButton('nws_alert_shortcodes', {
+                //text: 'NWS Alert',
+                title: 'National Weather Service Alerts Shortcode',
+                icon: true,
+                image: url + '/../images/nws-alert-mce-icon.png',
+                onclick: function () { window.tinyMCE.activeEditor.execCommand('NWS_Alert_Shortcodes_Listener'); }
+            });
 
+            editor.addCommand('NWS_Alert_Shortcodes_Listener', function () {
+                if (typeof nwsAlertShortcodes !== 'undefined') {
+                    nwsAlertShortcodes.open(editor.id);
+                }
+            });
+        },
+        createControl: function (n, cm) {
+            return null;
+        },
+        getInfo: function () {
+            return {
+                longname : 'NWS Alert Plugin',
+                author : 'laubsterboy',
+                authorurl : 'http://laubsterboy.com',
+                infourl : 'http://laubsterboy.com',
+                version : "1.0"
+            };
+        }
+    });
 
-tinymce.PluginManager.add('nws_alert', tinymce.plugins.nws_alert);
+    window.tinymce.PluginManager.add('nws_alert', window.tinymce.plugins.nws_alert);
+}(jQuery));
