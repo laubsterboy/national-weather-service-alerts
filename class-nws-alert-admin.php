@@ -13,6 +13,16 @@ class NWS_Alert_Admin {
     * NWS_Alert_Admin constructor
     */
     public function __construct() {
+
+    }
+
+
+
+
+    /*
+    * NWS_Alert_Admin init
+    */
+    public static function init() {
         if (is_admin()) {
             require_once('nws-alert-utils.php');
 

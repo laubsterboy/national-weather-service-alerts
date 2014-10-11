@@ -134,8 +134,6 @@ class NWS_Alert_Entry {
     * @return void
     */
     public function __construct($entry) {
-        $this->utils = new NWS_Alert_Utils();
-
         foreach ($entry as $key => $value) {
             if (!empty($value)) $this->$key = $value;
         }
@@ -260,7 +258,7 @@ class NWS_Alert_Entry {
                           'suffix' => '</p>');
         $args = wp_parse_args($args, $defaults);
 
-        $args['prefix'] = $this->utils->str_lreplace('>', ' class="nws-alert-entry">', $args['prefix']);
+        $args['prefix'] = NWS_Alert_Utils::str_lreplace('>', ' class="nws-alert-entry">', $args['prefix']);
 
         $return_value = $args['prefix'] . $this->get_output_graphic($args['graphic'], 'nws-alert-entry-graphic') . $this->get_output_text($args['details']) . $args['suffix'];
 

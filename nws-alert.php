@@ -28,71 +28,25 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 **************************************************************************/
 
-class NWS_Alert_Plugin {
 
-    public $utils = null;
-    public $shortcodes = null;
-    public $admin = null;
+require_once('nws-alert-globals.php');
+require_once('nws-alert-utils.php');
+require_once('class-nws-alert.php');
+require_once('class-nws-alert-entry.php');
+require_once('class-nws-alert-shortcodes.php');
+require_once('class-nws-alert-admin.php');
 
-    /*
-    * constructor
-    *
-    * @return void
-    * @access public
-    */
-    public function __construct() {
-        require_once('nws-alert-globals.php');
-        require_once('nws-alert-utils.php');
-        require_once('class-nws-alert.php');
-        require_once('class-nws-alert-entry.php');
-        require_once('class-nws-alert-shortcodes.php');
-        require_once('class-nws-alert-admin.php');
+// Shortcodes
+add_shortcode('nws_alert', 'NWS_Alert_Shortcodes::shortcode_handler');
 
-        // Shortcodes
-        $this->shortcodes = new NWS_Alert_Shortcodes();
+// Scripts and Styles
+add_action('wp_enqueue_scripts', 'NWS_Alert_Shortcodes::scripts_styles');
 
-        // Admin
-        $this->admin = new NWS_Alert_Admin();
+// Admin
+add_action('admin_init', 'NWS_Alert_Admin::init');
 
-        // Cannot use __FILE__ for the first parameter because the plugin is using a symlink which resolves to a directory outside the WP plugins directory
-        register_activation_hook(basename(dirname(__FILE__)).'/'.basename(__FILE__), 'NWS_Alert_Admin::activation');
-        register_deactivation_hook(basename(dirname(__FILE__)).'/'.basename(__FILE__), 'NWS_Alert_Admin::deactivation');
+// Cannot use __FILE__ for the first parameter because the plugin is using a symlink which resolves to a directory outside the WP plugins directory
+register_activation_hook(basename(dirname(__FILE__)).'/'.basename(__FILE__), 'NWS_Alert_Admin::activation');
+register_deactivation_hook(basename(dirname(__FILE__)).'/'.basename(__FILE__), 'NWS_Alert_Admin::deactivation');
 
-        // Scripts and Styles
-        add_action('wp_enqueue_scripts', array($this, 'scripts_styles'));
-
-        // Initialize NWS_Alert_Plugin object parameters
-        $this->utils = new NWS_Alert_Utils();
-    }
-
-
-
-
-    /*
-    * scripts_styles
-    *
-    * Enqueues necessary JavaScript and Stylesheet files
-    *
-    * @return void
-    * @access public
-    */
-    public function scripts_styles() {
-        // Stylesheets
-        wp_enqueue_style('nws-alert-css', plugins_url('nws-alert/css/nws-alert.css'));
-
-        /* JavaScript */
-        wp_enqueue_script('google-map-api', 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather&sensor=false', false, null, false);
-    }
-
-
-
-
-    public function __destruct() {
-        unset($this);
-    }
-}
-
-global $nws_alert_plugin;
-
-$nws_alert_plugin = new NWS_Alert_Plugin();
 ?>

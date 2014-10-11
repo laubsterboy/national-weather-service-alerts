@@ -6,7 +6,7 @@ class NWS_Alert_Utils {
     * @return array
     * @access public
     */
-    public function get_states() {
+    public static function get_states() {
         $states = array(
             array('name'=>'Alabama', 'abbrev'=>'AL'),
             array('name'=>'Alaska', 'abbrev'=>'AK'),
@@ -64,8 +64,8 @@ class NWS_Alert_Utils {
         return $states;
     }
 
-    public function convert_state_format($state, $search_key = 'name') {
-        $states = $this->get_states();
+    public static function convert_state_format($state, $search_key = 'name') {
+        $states = NWS_Alert_Utils::get_states();
         $return_value = false;
         $return_key = 'abbrev';
 
@@ -89,7 +89,7 @@ class NWS_Alert_Utils {
 
 
 
-    public function str_lreplace($search, $replace, $string) {
+    public static function str_lreplace($search, $replace, $string) {
         $position = strrpos($string, $search);
 
         if ($position !== false) {
@@ -102,7 +102,7 @@ class NWS_Alert_Utils {
 
 
 
-    public function str_freplace($search, $replace, $string) {
+    public static function str_freplace($search, $replace, $string) {
         $position = strpos($string, $search);
 
         if ($position !== false) {
@@ -115,7 +115,7 @@ class NWS_Alert_Utils {
 
 
 
-    public function adjust_timezone_offset($date_time) {
+    public static function adjust_timezone_offset($date_time) {
         // The timestamp from NWS comes in as GMT and must be adjusted for UTC
         $offset = get_option('gmt_offset');
         $date_time->modify("$offset hours");
@@ -126,7 +126,7 @@ class NWS_Alert_Utils {
 
 
 
-    public function array_merge_by_order($associative_array, $order_array) {
+    public static function array_merge_by_order($associative_array, $order_array) {
         if (!empty($associative_array)) {
             $return_array = array();
 

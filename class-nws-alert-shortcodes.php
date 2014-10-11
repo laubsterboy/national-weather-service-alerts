@@ -6,11 +6,12 @@
 */
 
 class NWS_Alert_Shortcodes {
+
     /**
     * NWS_Alert_Shortcodes constructor
     */
     public function __construct() {
-        if (!is_admin()) add_shortcode('nws_alert', array($this, 'shortcode_handler'));
+
     }
 
 
@@ -25,7 +26,7 @@ class NWS_Alert_Shortcodes {
     *
     * @return string
     */
-    public function shortcode_handler($atts) {
+    public static function shortcode_handler($atts) {
         extract(shortcode_atts(array('zip' => null, 'city' => null, 'state' => null, 'county' => null, 'display' => null, 'scope' => 'county'), $atts));
 
         // Sanitize user input
@@ -47,5 +48,24 @@ class NWS_Alert_Shortcodes {
         }
 
         unset($nws_alert_data);
+    }
+
+
+
+
+    /*
+    * scripts_styles
+    *
+    * Enqueues necessary JavaScript and Stylesheet files
+    *
+    * @return void
+    * @access public
+    */
+    public static function scripts_styles() {
+        // Stylesheets
+        wp_enqueue_style('nws-alert-css', plugins_url('nws-alert/css/nws-alert.css'));
+
+        /* JavaScript */
+        wp_enqueue_script('google-map-api', 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather&sensor=false', false, null, false);
     }
 }
