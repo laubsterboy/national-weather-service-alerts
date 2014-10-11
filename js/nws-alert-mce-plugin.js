@@ -1,3 +1,13 @@
+/*
+* NWS Alert TinyMCE Plugin
+*
+* Adds a button to the first row of TinyMCE buttons which
+* allows for form input to generate a nws_alert shortcode
+* for WordPress.
+*/
+
+/*global jQuery*/
+
 (function ($) {
     "use strict";
 
