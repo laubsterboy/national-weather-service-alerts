@@ -120,7 +120,9 @@
                 match = true;
                 errors = false;
             }
-            if (controlValues.zip === controlValuesDefaults.zip && match === false) {
+            if (isNaN(controlValues.zip) && match === false) {
+                errors = "Please enter a valid zipcode.";
+            } else if (controlValues.zip === controlValuesDefaults.zip && match === false) {
                 errors = "Please enter a zipcode, city and state, or state and county";
             } else {
                 match = true;

@@ -14,6 +14,7 @@ if (intval(substr($tinymce_version, 0, 1)) === 4) {
 }
 
 // NWS Alert Error messages
+define('NWS_ALERT_ERROR_NO_ACTIVATION', 'The <strong>National Weather Service Alerts</strong> plugin requires WordPress version 3.5 or greater. Please update WordPress before activating the plugin.');
 define('NWS_ALERT_ERROR_NO_ALERTS', 'NWS Alert: There are currently no active alerts for the specified location.');
 define('NWS_ALERT_ERROR_NO_LOCATION', 'NWS Alert: The specified location could not be found. Try specifying a county and state instead.');
 ?>

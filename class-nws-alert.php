@@ -115,22 +115,6 @@ class NWS_Alert {
     * NWS_Alert constructor $args, $nws_alert_data
     */
     public function __construct($zip = null, $city = null, $state = null, $county = null, $scope = 'county') {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         global $wpdb;
         $nws_alert_xml;
         $nws_alert_xml_url;
@@ -140,8 +124,6 @@ class NWS_Alert {
         $county_code;
         $table_name_codes = NWS_ALERT_TABLE_NAME_CODES;
         $table_name_locations = NWS_ALERT_TABLE_NAME_LOCATIONS;
-
-        //wp_die(gettype($zip));
 
         // Based on available attributes, search the nws_alert_locations database table for a match
         if ($zip !== null) {

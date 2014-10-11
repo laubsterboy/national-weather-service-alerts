@@ -42,8 +42,9 @@ add_shortcode('nws_alert', 'NWS_Alert_Shortcodes::shortcode_handler');
 // Scripts and Styles
 add_action('wp_enqueue_scripts', 'NWS_Alert_Shortcodes::scripts_styles');
 
-// Admin
-add_action('admin_init', 'NWS_Alert_Admin::init');
+// Admin WordPress Editor Buttons - TinyMCE Plugins
+add_action('admin_head', 'NWS_Alert_Admin::admin_head_action');
+add_action('admin_enqueue_scripts', 'NWS_Alert_Admin::admin_enqueue_scripts_action');
 
 // Cannot use __FILE__ for the first parameter because the plugin is using a symlink which resolves to a directory outside the WP plugins directory
 register_activation_hook(basename(dirname(__FILE__)).'/'.basename(__FILE__), 'NWS_Alert_Admin::activation');

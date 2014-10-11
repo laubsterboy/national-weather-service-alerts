@@ -7,32 +7,11 @@
 
 class NWS_Alert_Admin {
 
-    public $utils = null;
-
     /**
     * NWS_Alert_Admin constructor
     */
     public function __construct() {
 
-    }
-
-
-
-
-    /*
-    * NWS_Alert_Admin init
-    */
-    public static function init() {
-        if (is_admin()) {
-            require_once('nws-alert-utils.php');
-
-            // Initialize NWS_Alert_Plugin object parameters
-            $this->utils = new NWS_Alert_Utils();
-
-            // WordPress Editor Buttons - TinyMCE Plugins
-            add_action('admin_head', array($this, 'admin_head_action'));
-            add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts_action'));
-        }
     }
 
 
@@ -113,7 +92,7 @@ class NWS_Alert_Admin {
             /* add_feature - add check to see if database tables were created successfully - if not then do not activate */
         } else {
             deactivate_plugins(array('nws-alert/nws-alert.php'), false, is_network_admin());
-            die('The <strong>National Weather Service Alerts</strong> plugin requires WordPress version 3.5 or greater. Please update WordPress before activating the plugin.');
+            die(NWS_ALERT_ERROR_NO_ACTIVATION);
         }
     }
 
@@ -142,15 +121,15 @@ class NWS_Alert_Admin {
     *
     * @return void
     */
-    public function admin_head_action() {
+    public static function admin_head_action() {
         global $typenow;
 
         if (empty($typenow)) return;
 
         if (NWS_ALERT_TINYMCE_4) {
-            add_filter('mce_external_plugins', array($this, 'mce_external_plugins_filter'));
-            add_filter('mce_buttons', array($this, 'mce_buttons_filter'));
-            add_action('after_wp_tiny_mce', array($this, 'mce_markup'));
+            add_filter('mce_external_plugins', 'NWS_Alert_Admin::mce_external_plugins_filter');
+            add_filter('mce_buttons', 'NWS_Alert_Admin::mce_buttons_filter');
+            add_action('after_wp_tiny_mce', 'NWS_Alert_Admin::mce_markup');
         }
     }
 
@@ -165,7 +144,7 @@ class NWS_Alert_Admin {
     * @return   void
     * @access   public
     */
-    public function admin_enqueue_scripts_action() {
+    public static function admin_enqueue_scripts_action() {
 	    wp_enqueue_style('nws-alert-admin-css', plugins_url('/css/nws-alert-admin.css', basename(dirname(__FILE__)).'/'.basename(__FILE__)));
     }
 
@@ -179,7 +158,7 @@ class NWS_Alert_Admin {
     *
     * @return void
     */
-    public function mce_external_plugins_filter($plugins) {
+    public static function mce_external_plugins_filter($plugins) {
         $plugins['nws_alert'] = plugins_url('/js/nws-alert-mce-plugin.js', basename(dirname(__FILE__)).'/'.basename(__FILE__));
 
         return $plugins;
@@ -195,7 +174,7 @@ class NWS_Alert_Admin {
     *
     * @return void
     */
-    public function mce_buttons_filter($buttons) {
+    public static function mce_buttons_filter($buttons) {
         array_push($buttons, 'nws_alert_shortcodes');
 
         return $buttons;
@@ -212,8 +191,8 @@ class NWS_Alert_Admin {
     * @return   void
     * @access   public
     */
-    public function mce_markup() {
-        echo $this->get_mce_modal('shortcodes');
+    public static function mce_markup() {
+        echo NWS_Alert_Admin::get_mce_modal('shortcodes');
     }
 
 
@@ -227,7 +206,7 @@ class NWS_Alert_Admin {
     * @return   void
     * @access   public
     */
-    public function get_mce_modal($modal) {
+    public static function get_mce_modal($modal) {
         if ($modal === 'shortcodes') {
             $return_value = '';
             $modal_id_prefix = 'nws-alert';
@@ -243,12 +222,12 @@ class NWS_Alert_Admin {
                     $return_value .= '<table>';
                         $return_value .= '<tbody>';
 
-                            $return_value .= $this->get_mce_control('zip', $control_id_prefix);
-                            $return_value .= $this->get_mce_control('city', $control_id_prefix);
-                            $return_value .= $this->get_mce_control('state', $control_id_prefix);
-                            $return_value .= $this->get_mce_control('county', $control_id_prefix);
-                            $return_value .= $this->get_mce_control('display', $control_id_prefix);
-                            $return_value .= $this->get_mce_control('scope', $control_id_prefix);
+                            $return_value .= NWS_Alert_Admin::get_mce_control('zip', $control_id_prefix);
+                            $return_value .= NWS_Alert_Admin::get_mce_control('city', $control_id_prefix);
+                            $return_value .= NWS_Alert_Admin::get_mce_control('state', $control_id_prefix);
+                            $return_value .= NWS_Alert_Admin::get_mce_control('county', $control_id_prefix);
+                            $return_value .= NWS_Alert_Admin::get_mce_control('display', $control_id_prefix);
+                            $return_value .= NWS_Alert_Admin::get_mce_control('scope', $control_id_prefix);
 
 
                         $return_value .= '</tbody>';
@@ -281,7 +260,7 @@ class NWS_Alert_Admin {
     * @return   void
     * @access   public
     */
-    public function get_mce_control($control, $control_id_prefix) {
+    public static function get_mce_control($control, $control_id_prefix) {
     	$return_value = '';
 
         if ($control === 'zip') {
@@ -289,7 +268,7 @@ class NWS_Alert_Admin {
 				$return_value .= '<td><h4>Zipcode</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alert-control-text-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text" />';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text" size="5" maxlength="5" />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
@@ -308,7 +287,7 @@ class NWS_Alert_Admin {
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alert-control-select-container">';
                         $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '">';
-                            foreach ($this->utils->get_states() as $state) {
+                            foreach (NWS_Alert_Utils::get_states() as $state) {
                                 if ($state['abbrev'] === 'AL') {
                                     $return_value .= '<option value="' . $state['abbrev'] . '" selected="selected">' . $state['name'] . '</option>';
                                 } else {
