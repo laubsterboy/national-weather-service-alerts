@@ -28,6 +28,103 @@ class NWS_Alert_Admin {
 
 
 
+    /*
+    * activation
+    *
+    * Is called when the NWS_Alert plugin is activated and creates necessary database tables and populates them with data
+    *
+    * @return void
+    * @access public
+    */
+    public static function activation() {
+        global $wpdb, $wp_version;
+        $file;
+        $sql;
+        $table_name = NWS_ALERT_TABLE_NAME_LOCATIONS;
+
+        // Check for WordPress 3.5 and above.
+        if(version_compare($wp_version, '3.5', '>=')) {
+
+            // Only create the table and populate it on the first activation - or if the table_name has changed or been deleted
+            if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+                require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+                // Create the database table
+                $sql = "CREATE TABLE $table_name (
+                    id mediumint(9) NOT NULL AUTO_INCREMENT,
+                    zip int NOT NULL,
+                    latitude text NOT NULL,
+                    longitude text NOT NULL,
+                    city text NOT NULL,
+                    state text NOT NULL,
+                    county text NOT NULL,
+                    zipclass text NOT NULL,
+                    PRIMARY KEY (id)
+                );";
+
+                dbDelta($sql);
+
+                $zip_codes_file = fopen(dirname(__FILE__) . '/data/zip-codes.txt', 'r');
+
+                while ($line = fgets($zip_codes_file)) {
+                    list($zip, $latitude, $longitude, $city, $state, $county, $zipclass) = explode(',', str_replace('"', '', strtolower($line)));
+                    $rows_affected = $wpdb->insert($table_name, array('zip' => $zip, 'latitude' => $latitude, 'longitude' => $longitude, 'city' => $city, 'state' => $state, 'county' => $county, 'zipclass' => $zipclass));
+                }
+                fclose($zip_codes_file);
+            }
+
+            $table_name = NWS_ALERT_TABLE_NAME_CODES;
+
+            // Only create the table and populate it on the first activation - or if the table_name has changed or been deleted
+            if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+                require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+                // Create the database table
+                $sql = "CREATE TABLE $table_name (
+                    id mediumint(9) NOT NULL AUTO_INCREMENT,
+                    state text NOT NULL,
+                    stateansi int NOT NULL,
+                    countyansi int NOT NULL,
+                    county text NOT NULL,
+                    PRIMARY KEY (id)
+                );";
+
+                dbDelta($sql);
+
+                $ansi_codes_file = fopen(dirname(__FILE__) . '/data/ansi-codes.txt', 'r');
+
+                while ($line = fgets($ansi_codes_file)) {
+                    list($state, $stateansi, $countyansi, $county, $ansiclass) = explode(',', strtolower($line));
+                    $rows_affected = $wpdb->insert($table_name, array('state' => $state, 'stateansi' => $stateansi, 'countyansi' => $countyansi, 'county' => $county));
+                }
+                fclose($ansi_codes_file);
+            }
+
+            /* add_feature - add check to see if database tables were created successfully - if not then do not activate */
+        } else {
+            deactivate_plugins(array('nws-alert/nws-alert.php'), false, is_network_admin());
+            die('The <strong>National Weather Service Alerts</strong> plugin requires WordPress version 3.5 or greater. Please update WordPress before activating the plugin.');
+        }
+    }
+
+
+
+
+    /*
+    * deactivation
+    *
+    * Is called when the NWS_Alert plugin is deactivated
+    *
+    * @return void
+    * @access public
+    */
+    public static function deactivation() {
+
+    }
+
+
+
+
     /**
     * admin_head_action
     *
