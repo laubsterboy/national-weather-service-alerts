@@ -142,7 +142,7 @@ class NWS_Alert {
         }
 
         // Location could not be found - return 'empty' NWS_Alert
-        if ($locations_query === null) return new NWS_Alert(array('zip' => $zip, 'city' => $city, 'state' => $state, 'county' => $county, 'error' => NWS_ALERT_ERROR_NO_LOCATION), array());
+        if ($locations_query === null) $this->error = NWS_ALERT_ERROR_NO_LOCATION;
 
         // Individual locations_query variables
         $latitude = $locations_query['latitude'];
@@ -403,43 +403,47 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             $nws_alert_xml_url = 'http://alerts.weather.gov/cap/wwaatmget.php?x=' . strtoupper($state_abbrev) . 'C' . $county_code . '&y=0';
         }
 
-        $nws_alert_xml = simplexml_load_file($nws_alert_xml_url);
-
+        $nws_alert_xml = simplexml_load_file($nws_alert_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
         $nws_alert_data = array();
-        $nws_alert_data['ID'] = isset($nws_alert_xml->id) ? (string)$nws_alert_xml->id : null;
-        $nws_alert_data['generator'] = isset($nws_alert_xml->generator) ? (string)$nws_alert_xml->generator : null;
-        $nws_alert_data['updated'] = isset($nws_alert_xml->updated) ? (string)$nws_alert_xml->updated : null;
-        $nws_alert_data['title'] = isset($nws_alert_xml->title) ? (string)$nws_alert_xml->title : null;
-        $nws_alert_data['link'] = isset($nws_alert_xml->link['href']) ? (string)$nws_alert_xml->link['href'] : null;
-        $nws_alert_data['entries'] = array();
+
+        if ($nws_alert_xml !== false) {
+            $nws_alert_data['ID'] = isset($nws_alert_xml->id) ? (string)$nws_alert_xml->id : null;
+            $nws_alert_data['generator'] = isset($nws_alert_xml->generator) ? (string)$nws_alert_xml->generator : null;
+            $nws_alert_data['updated'] = isset($nws_alert_xml->updated) ? (string)$nws_alert_xml->updated : null;
+            $nws_alert_data['title'] = isset($nws_alert_xml->title) ? (string)$nws_alert_xml->title : null;
+            $nws_alert_data['link'] = isset($nws_alert_xml->link['href']) ? (string)$nws_alert_xml->link['href'] : null;
+            $nws_alert_data['entries'] = array();
 
 
-        // parse through and load into $nws_alert_data array
-        foreach($nws_alert_xml->entry as $entry) {
-            // load 'cap' namespaced data into $cap_data
-            $entry_cap_data = $entry->children('urn:oasis:names:tc:emergency:cap:1.1');
+            // parse through and load into $nws_alert_data array
+            foreach($nws_alert_xml->entry as $entry) {
+                // load 'cap' namespaced data into $cap_data
+                $entry_cap_data = $entry->children('urn:oasis:names:tc:emergency:cap:1.1');
 
-            $_entry = array(
-                'ID' => isset($entry->id) ? (string)$entry->id : null,
-                'updated' => isset($entry->updated) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry->updated)) : null, // convert to date object '2013-08-30T21:31:26+00:00'
-                'published' => isset($entry->published) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry->published)) : null, // convert to date object '2013-08-30T11:33:00-05:00'
-                'title' => isset($entry->title) ? (string)$entry->title : null,
-                'link' => isset($entry->link['href']) ? (string)$entry->link['href'] : null,
-                'summary' => isset($entry->summary) ? (string)$entry->summary : null,
-                'cap_event' => isset($entry_cap_data->event) ? (string)$entry_cap_data->event : null, // list of cap:event above
-                'cap_effective' => isset($entry_cap_data->effective) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry_cap_data->effective)) : null, // convert to date object '2013-08-30T11:33:00-05:00'
-                'cap_expires' => isset($entry_cap_data->expires) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry_cap_data->expires)) : null, // convert to date object '2013-08-30T19:00:00-05:00'
-                'cap_status' => isset($entry_cap_data->status) ? (string)$entry_cap_data->status : null,
-                'cap_msg_type' => isset($entry_cap_data->msgType) ? (string)$entry_cap_data->msgType : null,
-                'cap_category' => isset($entry_cap_data->category) ? (string)$entry_cap_data->category : null,
-                'cap_urgency' => isset($entry_cap_data->urgency) ? (string)$entry_cap_data->urgency : null,
-                'cap_severity' => isset($entry_cap_data->severity) ? (string)$entry_cap_data->severity : null,
-                'cap_certainty' => isset($entry_cap_data->certainty) ? (string)$entry_cap_data->certainty : null,
-                'cap_area_desc' => isset($entry_cap_data->areaDesc) ? (string)$entry_cap_data->areaDesc : null,
-                'cap_polygon' => isset($entry_cap_data->polygon) ? (string)$entry_cap_data->polygon : null
-            );
+                $_entry = array(
+                    'ID' => isset($entry->id) ? (string)$entry->id : null,
+                    'updated' => isset($entry->updated) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry->updated)) : null, // convert to date object '2013-08-30T21:31:26+00:00'
+                    'published' => isset($entry->published) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry->published)) : null, // convert to date object '2013-08-30T11:33:00-05:00'
+                    'title' => isset($entry->title) ? (string)$entry->title : null,
+                    'link' => isset($entry->link['href']) ? (string)$entry->link['href'] : null,
+                    'summary' => isset($entry->summary) ? (string)$entry->summary : null,
+                    'cap_event' => isset($entry_cap_data->event) ? (string)$entry_cap_data->event : null, // list of cap:event above
+                    'cap_effective' => isset($entry_cap_data->effective) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry_cap_data->effective)) : null, // convert to date object '2013-08-30T11:33:00-05:00'
+                    'cap_expires' => isset($entry_cap_data->expires) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry_cap_data->expires)) : null, // convert to date object '2013-08-30T19:00:00-05:00'
+                    'cap_status' => isset($entry_cap_data->status) ? (string)$entry_cap_data->status : null,
+                    'cap_msg_type' => isset($entry_cap_data->msgType) ? (string)$entry_cap_data->msgType : null,
+                    'cap_category' => isset($entry_cap_data->category) ? (string)$entry_cap_data->category : null,
+                    'cap_urgency' => isset($entry_cap_data->urgency) ? (string)$entry_cap_data->urgency : null,
+                    'cap_severity' => isset($entry_cap_data->severity) ? (string)$entry_cap_data->severity : null,
+                    'cap_certainty' => isset($entry_cap_data->certainty) ? (string)$entry_cap_data->certainty : null,
+                    'cap_area_desc' => isset($entry_cap_data->areaDesc) ? (string)$entry_cap_data->areaDesc : null,
+                    'cap_polygon' => isset($entry_cap_data->polygon) ? (string)$entry_cap_data->polygon : null
+                );
 
-            $nws_alert_data['entries'][] = $_entry;
+                $nws_alert_data['entries'][] = $_entry;
+            }
+        } else {
+            $this->error = NWS_ALERT_ERROR_NO_XML;
         }
 
 
@@ -544,15 +548,15 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         $this->county_code = $county_code;
         $this->scope = $scope;
 
-        // Store first level $nws_alert_data values in class attributes
-        $this->ID = $nws_alert_data['ID'];
-        $this->generator = $nws_alert_data['generator'];
-        $this->updated = $nws_alert_data['updated'];
-        $this->title = $nws_alert_data['title'];
-        $this->link = $nws_alert_data['link'];
+        if (!empty($nws_alert_data) && !empty($nws_alert_data['entries'])) {
+            // Store first level $nws_alert_data values in class attributes
+            $this->ID = $nws_alert_data['ID'];
+            $this->generator = $nws_alert_data['generator'];
+            $this->updated = $nws_alert_data['updated'];
+            $this->title = $nws_alert_data['title'];
+            $this->link = $nws_alert_data['link'];
 
-        // Create NWS_Alert_Entry objects for each $nws_alert_data['entries'] and save in class attribute $entries, only if cap_event is a warning (flood, thunderstorm, or tornado)
-        if (!empty($nws_alert_data['entries'])) {
+            // Create NWS_Alert_Entry objects for each $nws_alert_data['entries'] and save in class attribute $entries, only if cap_event is a warning (flood, thunderstorm, or tornado)
             foreach ($nws_alert_data['entries'] as $key => $entry) {
                 // Only add entries of allowed alert types
                 if (in_array($entry['cap_event'], $alert_types, true) !== false && in_array($entry['cap_msg_type'], $msg_types, true) !== false && in_array($entry['cap_status'], $status_types, true) !== false) {
@@ -560,13 +564,13 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
                     $this->entries[] = new NWS_Alert_Entry($entry);
                 }
             }
+
+            // Sort by cap_event, urgency, severity, certainty
+            $this->sort_entries();
+
+            // Set class attributes $latitude and $longitude to average of all NWS_Alert_Entry objects
+            $this->set_latitude_and_longitude();
         }
-
-        // Sort by cap_event, urgency, severity, certainty
-        $this->entries = $this->sort_entries($this->entries);
-
-        // Set class attributes $latitude and $longitude to average of all NWS_Alert_Entry objects
-        $this->set_latitude_and_longitude();
     }
 
 
@@ -577,10 +581,10 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
     *
     * @return array
     */
-    public function sort_entries($entries) {
-        if (empty($entries)) return $entries;
+    public function sort_entries() {
+        if (empty($this->entries)) return;
 
-        $_entries = array();
+        $entries = array();
 
         /* add_feature - add filter to allow alert_type_sort_order to be rearranged */
         $alert_types = array('Tornado Warning',
@@ -647,7 +651,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             $entries_by_certainty = array();
 
             // Sort by Alert Type
-            foreach ($entries as $entry) {
+            foreach ($this->entries as $entry) {
                 if ($entry->cap_event === $alert_type) {
                     $entries_by_alert_type[] = $entry;
                 }
@@ -676,11 +680,11 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
                 $entries_by_certainty = NWS_Alert_Utils::array_merge_by_order($entries_by_certainty, $certainty_types);
 
                 // Merge into entries
-                $_entries = array_merge($_entries, $entries_by_certainty);
+                $entries = array_merge($entries, $entries_by_certainty);
             }
         }
 
-        return $_entries;
+        $this->entries = $entries;
     }
 
 
@@ -764,7 +768,11 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             $return_value .= '<span class="nws-alert-heading-scope">Local Weather Alerts</span><h2 class="nws-alert-heading-location">' . $this->city . ', ' . $this->state . '</h2>';
         }
 
-        if ($args['current_alert'] && !empty($this->entries)) $return_value .= $this->entries[0]->get_output_text(false);
+        if ($args['current_alert'] && !empty($this->entries)) {
+            $return_value .= $this->entries[0]->get_output_text(false);
+        } else if ($this->error) {
+            $return_value .= NWS_ALERT_ERROR_NO_XML_SHORT;
+        }
 
         return $return_value . $args['suffix'];
     }
@@ -785,7 +793,9 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
 
         $args['prefix'] = NWS_Alert_Utils::str_lreplace('>', ' class="nws-alert-entries">', $args['prefix']);
 
-        if (!empty($this->entries)) {
+        if ($this->error) {
+            return $args['prefix'] . $this->error . $args['suffix'];
+        } else if (!empty($this->entries)) {
             $return_value = $args['prefix'];
 
             foreach ($this->entries as $entry) {
@@ -810,23 +820,19 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
     * @return string
     */
     public function get_output_html($show_entries = true) {
-        if (!$this->error) {
-            $return_value = '';
+        $return_value = '';
 
-            $return_value .= '<article class="nws-alert" data-zip="' . $this->zip . '" data-display="' . $show_entries . '" data-scope="' . $this->scope . '">';
-            $return_value .= $this->get_output_heading();
-            if ($show_entries) {
-                $return_value .= '<section class="nws-alert-details">';
-                $return_value .= $this->get_output_entries();
-                $return_value .= $this->get_output_google_map();
-                $return_value .= '</section>';
-            }
-            $return_value .= '</article>';
-
-            return $return_value;
-        } else {
-            return $this->error;
+        $return_value .= '<article class="nws-alert" data-zip="' . $this->zip . '" data-display="' . $show_entries . '" data-scope="' . $this->scope . '">';
+        $return_value .= $this->get_output_heading();
+        if ($show_entries) {
+            $return_value .= '<section class="nws-alert-details">';
+            $return_value .= $this->get_output_entries();
+            $return_value .= $this->get_output_google_map();
+            $return_value .= '</section>';
         }
+        $return_value .= '</article>';
+
+        return $return_value;
     }
 
 
