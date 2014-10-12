@@ -6,17 +6,6 @@
 */
 
 class NWS_Alert_Admin {
-
-    /**
-    * NWS_Alert_Admin constructor
-    */
-    public function __construct() {
-
-    }
-
-
-
-
     /*
     * activation
     *
@@ -192,7 +181,7 @@ class NWS_Alert_Admin {
     * @access   public
     */
     public static function mce_markup() {
-        echo NWS_Alert_Admin::get_mce_modal('shortcodes');
+        echo self::get_mce_modal('shortcodes');
     }
 
 
@@ -222,12 +211,12 @@ class NWS_Alert_Admin {
                     $return_value .= '<table>';
                         $return_value .= '<tbody>';
 
-                            $return_value .= NWS_Alert_Admin::get_mce_control('zip', $control_id_prefix);
-                            $return_value .= NWS_Alert_Admin::get_mce_control('city', $control_id_prefix);
-                            $return_value .= NWS_Alert_Admin::get_mce_control('state', $control_id_prefix);
-                            $return_value .= NWS_Alert_Admin::get_mce_control('county', $control_id_prefix);
-                            $return_value .= NWS_Alert_Admin::get_mce_control('display', $control_id_prefix);
-                            $return_value .= NWS_Alert_Admin::get_mce_control('scope', $control_id_prefix);
+                            $return_value .= self::get_mce_control('zip', $control_id_prefix);
+                            $return_value .= self::get_mce_control('city', $control_id_prefix);
+                            $return_value .= self::get_mce_control('state', $control_id_prefix);
+                            $return_value .= self::get_mce_control('county', $control_id_prefix);
+                            $return_value .= self::get_mce_control('display', $control_id_prefix);
+                            $return_value .= self::get_mce_control('scope', $control_id_prefix);
 
 
                         $return_value .= '</tbody>';

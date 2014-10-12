@@ -65,7 +65,7 @@ class NWS_Alert_Utils {
     }
 
     public static function convert_state_format($state, $search_key = 'name') {
-        $states = NWS_Alert_Utils::get_states();
+        $states = self::get_states();
         $return_value = false;
         $return_key = 'abbrev';
 
