@@ -31,9 +31,9 @@ class NWS_Alert_Shortcodes {
         $nws_alert_data = new NWS_Alert($zip, $city, $state, $county, $scope);
 
         if ($display == 'basic') {
-            return $nws_alert_data->get_output_html_basic($nws_alert_data);
+            return $nws_alert_data->get_output_html(false);
         } else {
-            return $nws_alert_data->get_output_html_full($nws_alert_data);
+            return $nws_alert_data->get_output_html(true);
         }
 
         unset($nws_alert_data);

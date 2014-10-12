@@ -802,58 +802,30 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
 
 
     /*
-    * get_nws_alert_html_full
+    * get_nws_alert_html
     *
     * Returns a string with html including full information about the alert(s).
     *
     * @param NWS_Alert $nws_alert a full populated NWS_Alert object
     * @return string
     */
-    public function get_output_html_full($nws_alert = false) {
-        if (!$nws_alert) return '';
-
-        if (!$nws_alert->error) {
+    public function get_output_html($show_entries = true) {
+        if (!$this->error) {
             $return_value = '';
 
-            $return_value .= '<article class="nws-alert">';
-            $return_value .= $nws_alert->get_output_heading();
-            $return_value .= '<section class="nws-alert-details">';
-            $return_value .= $nws_alert->get_output_entries();
-            $return_value .= $nws_alert->get_output_google_map();
-            $return_value .= '</section>';
+            $return_value .= '<article class="nws-alert" data-zip="' . $this->zip . '" data-display="' . $show_entries . '" data-scope="' . $this->scope . '">';
+            $return_value .= $this->get_output_heading();
+            if ($show_entries) {
+                $return_value .= '<section class="nws-alert-details">';
+                $return_value .= $this->get_output_entries();
+                $return_value .= $this->get_output_google_map();
+                $return_value .= '</section>';
+            }
             $return_value .= '</article>';
 
             return $return_value;
         } else {
-            return $nws_alert->error;
-        }
-    }
-
-
-
-
-    /**
-    * get_nws_alert_html_basic
-    *
-    * Returns a string with html markup for basic alert information
-    *
-    * @param NWS_Alert $nws_alert a full populated NWS_Alert object
-    * @return string
-    */
-    public function get_output_html_basic($nws_alert = false) {
-        // return html string with minimal information about the alert(s)
-        if (!$nws_alert) return '';
-
-        if (!$nws_alert->error) {
-            $return_value = '';
-
-            $return_value .= '<article class="nws-alert">';
-            $return_value .= $nws_alert->get_output_heading();
-            $return_value .= '</article>';
-
-            return $return_value;
-        } else {
-            return $nws_alert->error;
+            return $this->error;
         }
     }
 
