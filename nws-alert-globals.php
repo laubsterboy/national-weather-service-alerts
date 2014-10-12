@@ -17,6 +17,15 @@ if (intval(substr($tinymce_version, 0, 1)) === 4) {
     define('NWS_ALERT_TINYMCE_4', false);
 }
 
+// Location Scope
+define('NWS_ALERT_SCOPE_COUNTY', 'county');
+define('NWS_ALERT_SCOPE_STATE', 'state');
+define('NWS_ALERT_SCOPE_NATIONAL', 'national');
+
+// Display
+define('NWS_ALERT_DISPLAY_FULL', 'full');
+define('NWS_ALERT_DISPLAY_BASIC', 'basic');
+
 // NWS Alert Error messages
 define('NWS_ALERT_ERROR_NO_ACTIVATION', 'The <strong>National Weather Service Alerts</strong> plugin requires WordPress version 3.5 or greater. Please update WordPress before activating the plugin.');
 define('NWS_ALERT_ERROR_NO_ALERTS', 'There are currently no active alerts for the specified location.');

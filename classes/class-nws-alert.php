@@ -109,24 +109,31 @@ class NWS_Alert {
     *
     * @var string
     */
-    public $scope = 'county';
+    public $scope = NWS_ALERT_SCOPE_COUNTY;
+
+    /**
+    * The refresh rate (in minutes), determined by the alert types. More severe alerts will be refreshed more often.
+    *
+    * @var int
+    */
+    public $refresh = 15;
 
     /**
     * NWS_Alert constructor $args, $nws_alert_data
     */
-    public function __construct($zip = null, $city = null, $state = null, $county = null, $scope = 'county') {
+    public function __construct($zip = null, $city = null, $state = null, $county = null, $scope = NWS_ALERT_SCOPE_COUNTY) {
         global $wpdb;
         $nws_alert_xml;
         $nws_alert_xml_url;
         $nws_alert_data;
         $entry_cap_data;
-        $locations_query;
+        $locations_query = null;
         $county_code;
         $table_name_codes = NWS_ALERT_TABLE_NAME_CODES;
         $table_name_locations = NWS_ALERT_TABLE_NAME_LOCATIONS;
 
         // Based on available attributes, search the nws_alert_locations database table for a match
-        if ($zip !== null) {
+        if ($zip !== null && is_numeric($zip)) {
             $locations_query = $wpdb->get_row("SELECT * FROM $table_name_locations WHERE zip = $zip", ARRAY_A);
         } else if ($city !== null && $state !== null) {
             $city = strtolower($city);
@@ -136,13 +143,10 @@ class NWS_Alert {
             $state = NWS_Alert_Utils::convert_state_format($state);
             $county = strtolower($county);
             $locations_query = $wpdb->get_row("SELECT * FROM $table_name_locations WHERE state LIKE '$state' AND county LIKE '$county'", ARRAY_A);
-        } else {
-            // Not enough information to determine the location and get an ANSI County code
-            return false;
         }
 
-        // Location could not be found - return 'empty' NWS_Alert
-        if ($locations_query === null) $this->error = NWS_ALERT_ERROR_NO_LOCATION;
+        // Location could not be found or not enough information to determine the location and get an ANSI County code - set error status
+        if ($locations_query === null && $scope !== 'national') $this->set_error(NWS_ALERT_ERROR_NO_LOCATION);
 
         // Individual locations_query variables
         $latitude = $locations_query['latitude'];
@@ -392,10 +396,10 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
 
 
         // Set the XML (atom) feed URL to be loaded
-        if ($scope === 'national') {
+        if ($scope === NWS_ALERT_SCOPE_NATIONAL) {
             // National
             $nws_alert_xml_url = 'http://alerts.weather.gov/cap/us.php?x=0';
-        } else if ($scope === 'state') {
+        } else if ($scope === NWS_ALERT_SCOPE_STATE) {
             // State
             $nws_alert_xml_url = 'http://alerts.weather.gov/cap/' . $state_abbrev . '.php?x=0';
         } else {
@@ -443,7 +447,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
                 $nws_alert_data['entries'][] = $_entry;
             }
         } else {
-            $this->error = NWS_ALERT_ERROR_NO_XML;
+            $this->set_error(NWS_ALERT_ERROR_NO_XML);
         }
 
 
@@ -685,6 +689,9 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         }
 
         $this->entries = $entries;
+
+        // Set NWS Alert refresh rate - If top alerts are extreme or have potential to produce life threatening storms change the refresh rate to 5 minutes
+        if (!empty($this->entries) && ($this->entries[0]->cap_event === 'Tornado Warning' || $this->entries[0]->cap_event === 'Severe Thunderstorm Warning')) $this->refresh = 5;
     }
 
 
@@ -710,7 +717,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
                 <script type="text/javascript">
                     function initialize() {
                         var mapOptions = {
-                            zoom: ' . ($this->scope === 'county' ? '8' : '6') . ',
+                            zoom: ' . ($this->scope === NWS_ALERT_SCOPE_COUNTY ? '8' : '6') . ',
                             center: new google.maps.LatLng(' . $this->latitude . ', ' . $this->longitude . '),
                             mapTypeId: google.maps.MapTypeId.ROADMAP,
                             styles: [{"stylers": [{"hue": "#ff1a00"},{"invert_lightness": true},{"saturation": -100},{"lightness": 33},{"gamma": 0.5}]},{"featureType": "water","elementType": "geometry","stylers": [{"color": "#2D333C"}]}]
@@ -760,9 +767,9 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             $return_value .= $this->entries[0]->get_output_graphic($args['graphic'], 'nws-alert-heading-graphic');
         }
 
-        if ($this->scope === 'national') {
+        if ($this->scope === NWS_ALERT_SCOPE_NATIONAL) {
             $return_value .= '<span class="nws-alert-heading-scope">National Weather Alerts</span><h2 class="nws-alert-heading-location">United States</h2>';
-        } else if ($this->scope === 'state') {
+        } else if ($this->scope === NWS_ALERT_SCOPE_STATE) {
             $return_value .= '<span class="nws-alert-heading-scope">State Weather Alerts</span><h2 class="nws-alert-heading-location">' . $this->state . '</h2>';
         } else {
             $return_value .= '<span class="nws-alert-heading-scope">Local Weather Alerts</span><h2 class="nws-alert-heading-location">' . $this->city . ', ' . $this->state . '</h2>';
@@ -870,6 +877,18 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         }
 
         return $return_value;
+    }
+
+
+
+
+    /**
+    * Sets the error state of the NWS Alert instance. Can only be set to one error.
+    *
+    * @return void
+    */
+    private function set_error($error) {
+        if ($this->error === false) $this->error = $error;
     }
 }
 

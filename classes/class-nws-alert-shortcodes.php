@@ -26,7 +26,7 @@ class NWS_Alert_Shortcodes {
         $display = $display === null ? null : sanitize_text_field($display);
         $scope = (string) sanitize_text_field($scope);
 
-        if ($scope !== 'national' && $scope !== 'state' && $scope !== 'county') $scope = 'county';
+        if ($scope !== NWS_ALERT_SCOPE_NATIONAL && $scope !== NWS_ALERT_SCOPE_STATE && $scope !== NWS_ALERT_SCOPE_COUNTY) $scope = NWS_ALERT_SCOPE_COUNTY;
 
         $nws_alert_data = new NWS_Alert($zip, $city, $state, $county, $scope);
 
