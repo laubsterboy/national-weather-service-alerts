@@ -2,6 +2,10 @@
 // NWS Alert Plugin Global Variables
 global $wpdb, $tinymce_version;
 
+
+define('NWS_ALERT_DIR', plugin_dir_path(basename(dirname(__FILE__)).'/'.basename(__FILE__)));
+define('NWS_ALERT_URL', plugins_url('/', basename(dirname(__FILE__)).'/'.basename(__FILE__)));
+
 define('NWS_ALERT_TABLE_NAME_CODES', $wpdb->prefix . 'nws_alert_codes');
 define('NWS_ALERT_TABLE_NAME_LOCATIONS', $wpdb->prefix . 'nws_alert_locations');
 

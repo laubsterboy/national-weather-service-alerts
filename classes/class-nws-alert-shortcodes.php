@@ -6,17 +6,6 @@
 */
 
 class NWS_Alert_Shortcodes {
-
-    /**
-    * NWS_Alert_Shortcodes constructor
-    */
-    public function __construct() {
-
-    }
-
-
-
-
     /**
     *
     *
@@ -63,7 +52,7 @@ class NWS_Alert_Shortcodes {
     */
     public static function scripts_styles() {
         // Stylesheets
-        wp_enqueue_style('nws-alert-css', plugins_url('nws-alert/css/nws-alert.css'));
+        wp_enqueue_style('nws-alert-css', NWS_ALERT_URL . '/css/nws-alert.css');
 
         /* JavaScript */
         wp_enqueue_script('google-map-api', 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather&sensor=false', false, null, false);

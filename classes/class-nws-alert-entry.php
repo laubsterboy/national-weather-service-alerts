@@ -234,7 +234,7 @@ class NWS_Alert_Entry {
 
         // Size
 		if ($details) {
-            $return_value = '<span class="nws-alert-event">' . $this->cap_event . '</span> ' . ucwords(strtolower($this->summary));
+            $return_value = '<span class="nws-alert-event">' . $this->cap_event . '</span><br /> ' . ucwords(strtolower($this->summary));
         } else {
             $return_value = '<span class="nws-alert-event">' . $this->cap_event . '</span>';
         }

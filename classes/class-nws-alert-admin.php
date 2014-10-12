@@ -134,7 +134,7 @@ class NWS_Alert_Admin {
     * @access   public
     */
     public static function admin_enqueue_scripts_action() {
-	    wp_enqueue_style('nws-alert-admin-css', plugins_url('/css/nws-alert-admin.css', basename(dirname(__FILE__)).'/'.basename(__FILE__)));
+	    wp_enqueue_style('nws-alert-admin-css', NWS_ALERT_URL . '/css/nws-alert-admin.css');
     }
 
 
@@ -148,7 +148,7 @@ class NWS_Alert_Admin {
     * @return void
     */
     public static function mce_external_plugins_filter($plugins) {
-        $plugins['nws_alert'] = plugins_url('/js/nws-alert-mce-plugin.js', basename(dirname(__FILE__)).'/'.basename(__FILE__));
+        $plugins['nws_alert'] = NWS_ALERT_URL . '/js/nws-alert-mce-plugin.js';
 
         return $plugins;
     }

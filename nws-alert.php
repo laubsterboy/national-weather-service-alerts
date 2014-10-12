@@ -15,11 +15,11 @@
 */
 
 require_once('nws-alert-globals.php');
-require_once('nws-alert-utils.php');
-require_once('class-nws-alert.php');
-require_once('class-nws-alert-entry.php');
-require_once('class-nws-alert-shortcodes.php');
-require_once('class-nws-alert-admin.php');
+require_once('classes/class-nws-alert-utils.php');
+require_once('classes/class-nws-alert.php');
+require_once('classes/class-nws-alert-entry.php');
+require_once('classes/class-nws-alert-shortcodes.php');
+require_once('classes/class-nws-alert-admin.php');
 
 // Cannot use __FILE__ for the first parameter because the plugin is using a symlink which resolves to a directory outside the WP plugins directory
 register_activation_hook(basename(dirname(__FILE__)).'/'.basename(__FILE__), 'NWS_Alert_Admin::activation');

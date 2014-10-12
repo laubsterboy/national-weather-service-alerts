@@ -818,7 +818,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             $return_value .= '<article class="nws-alert">';
             $return_value .= $nws_alert->get_output_heading();
             $return_value .= '<section class="nws-alert-details">';
-            $return_value .= $nws_alert->get_output_entries(array('graphic' => 2));
+            $return_value .= $nws_alert->get_output_entries();
             $return_value .= $nws_alert->get_output_google_map();
             $return_value .= '</section>';
             $return_value .= '</article>';
