@@ -39,16 +39,16 @@ class NWS_Alert_Client {
     */
     public static function refresh() {
         //check_ajax_referer($this->nonce_string, 'security');
-
+        write_log('test');
         $s_zip = sanitize_text_field($_POST['zip']);
 		$s_display = sanitize_text_field($_POST['display']);
-		$s_scope = sanitize_email($_POST['scope']);
+		$s_scope = sanitize_text_field($_POST['scope']);
         if (empty($s_zip) || empty($s_display) || empty($s_scope)) die();
 
-        $nws_alert_data = new NWS_Alert($zip, null, null, null, $scope);
+        $nws_alert_data = new NWS_Alert($s_zip, null, null, null, $s_scope);
 
         header('Content-Type: application/json');
-        if ($display == NWS_ALERT_DISPLAY_BASIC) {
+        if ($s_display == NWS_ALERT_DISPLAY_BASIC) {
             echo json_encode(array('html' => $nws_alert_data->get_output_html(false)));
         } else {
             echo json_encode(array('html' => $nws_alert_data->get_output_html(true)));

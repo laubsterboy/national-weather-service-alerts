@@ -34,6 +34,7 @@ add_action('wp_enqueue_scripts', 'NWS_Alert_Client::scripts_styles');
 
 // Client - AJAX listeners
 if(is_admin()) add_action('wp_ajax_nopriv_nws_alert_refresh', 'NWS_Alert_Client::refresh');
+if(is_admin()) add_action('wp_ajax_nws_alert_refresh', 'NWS_Alert_Client::refresh');
 
 // Admin - WordPress Editor Buttons - TinyMCE Plugins
 add_action('admin_head', 'NWS_Alert_Admin::admin_head_action');

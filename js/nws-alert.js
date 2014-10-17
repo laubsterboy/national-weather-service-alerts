@@ -27,6 +27,7 @@ Author URI: http://www.laubsterboy.com
             refresh_rate = 3000;
 
         setTimeout(function () {
+            console.log(ajaxurl);
             $.ajax({
                 type: 'POST',
                 url: ajaxurl,
@@ -42,5 +43,6 @@ Author URI: http://www.laubsterboy.com
         }, refresh_rate);
     }
 
+    // Initialize each nws-alert
     $('.nws-alert').each(setup);
 }(jQuery));
