@@ -6,12 +6,13 @@
 */
 
 class NWS_Alert {
+
     /**
-    * The ID of the NWS_Alert XML file - a string URL pointing to the XML file.
+    * The id of the NWS_Alert XML file - a string URL pointing to the XML file.
     *
     * @var string
     */
-    public $ID = '';
+    public $id = '';
 
     /**
     * The generator of the NWS_Alert XML file - likely 'NWS CAP Server'.
@@ -112,11 +113,11 @@ class NWS_Alert {
     public $scope = NWS_ALERT_SCOPE_COUNTY;
 
     /**
-    * The refresh rate (in minutes), determined by the alert types. More severe alerts will be refreshed more often.
+    * The refresh_rate (in minutes), determined by the alert types. More severe alerts will be refreshed more often.
     *
     * @var int
     */
-    public $refresh = 15;
+    public $refresh_rate = 15;
 
     /**
     * NWS_Alert constructor $args, $nws_alert_data
@@ -411,7 +412,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         $nws_alert_data = array();
 
         if ($nws_alert_xml !== false) {
-            $nws_alert_data['ID'] = isset($nws_alert_xml->id) ? (string)$nws_alert_xml->id : null;
+            $nws_alert_data['id'] = isset($nws_alert_xml->id) ? (string)$nws_alert_xml->id : null;
             $nws_alert_data['generator'] = isset($nws_alert_xml->generator) ? (string)$nws_alert_xml->generator : null;
             $nws_alert_data['updated'] = isset($nws_alert_xml->updated) ? (string)$nws_alert_xml->updated : null;
             $nws_alert_data['title'] = isset($nws_alert_xml->title) ? (string)$nws_alert_xml->title : null;
@@ -425,7 +426,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
                 $entry_cap_data = $entry->children('urn:oasis:names:tc:emergency:cap:1.1');
 
                 $_entry = array(
-                    'ID' => isset($entry->id) ? (string)$entry->id : null,
+                    'id' => isset($entry->id) ? (string)$entry->id : null,
                     'updated' => isset($entry->updated) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry->updated)) : null, // convert to date object '2013-08-30T21:31:26+00:00'
                     'published' => isset($entry->published) ? NWS_Alert_Utils::adjust_timezone_offset(new DateTime((string)$entry->published)) : null, // convert to date object '2013-08-30T11:33:00-05:00'
                     'title' => isset($entry->title) ? (string)$entry->title : null,
@@ -554,7 +555,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
 
         if (!empty($nws_alert_data) && !empty($nws_alert_data['entries'])) {
             // Store first level $nws_alert_data values in class attributes
-            $this->ID = $nws_alert_data['ID'];
+            $this->id = $nws_alert_data['id'];
             $this->generator = $nws_alert_data['generator'];
             $this->updated = $nws_alert_data['updated'];
             $this->title = $nws_alert_data['title'];
@@ -564,7 +565,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             foreach ($nws_alert_data['entries'] as $key => $entry) {
                 // Only add entries of allowed alert types
                 if (in_array($entry['cap_event'], $alert_types, true) !== false && in_array($entry['cap_msg_type'], $msg_types, true) !== false && in_array($entry['cap_status'], $status_types, true) !== false) {
-                    $entry['ID'] = (int)$key + 1;
+                    $entry['id'] = (int)$key + 1;
                     $this->entries[] = new NWS_Alert_Entry($entry);
                 }
             }
@@ -690,7 +691,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
 
         $this->entries = $entries;
 
-        // Set NWS Alert refresh rate - If top alerts are extreme or have potential to produce life threatening storms change the refresh rate to 5 minutes
+        // Set NWS Alert refresh_rate - If top alerts are extreme or have potential to produce life threatening storms change the refresh_rate to 5 minutes
         if (!empty($this->entries) && ($this->entries[0]->cap_event === 'Tornado Warning' || $this->entries[0]->cap_event === 'Severe Thunderstorm Warning')) $this->refresh = 5;
     }
 
@@ -829,7 +830,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
     public function get_output_html($show_entries = true) {
         $return_value = '';
 
-        $return_value .= '<article class="nws-alert" data-zip="' . $this->zip . '" data-display="' . $show_entries . '" data-scope="' . $this->scope . '">';
+        $return_value .= '<article class="nws-alert" data-zip="' . $this->zip . '" data-display="' . $show_entries . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
         $return_value .= $this->get_output_heading();
         if ($show_entries) {
             $return_value .= '<section class="nws-alert-details">';
@@ -883,7 +884,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
 
 
     /**
-    * Sets the error state of the NWS Alert instance. Can only be set to one error.
+    * Sets the error state of the NWS Alert instance. Can only be set to one error, and new error states will not override if an existing error state is called.
     *
     * @return void
     */

@@ -6,6 +6,7 @@
 */
 
 class NWS_Alert_Admin {
+
     /*
     * activation
     *

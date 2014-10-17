@@ -5,29 +5,42 @@ Author: John Russell
 Author URI: http://www.laubsterboy.com
 */
 
-(function(window, undefined) {
-    var document = window.document,
-		location = window.location,
-		navigator = window.navigator;
+/*global jQuery*/
 
-	//=====================================================================================
-	// POLYFILLS
-	//=====================================================================================
-    (function() {
-        // requestAnimationFrame - a browser-synchronized "update" method
-        if(!window.requestAnimationFrame) {
-            window.requestAnimationFrame = window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame || function(callback) {
-                window.setTimeout(callback, 1000 / 60);
-            };
-        }
-    })();
+(function ($) {
+    "use strict";
 
-    jQuery(document).ready(init);
+    var nonce = '';
 
-    function init() {
-
+    function update (data, textStatus, jqXHR) {
+        console.log('refresh update');
+        console.log(data);
+        console.log(textStatus);
+        console.log(jqXHR);
     }
 
-	function delegate(fnc, obj) { var that = obj; return function() { fnc.call(that, arguments[0]); } }
+    function setup () {
+        var zip = $(this).data('zip'),
+            display = $(this).data('display'),
+            scope = $(this).data('scope'),
+            refresh_rate = parseInt($(this).data('refresh_rate')) * 60000;
+            refresh_rate = 3000;
 
-})(window);
+        setTimeout(function () {
+            $.ajax({
+                type: 'POST',
+                url: ajaxurl,
+                data: {
+                    action: 'nws_alert_refresh',
+                    security: nonce,
+                    zip: zip,
+                    display: display,
+                    scope: scope
+                },
+                success: update
+            });
+        }, refresh_rate);
+    }
+
+    $('.nws-alert').each(setup);
+}(jQuery));
