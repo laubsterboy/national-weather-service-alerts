@@ -16,6 +16,7 @@ require_once('classes/class-nws-alert-utils.php');
 require_once('classes/class-nws-alert.php');
 require_once('classes/class-nws-alert-entry.php');
 require_once('classes/class-nws-alert-shortcodes.php');
+require_once('classes/class-nws-alert-widgets.php');
 require_once('classes/class-nws-alert-client.php');
 require_once('classes/class-nws-alert-admin.php');
 
@@ -39,5 +40,8 @@ if(is_admin()) add_action('wp_ajax_nws_alert_refresh', 'NWS_Alert_Client::refres
 // Admin - WordPress Editor Buttons - TinyMCE Plugins
 add_action('admin_head', 'NWS_Alert_Admin::admin_head_action');
 add_action('admin_enqueue_scripts', 'NWS_Alert_Admin::admin_enqueue_scripts_action');
+
+// Admin/Client - WordPress Widget
+add_action('widgets_init', 'NWS_Alert_Admin::register_widget');
 
 ?>

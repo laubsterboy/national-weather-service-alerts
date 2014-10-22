@@ -326,4 +326,11 @@ class NWS_Alert_Admin {
 
         return $return_value;
     }
+
+
+
+
+    public static function register_widget() {
+        register_widget('NWS_Alert_Widget');
+    }
 }

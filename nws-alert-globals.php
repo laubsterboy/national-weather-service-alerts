@@ -2,7 +2,7 @@
 // NWS Alert Plugin Global Variables
 global $wpdb, $tinymce_version;
 
-
+define('NWS_ALERT_DESCRIPTION', 'Easily add official National Weather Service alerts to your website.');
 define('NWS_ALERT_DIR', plugin_dir_path(basename(dirname(__FILE__)).'/'.basename(__FILE__)));
 define('NWS_ALERT_URL', plugins_url('/', basename(dirname(__FILE__)).'/'.basename(__FILE__)));
 
@@ -28,7 +28,7 @@ define('NWS_ALERT_DISPLAY_BASIC', 'basic');
 
 // NWS Alert Error messages
 define('NWS_ALERT_ERROR_NO_ACTIVATION', 'The <strong>National Weather Service Alerts</strong> plugin requires WordPress version 3.5 or greater. Please update WordPress before activating the plugin.');
-define('NWS_ALERT_ERROR_NO_ALERTS', 'There are currently no active weather alerts for the specified location.');
+define('NWS_ALERT_ERROR_NO_ALERTS', 'There are currently no active weather alerts.');
 define('NWS_ALERT_ERROR_NO_LOCATION', 'The specified location could not be found. Try specifying a county and state instead.');
 define('NWS_ALERT_ERROR_NO_XML', 'There was an error retrieving the National Weather Service alert data.');
 define('NWS_ALERT_ERROR_NO_XML_SHORT', 'Data Error');

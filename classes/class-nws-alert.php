@@ -133,6 +133,12 @@ class NWS_Alert {
         $table_name_codes = NWS_ALERT_TABLE_NAME_CODES;
         $table_name_locations = NWS_ALERT_TABLE_NAME_LOCATIONS;
 
+        $zip = $zip === null ? null : sanitize_text_field($zip);
+        $city = $city === null ? null : sanitize_text_field($city);
+        $state = $state === null ? null : sanitize_text_field($state);
+        $county = $county === null ? null : sanitize_text_field($county);
+        $scope = (string) sanitize_text_field($scope);
+
         // Based on available attributes, search the nws_alert_locations database table for a match
         if ($zip !== null && is_numeric($zip)) {
             $locations_query = $wpdb->get_row("SELECT * FROM $table_name_locations WHERE zip = $zip", ARRAY_A);
@@ -716,7 +722,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             if (!empty($google_map_polys)) {
             $return_value = '
                 <script type="text/javascript">
-                    function initialize() {
+                    function initialize' . $this->zip . '() {
                         var mapOptions = {
                             zoom: ' . ($this->scope === NWS_ALERT_SCOPE_COUNTY ? '8' : '6') . ',
                             center: new google.maps.LatLng(' . $this->latitude . ', ' . $this->longitude . '),
@@ -731,7 +737,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
                         ' . $google_map_polys . '
                     }
 
-                    google.maps.event.addDomListener(window, "load", initialize);
+                    ' . ((defined('DOING_AJAX') && DOING_AJAX) ? ('initialize' . $this->zip . '()') : ('google.maps.event.addDomListener(window, "load", initialize' . $this->zip . ');')) . '
 
                 </script>
                 <section id="nws-alert-map-' . $this->zip . '" class="nws-alert-map"></section>';

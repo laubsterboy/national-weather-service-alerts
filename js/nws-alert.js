@@ -12,22 +12,19 @@ Author URI: http://www.laubsterboy.com
 
     var nonce = '';
 
-    function update (data, textStatus, jqXHR) {
-        console.log('refresh update');
-        console.log(data);
-        console.log(textStatus);
-        console.log(jqXHR);
+    function update (html, originalElement) {
+        $(html).addClass('nws-alert-updated').insertBefore(originalElement).each(setup);
+        $(originalElement).remove();
     }
 
     function setup () {
         var zip = $(this).data('zip'),
             display = $(this).data('display'),
             scope = $(this).data('scope'),
-            refresh_rate = parseInt($(this).data('refresh_rate')) * 60000;
-            refresh_rate = 3000;
+            refresh_rate = parseInt($(this).data('refresh_rate')) * 60000,
+            element = this;
 
         setTimeout(function () {
-            console.log(ajaxurl);
             $.ajax({
                 type: 'POST',
                 url: ajaxurl,
@@ -38,7 +35,9 @@ Author URI: http://www.laubsterboy.com
                     display: display,
                     scope: scope
                 },
-                success: update
+                success: function (html, textStatus, jqXHR) {
+                    if (html != 0) update(html, element);
+                }
             });
         }, refresh_rate);
     }
