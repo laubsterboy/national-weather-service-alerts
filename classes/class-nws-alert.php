@@ -133,10 +133,10 @@ class NWS_Alert {
         $table_name_codes = NWS_ALERT_TABLE_NAME_CODES;
         $table_name_locations = NWS_ALERT_TABLE_NAME_LOCATIONS;
 
-        $zip = $zip === null ? null : sanitize_text_field($zip);
-        $city = $city === null ? null : sanitize_text_field($city);
-        $state = $state === null ? null : sanitize_text_field($state);
-        $county = $county === null ? null : sanitize_text_field($county);
+        $zip = $zip === null || empty($zip) ? null : sanitize_text_field($zip);
+        $city = $city === null || empty($city) ? null : sanitize_text_field($city);
+        $state = $state === null || empty($state) ? null : sanitize_text_field($state);
+        $county = $county === null || empty($county) ? null : sanitize_text_field($county);
         $scope = (string) sanitize_text_field($scope);
 
         // Based on available attributes, search the nws_alert_locations database table for a match
@@ -147,7 +147,7 @@ class NWS_Alert {
             $state = strlen($state) > 2 ? NWS_Alert_Utils::convert_state_format($state) : $state;
             $locations_query = $wpdb->get_row("SELECT * FROM $table_name_locations WHERE city LIKE '$city' AND state LIKE '$state'", ARRAY_A);
         } else if ($state !== null && $county !== null) {
-            $state = NWS_Alert_Utils::convert_state_format($state);
+            $state = strlen($state) > 2 ? NWS_Alert_Utils::convert_state_format($state) : $state;
             $county = strtolower($county);
             $locations_query = $wpdb->get_row("SELECT * FROM $table_name_locations WHERE state LIKE '$state' AND county LIKE '$county'", ARRAY_A);
         }

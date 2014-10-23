@@ -33,19 +33,21 @@ class NWS_Alert_Widget extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget($args, $instance) {
-        $instance = array_merge($this->defaults, $instance);
+        $instance = wp_parse_args($instance, $this->defaults);
 
         if ($instance['scope'] !== NWS_ALERT_SCOPE_NATIONAL && $instance['scope'] !== NWS_ALERT_SCOPE_STATE && $instance['scope'] !== NWS_ALERT_SCOPE_COUNTY) $instance['scope'] = NWS_ALERT_SCOPE_COUNTY;
 
-        $nws_alert_data = new NWS_Alert($instance['zip'], $instance['city'], $instance['state'], $instance['county'], $instance['scope']);
+        if (!empty($instance['zip']) || (!empty($instance['city']) && !empty($instance['state'])) || (!empty($instance['state']) && !empty($instance['county']))) {
+            $nws_alert_data = new NWS_Alert($instance['zip'], $instance['city'], $instance['state'], $instance['county'], $instance['scope']);
 
-        if ($instance['display'] == NWS_ALERT_DISPLAY_BASIC) {
-            echo $nws_alert_data->get_output_html(false);
-        } else {
-            echo $nws_alert_data->get_output_html(true);
+            if ($instance['display'] == NWS_ALERT_DISPLAY_BASIC) {
+                echo $nws_alert_data->get_output_html(false);
+            } else {
+                echo $nws_alert_data->get_output_html(true);
+            }
+
+            unset($nws_alert_data);
         }
-
-        unset($nws_alert_data);
 	}
 
 
@@ -62,7 +64,7 @@ class NWS_Alert_Widget extends WP_Widget {
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update($new_instance, $old_instance) {
-		$instance = array_merge($this->defaults, $new_instance);
+		$instance = wp_parse_args($new_instance, $this->defaults);
 
 		return $instance;
 	}
@@ -78,11 +80,29 @@ class NWS_Alert_Widget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form($instance) {
-		$instance = array_merge($this->defaults, $instance);
+		$instance = wp_parse_args($instance, $this->defaults);
 		?>
 		<p>
-            <label for="<?php echo $this->get_field_id('zip'); ?>"><?php _e('Zipcode:'); ?></label>
+            <label for="<?php echo $this->get_field_id('zip'); ?>">Zipcode:</label>
             <input class="widefat" id="<?php echo $this->get_field_id('zip'); ?>" name="<?php echo $this->get_field_name('zip'); ?>" type="text" value="<?php echo esc_attr($instance['zip']); ?>">
+		</p>
+        <p>
+            <label for="<?php echo $this->get_field_id('city'); ?>">City:</label>
+            <input class="widefat" id="<?php echo $this->get_field_id('city'); ?>" name="<?php echo $this->get_field_name('city'); ?>" type="text" value="<?php echo esc_attr($instance['city']); ?>">
+		</p>
+        <p>
+            <label for="<?php echo $this->get_field_id('state'); ?>">State:</label>
+            <select class="widefat" id="<?php echo $this->get_field_id('state'); ?>" name="<?php echo $this->get_field_name('state'); ?>">
+            <?php
+                foreach (NWS_Alert_Utils::get_states() as $state) {
+                    echo '<option value="' . $state['abbrev'] . '"' . selected($instance['state'], $state['abbrev'], false) . '>' . $state['name'] . '</option>';
+                }
+            ?>
+            </select>
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('county'); ?>">County:</label>
+            <input class="widefat" id="<?php echo $this->get_field_id('county'); ?>" name="<?php echo $this->get_field_name('county'); ?>" type="text" value="<?php echo esc_attr($instance['county']); ?>">
 		</p>
 		<?php
 	}
