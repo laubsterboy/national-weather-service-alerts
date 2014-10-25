@@ -1,8 +1,8 @@
 <?php
 /**
-* NWS_Alert Admin
+* NWS_Alert_Admin
 *
-* @since 1.0.0
+* @since 0.1
 */
 
 class NWS_Alert_Admin {
@@ -22,9 +22,9 @@ class NWS_Alert_Admin {
         $table_name = NWS_ALERT_TABLE_NAME_LOCATIONS;
 
         // Check for WordPress 3.5 and above.
-        if(version_compare($wp_version, '3.5', '>=')) {
+        if(version_compare($wp_version, NWS_ALERT_MIN_WP_VERSION, '>=') && version_compare(phpversion(), NWS_ALERT_MIN_PHP_VERSION, '>=')) {
 
-            // Only create the table and populate it on the first activation - or if the table_name has changed or been deleted
+            // Only create the table and populate it on the first activation - or if the table_name has changed or been dropped
             if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
                 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
@@ -54,7 +54,7 @@ class NWS_Alert_Admin {
 
             $table_name = NWS_ALERT_TABLE_NAME_CODES;
 
-            // Only create the table and populate it on the first activation - or if the table_name has changed or been deleted
+            // Only create the table and populate it on the first activation - or if the table_name has changed or been dropped
             if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
                 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
@@ -135,7 +135,7 @@ class NWS_Alert_Admin {
     * @access   public
     */
     public static function admin_enqueue_scripts_action() {
-	    wp_enqueue_style('nws-alert-admin-css', NWS_ALERT_URL . '/css/nws-alert-admin.css');
+	    wp_enqueue_style('nws-alert-admin-css', NWS_ALERT_URL . 'css/nws-alert-admin.css');
     }
 
 
@@ -149,7 +149,7 @@ class NWS_Alert_Admin {
     * @return void
     */
     public static function mce_external_plugins_filter($plugins) {
-        $plugins['nws_alert'] = NWS_ALERT_URL . '/js/nws-alert-mce-plugin.js';
+        $plugins['nws_alert'] = NWS_ALERT_URL . 'js/nws-alert-mce-plugin.js';
 
         return $plugins;
     }
