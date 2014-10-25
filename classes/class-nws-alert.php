@@ -122,7 +122,7 @@ class NWS_Alert {
     /**
     * NWS_Alert constructor $args, $nws_alert_data
     */
-    public function __construct($zip = null, $city = null, $state = null, $county = null, $scope = NWS_ALERT_SCOPE_COUNTY) {
+    public function __construct($args = array()) {
         global $wpdb;
         $nws_alert_xml;
         $nws_alert_xml_url;
@@ -133,11 +133,18 @@ class NWS_Alert {
         $table_name_codes = NWS_ALERT_TABLE_NAME_CODES;
         $table_name_locations = NWS_ALERT_TABLE_NAME_LOCATIONS;
 
-        $zip = $zip === null || empty($zip) ? null : sanitize_text_field($zip);
-        $city = $city === null || empty($city) ? null : sanitize_text_field($city);
-        $state = $state === null || empty($state) ? null : sanitize_text_field($state);
-        $county = $county === null || empty($county) ? null : sanitize_text_field($county);
-        $scope = (string) sanitize_text_field($scope);
+        $defaults = array('zip' => null,
+                          'city' => null,
+                          'state' => null,
+                          'county' => null,
+                          'scope' => NWS_ALERT_SCOPE_COUNTY);
+        $atts = wp_parse_args($args, $defaults);
+
+        $zip = $args['zip'] === null || empty($args['zip']) ? null : sanitize_text_field($args['zip']);
+        $city = $args['city'] === null || empty($args['city']) ? null : sanitize_text_field($args['city']);
+        $state = $args['state'] === null || empty($args['state']) ? null : sanitize_text_field($args['state']);
+        $county = $args['county'] === null || empty($args['county']) ? null : sanitize_text_field($args['county']);
+        $scope = (string) sanitize_text_field($args['scope']);
 
         // Based on available attributes, search the nws_alert_locations database table for a match
         if ($zip !== null && is_numeric($zip)) {
@@ -173,235 +180,6 @@ class NWS_Alert {
         $state_abbrev = $state;
         $state = ucwords(NWS_Alert_Utils::convert_state_format($state, 'abbrev'));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        $nws_alert_xml = simplexml_load_string('<?xml version = "1.0" encoding = "UTF-8" standalone = "yes"?>
-
-<!--
-This atom/xml feed is an index to active advisories, watches and warnings
-issued by the National Weather Service.  This index file is not the complete
-Common Alerting Protocol (CAP) alert message.  To obtain the complete CAP
-alert, please follow the links for each entry in this index.  Also note the
-CAP message uses a style sheet to convey the information in a human readable
-format.  Please view the source of the CAP message to see the complete data
-set.  Not all information in the CAP message is contained in this index of
-active alerts.
--->
-
-<feed
-xmlns = "http://www.w3.org/2005/Atom"
-xmlns:cap = "urn:oasis:names:tc:emergency:cap:1.1"
-xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
->
-
-<!-- TZN = <EDT> -->
-<!-- TZO = <-4> -->
-<!-- http-date = Thu, 22 May 2014 02:10:00 GMT -->
-
-<id>http://alerts.weather.gov/cap/wwaatmget.php?x=INC121&amp;y=0</id>
-<generator>NWS CAP Server</generator>
-<updated>2014-05-21T22:10:00-04:00</updated>
-<author>
-    <name>w-nws.webmaster@noaa.gov</name>
-</author>
-<title>Current Watches, Warnings and Advisories for Parke (INC121) Indiana Issued by the National Weather Service</title>
-<link href="http://alerts.weather.gov/cap/wwaatmget.php?x=INC121&amp;y=0"/>
-
-<entry>
-<id>http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A92088.SevereWeatherStatement.125154A9227CIN.INDSVSIND.2faa803e2f00caa7e0f7bf548b60d2b5</id>
-<updated>2014-05-21T22:10:00-04:00</updated>
-<published>2014-05-21T22:10:00-04:00</published>
-<author>
-<name>w-nws.webmaster@noaa.gov</name>
-</author>
-<title>Severe Weather Statement issued May 21 at 10:10PM EDT until May 21 at 10:15PM EDT by NWS</title>
-<link href="http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A92088.SevereWeatherStatement.125154A9227CIN.INDSVSIND.2faa803e2f00caa7e0f7bf548b60d2b5"/>
-<summary>...THE SEVERE THUNDERSTORM WARNING FOR FOUNTAIN...WESTERN MONTGOMERY...NORTHERN PARKE...NORTHERN VERMILLION AND EXTREME SOUTHWESTERN WARREN COUNTIES WILL EXPIRE AT 1015 PM EDT/915 PM CDT/... THE STORM WHICH PROMPTED THE WARNING HAS WEAKENED BELOW SEVERE LIMITS...AND NO LONGER POSES AN IMMEDIATE THREAT TO LIFE OR PROPERTY.</summary>
-<cap:event>Severe Weather Statement</cap:event>
-<cap:effective>2014-05-21T22:10:00-04:00</cap:effective>
-<cap:expires>2014-05-21T22:15:00-04:00</cap:expires>
-<cap:status>Actual</cap:status>
-<cap:msgType>Alert</cap:msgType>
-<cap:category>Met</cap:category>
-<cap:urgency>Immediate</cap:urgency>
-<cap:severity>Severe</cap:severity>
-<cap:certainty>Observed</cap:certainty>
-<cap:areaDesc>Fountain; Montgomery; Parke; Vermillion; Warren</cap:areaDesc>
-<cap:polygon>40.18,-87.54 40.22,-87.09 40.21,-87.09 40.21,-87.01 39.83,-87.01 39.88,-87.54 40.18,-87.54</cap:polygon>
-<cap:geocode>
-<valueName>FIPS6</valueName>
-<value>018045 018107 018121 018165 018171</value>
-<valueName>UGC</valueName>
-<value>INC045 INC107 INC121 INC165 INC171</value>
-</cap:geocode>
-<cap:parameter>
-<valueName>VTEC</valueName>
-<value>/O.EXP.KIND.SV.W.0067.000000T0000Z-140522T0215Z/</value>
-</cap:parameter>
-</entry>
-
-<entry>
-<id>http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A91E94.SevereThunderstormWarning.125154A92858IN.INDSVSIND.ffef3d015d27de648ac23e8bf90131a0</id>
-<updated>2014-05-21T22:05:00-04:00</updated>
-<published>2014-05-21T22:05:00-04:00</published>
-<author>
-<name>w-nws.webmaster@noaa.gov</name>
-</author>
-<title>Severe Thunderstorm Warning issued May 21 at 10:05PM EDT until May 21 at 10:30PM EDT by NWS</title>
-<link href="http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A91E94.SevereThunderstormWarning.125154A92858IN.INDSVSIND.ffef3d015d27de648ac23e8bf90131a0"/>
-<summary>...A SEVERE THUNDERSTORM WARNING REMAINS IN EFFECT FOR NORTH CENTRAL CLAY...PARKE...WESTERN PUTNAM...SOUTHERN VERMILLION AND NORTHEASTERN VIGO COUNTIES UNTIL 1030 PM EDT... AT 1003 PM EDT...A SEVERE THUNDERSTORM WAS LOCATED 6 MILES SOUTHWEST OF ROCKVILLE...AND MOVING SOUTHEAST AT 35 MPH. HAZARD...PING PONG BALL SIZE HAIL AND 60 MPH WIND GUSTS.</summary>
-<cap:event>Severe Thunderstorm Warning</cap:event>
-<cap:effective>2014-05-21T22:05:00-04:00</cap:effective>
-<cap:expires>2014-05-21T22:30:00-04:00</cap:expires>
-<cap:status>Actual</cap:status>
-<cap:msgType>Alert</cap:msgType>
-<cap:category>Met</cap:category>
-<cap:urgency>Immediate</cap:urgency>
-<cap:severity>Severe</cap:severity>
-<cap:certainty>Observed</cap:certainty>
-<cap:areaDesc>Clay; Parke; Putnam; Vermillion; Vigo</cap:areaDesc>
-<cap:polygon>39.89,-87.53 39.84,-86.85 39.47,-86.99 39.65,-87.54 39.87,-87.54 39.88,-87.54 39.89,-87.53</cap:polygon>
-<cap:geocode>
-<valueName>FIPS6</valueName>
-<value>018021 018121 018133 018165 018167</value>
-<valueName>UGC</valueName>
-<value>INC021 INC121 INC133 INC165 INC167</value>
-</cap:geocode>
-<cap:parameter>
-<valueName>VTEC</valueName>
-<value>/O.CON.KIND.SV.W.0070.000000T0000Z-140522T0230Z/</value>
-</cap:parameter>
-</entry>
-
-<entry>
-<id>http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A90594.FloodWarning.125154AA39C8IN.INDFLWIND.14fac176c5042330485acec45ee4b42e</id>
-<updated>2014-05-21T21:41:00-04:00</updated>
-<published>2014-05-21T21:41:00-04:00</published>
-<author>
-<name>w-nws.webmaster@noaa.gov</name>
-</author>
-<title>Flood Warning issued May 21 at 9:41PM EDT until May 22 at 5:30AM EDT by NWS</title>
-<link href="http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A90594.FloodWarning.125154AA39C8IN.INDFLWIND.14fac176c5042330485acec45ee4b42e"/>
-<summary>THE NATIONAL WEATHER SERVICE IN INDIANAPOLIS HAS ISSUED A * FLOOD WARNING FOR... CLAY COUNTY IN WEST CENTRAL INDIANA... MONTGOMERY COUNTY IN WEST CENTRAL INDIANA... NORTHERN OWEN COUNTY IN WEST CENTRAL INDIANA... PARKE COUNTY IN WEST CENTRAL INDIANA...</summary>
-<cap:event>Flood Warning</cap:event>
-<cap:effective>2014-05-21T21:41:00-04:00</cap:effective>
-<cap:expires>2014-05-22T05:30:00-04:00</cap:expires>
-<cap:status>Actual</cap:status>
-<cap:msgType>Alert</cap:msgType>
-<cap:category>Met</cap:category>
-<cap:urgency>Expected</cap:urgency>
-<cap:severity>Moderate</cap:severity>
-<cap:certainty>Likely</cap:certainty>
-<cap:areaDesc>Clay; Fountain; Hendricks; Montgomery; Owen; Parke; Putnam; Vermillion; Vigo</cap:areaDesc>
-<cap:polygon>39.33,-87.6 39.36,-87.54 39.93,-87.54 40.15,-87.52 40.15,-87.49 40.13,-87.49 40.14,-87.4 40.15,-87.44 40.16,-87.43 40.15,-86.69 39.54,-86.66 39.52,-86.69 39.47,-86.68 39.47,-86.65 39.36,-86.65 39.35,-86.66 39.28,-87.17 39.28,-87.6 39.33,-87.6</cap:polygon>
-<cap:geocode>
-<valueName>FIPS6</valueName>
-<value>018021 018045 018063 018107 018119 018121 018133 018165 018167</value>
-<valueName>UGC</valueName>
-<value>INC021 INC045 INC063 INC107 INC119 INC121 INC133 INC165 INC167</value>
-</cap:geocode>
-<cap:parameter>
-<valueName>VTEC</valueName>
-<value>/O.NEW.KIND.FA.W.0048.140522T0141Z-140522T0930Z/
-/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/</value>
-</cap:parameter>
-</entry>
-
-<entry>
-<id>http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A8FD60.SevereThunderstormWatch.125154A9DFF0IN.INDWCNIND.353726cb6078128fbf4296d733f2a5ff</id>
-<updated>2014-05-21T21:20:00-04:00</updated>
-<published>2014-05-21T21:20:00-04:00</published>
-<author>
-<name>w-nws.webmaster@noaa.gov</name>
-</author>
-<title>Severe Thunderstorm Watch issued May 21 at 9:20PM EDT until May 22 at 3:00AM EDT by NWS</title>
-<link href="http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A8FD60.SevereThunderstormWatch.125154A9DFF0IN.INDWCNIND.353726cb6078128fbf4296d733f2a5ff"/>
-<summary>SEVERE THUNDERSTORM WATCH 171 REMAINS VALID UNTIL 3 AM EDT THURSDAY FOR THE FOLLOWING AREAS IN INDIANA THIS WATCH INCLUDES 13 COUNTIES IN SOUTH CENTRAL INDIANA LAWRENCE MONROE IN SOUTHWEST INDIANA</summary>
-<cap:event>Severe Thunderstorm Watch</cap:event>
-<cap:effective>2014-05-21T21:20:00-04:00</cap:effective>
-<cap:expires>2014-05-22T03:00:00-04:00</cap:expires>
-<cap:status>Actual</cap:status>
-<cap:msgType>Alert</cap:msgType>
-<cap:category>Met</cap:category>
-<cap:urgency>Expected</cap:urgency>
-<cap:severity>Severe</cap:severity>
-<cap:certainty>Likely</cap:certainty>
-<cap:areaDesc>Clay; Daviess; Greene; Knox; Lawrence; Martin; Monroe; Owen; Parke; Putnam; Sullivan; Vermillion; Vigo</cap:areaDesc>
-<cap:polygon></cap:polygon>
-<cap:geocode>
-    <valueName>FIPS6</valueName>
-    <value>018021 018027 018055 018083 018093 018101 018105 018119 018121 018133 018153 018165 018167</value>
-    <valueName>UGC</valueName>
-    <value>INC021 INC027 INC055 INC083 INC093 INC101 INC105 INC119 INC121 INC133 INC153 INC165 INC167</value>
-</cap:geocode>
-<cap:parameter>
-    <valueName>VTEC</valueName>
-    <value>/O.CON.KIND.SV.A.0171.000000T0000Z-140522T0700Z/</value>
-</cap:parameter>
-</entry>
-
-<entry>
-<id>http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A8D718.FlashFloodWarning.125154A92858IN.INDFFSIND.152ac553b8b81f2834c19bcc17b510f0</id>
-<updated>2014-05-21T20:22:00-04:00</updated>
-<published>2014-05-21T20:22:00-04:00</published>
-<author>
-<name>w-nws.webmaster@noaa.gov</name>
-</author>
-<title>Flash Flood Warning issued May 21 at 8:22PM EDT until May 21 at 10:30PM EDT by NWS</title>
-<link href="http://alerts.weather.gov/cap/wwacapget.php?x=IN125154A8D718.FlashFloodWarning.125154A92858IN.INDFFSIND.152ac553b8b81f2834c19bcc17b510f0"/>
-<summary>...FLASH FLOOD WARNING REMAINS IN EFFECT FOR SOUTHERN FOUNTAIN... MONTGOMERY...NORTHERN PARKE...NORTHERN PUTNAM AND NORTHERN VERMILLION COUNTIES UNTIL 1030 PM EDT... AT 822 PM EDT...NATIONAL WEATHER SERVICE DOPPLER RADAR INDICATED THAT FLASH FLOODING WAS OCCURRING. SOME LOCATIONS THAT WILL EXPERIENCE FLASH FLOODING INCLUDE...</summary>
-<cap:event>Flash Flood Warning</cap:event>
-<cap:effective>2014-05-21T20:22:00-04:00</cap:effective>
-<cap:expires>2014-05-21T22:30:00-04:00</cap:expires>
-<cap:status>Actual</cap:status>
-<cap:msgType>Alert</cap:msgType>
-<cap:category>Met</cap:category>
-<cap:urgency>Immediate</cap:urgency>
-<cap:severity>Severe</cap:severity>
-<cap:certainty>Likely</cap:certainty>
-<cap:areaDesc>Fountain; Montgomery; Parke; Putnam; Vermillion</cap:areaDesc>
-<cap:polygon>40.15,-87.54 40.15,-87.49 40.13,-87.49 40.13,-87.4 40.16,-87.43 40.06,-87.1 40.16,-87.11 40.17,-86.69 39.65,-86.69 39.95,-87.53 40.15,-87.54</cap:polygon>
-<cap:geocode>
-<valueName>FIPS6</valueName>
-<value>018045 018107 018121 018133 018165</value>
-<valueName>UGC</valueName>
-<value>INC045 INC107 INC121 INC133 INC165</value>
-</cap:geocode>
-<cap:parameter>
-<valueName>VTEC</valueName>
-<value>/O.CON.KIND.FF.W.0041.000000T0000Z-140522T0230Z/
-/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/</value>
-</cap:parameter>
-</entry>
-</feed>');
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Set the XML (atom) feed URL to be loaded
         if ($scope === NWS_ALERT_SCOPE_NATIONAL) {
             // National
@@ -414,6 +192,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             $nws_alert_xml_url = 'http://alerts.weather.gov/cap/wwaatmget.php?x=' . strtoupper($state_abbrev) . 'C' . $county_code . '&y=0';
         }
 
+        // Load XML
         $nws_alert_xml = simplexml_load_file($nws_alert_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
         $nws_alert_data = array();
 
@@ -426,9 +205,9 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             $nws_alert_data['entries'] = array();
 
 
-            // parse through and load into $nws_alert_data array
+            // Parse through and load into $nws_alert_data array
             foreach($nws_alert_xml->entry as $entry) {
-                // load 'cap' namespaced data into $cap_data
+                // load 'cap' namespaced data into $entry_cap_data
                 $entry_cap_data = $entry->children('urn:oasis:names:tc:emergency:cap:1.1');
 
                 $_entry = array(
@@ -456,26 +235,6 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         } else {
             $this->set_error(NWS_ALERT_ERROR_NO_XML);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         /*
         * Possible CAP Event types that can be used when filtering $alert_types
@@ -513,17 +272,17 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         * "Radiological Hazard Warning"
         * "Shelter in Place Warning"
         */
-        /* add_feature - add filter to allow alerts to be added or removed */
-        $alert_types = array('Tornado Warning',
-                             'Severe Thunderstorm Warning',
-                             'Flash Flood Warning',
-                             'Flood Warning',
-                             'Blizzard Warning',
-                             'Winter Storm Warning',
-                             'Freeze Warning',
-                             'Dust Storm Warning',
-                             'High Wind Warning'
-                            );
+        $allowed_alert_types = apply_filters('nws_alert_allowed_alert_types',
+                                     array('Tornado Warning',
+                                           'Severe Thunderstorm Warning',
+                                           'Flash Flood Warning',
+                                           'Flood Warning',
+                                           'Blizzard Warning',
+                                           'Winter Storm Warning',
+                                           'Freeze Warning',
+                                           'Dust Storm Warning',
+                                           'High Wind Warning'),
+                                     $args);
 
         /*
         * msg types
@@ -535,7 +294,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         * “Error” - Indicates rejection of the message(s) identified in <references>; explanation SHOULD appear in <note>
         */
         /* add_feature - add filter to allow msgTypes to be added or removed */
-        $msg_types = array('Alert', 'Update');
+        $allowed_msg_types = apply_filters('allowed_msg_types', array('Alert', 'Update'), $args);
 
         /*
         * Status types
@@ -547,7 +306,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         * “Draft” – A preliminary template or draft, not actionable in its current form
         */
         /* add_feature - add filter to allow msgTypes to be added or removed */
-        $status_types = array('Actual');
+        $allowed_status_types = apply_filters('allowed_status_types', array('Actual'), $args);
 
         // Store args in class attributes
         $this->latitude = $latitude;
@@ -570,7 +329,7 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
             // Create NWS_Alert_Entry objects for each $nws_alert_data['entries'] and save in class attribute $entries, only if cap_event is a warning (flood, thunderstorm, or tornado)
             foreach ($nws_alert_data['entries'] as $key => $entry) {
                 // Only add entries of allowed alert types
-                if (in_array($entry['cap_event'], $alert_types, true) !== false && in_array($entry['cap_msg_type'], $msg_types, true) !== false && in_array($entry['cap_status'], $status_types, true) !== false) {
+                if (in_array($entry['cap_event'], $allowed_alert_types, true) !== false && in_array($entry['cap_msg_type'], $allowed_msg_types, true) !== false && in_array($entry['cap_status'], $allowed_status_types, true) !== false) {
                     $entry['id'] = (int)$key + 1;
                     $this->entries[] = new NWS_Alert_Entry($entry);
                 }
@@ -598,29 +357,29 @@ xmlns:ha = "http://www.alerting.net/namespace/index_1.0"
         $entries = array();
 
         /* add_feature - add filter to allow alert_type_sort_order to be rearranged */
-        $alert_types = array('Tornado Warning',
-                             'Severe Thunderstorm Warning',
-                             'Flash Flood Warning',
-                             'Flood Warning',
-                             'Blizzard Warning',
-                             'Winter Storm Warning',
-                             'Freeze Warning',
-                             'Dust Storm Warning',
-                             'High Wind Warning',
-                             'Tornado Watch',
-                             'Severe Thunderstorm Watch',
-                             'Flash Flood Watch',
-                             'Flood Watch',
-                             'Winter Storm Watch',
-                             'Avalanche Watch',
-                             'High Wind Watch',
-                             'Fire Weather Watch',
-                             'Severe Weather Statement',
-                             'Flash Flood Statement',
-                             'Flood Statement',
-                             'Frost Advisory',
-                             'Heat Advisory'
-                            );
+        $alert_types = apply_filters('nws_alert_sort_alert_types',
+                                     array('Tornado Warning',
+                                           'Severe Thunderstorm Warning',
+                                           'Flash Flood Warning',
+                                           'Flood Warning',
+                                           'Blizzard Warning',
+                                           'Winter Storm Warning',
+                                           'Freeze Warning',
+                                           'Dust Storm Warning',
+                                           'High Wind Warning',
+                                           'Tornado Watch',
+                                           'Severe Thunderstorm Watch',
+                                           'Flash Flood Watch',
+                                           'Flood Watch',
+                                           'Winter Storm Watch',
+                                           'Avalanche Watch',
+                                           'High Wind Watch',
+                                           'Fire Weather Watch',
+                                           'Severe Weather Statement',
+                                           'Flash Flood Statement',
+                                           'Flood Statement',
+                                           'Frost Advisory',
+                                           'Heat Advisory'));
         /*
         * Urgency types
         *

@@ -38,7 +38,7 @@ class NWS_Alert_Widget extends WP_Widget {
         if ($instance['scope'] !== NWS_ALERT_SCOPE_NATIONAL && $instance['scope'] !== NWS_ALERT_SCOPE_STATE && $instance['scope'] !== NWS_ALERT_SCOPE_COUNTY) $instance['scope'] = NWS_ALERT_SCOPE_COUNTY;
 
         if (!empty($instance['zip']) || (!empty($instance['city']) && !empty($instance['state'])) || (!empty($instance['state']) && !empty($instance['county']))) {
-            $nws_alert_data = new NWS_Alert($instance['zip'], $instance['city'], $instance['state'], $instance['county'], $instance['scope']);
+            $nws_alert_data = new NWS_Alert(array('zip' => $instance['zip'], 'city' => $instance['city'], 'state' => $instance['state'], 'county' => $instance['county'], 'scope' => $instance['scope']));
 
             if ($instance['display'] == NWS_ALERT_DISPLAY_BASIC) {
                 echo $nws_alert_data->get_output_html(false);
@@ -104,6 +104,21 @@ class NWS_Alert_Widget extends WP_Widget {
             <label for="<?php echo $this->get_field_id('county'); ?>">County:</label>
             <input class="widefat" id="<?php echo $this->get_field_id('county'); ?>" name="<?php echo $this->get_field_name('county'); ?>" type="text" value="<?php echo esc_attr($instance['county']); ?>">
 		</p>
+        <p>
+            <label for="<?php echo $this->get_field_id('display'); ?>">Display:</label>
+            <select class="widefat" id="<?php echo $this->get_field_id('display'); ?>" name="<?php echo $this->get_field_name('display'); ?>">
+                <option value="<?php echo NWS_ALERT_DISPLAY_FULL ?>"<?php selected($instance['display'], NWS_ALERT_DISPLAY_FULL) ?>><?php echo NWS_ALERT_DISPLAY_FULL ?></option>
+                <option value="<?php echo NWS_ALERT_DISPLAY_BASIC ?>"<?php selected($instance['display'], NWS_ALERT_DISPLAY_BASIC) ?>><?php echo NWS_ALERT_DISPLAY_BASIC ?></option>
+            </select>
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('scope'); ?>">Scope:</label>
+            <select class="widefat" id="<?php echo $this->get_field_id('scope'); ?>" name="<?php echo $this->get_field_name('scope'); ?>">
+                <option value="<?php echo NWS_ALERT_SCOPE_COUNTY ?>"<?php selected($instance['scope'], NWS_ALERT_SCOPE_COUNTY) ?>><?php echo NWS_ALERT_SCOPE_COUNTY ?></option>
+                <option value="<?php echo NWS_ALERT_SCOPE_STATE ?>"<?php selected($instance['scope'], NWS_ALERT_SCOPE_STATE) ?>><?php echo NWS_ALERT_SCOPE_STATE ?></option>
+                <option value="<?php echo NWS_ALERT_SCOPE_NATIONAL ?>"<?php selected($instance['scope'], NWS_ALERT_SCOPE_NATIONAL) ?>><?php echo NWS_ALERT_SCOPE_NATIONAL ?></option>
+            </select>
+        </p>
 		<?php
 	}
 }

@@ -64,6 +64,10 @@ class NWS_Alert_Utils {
         return $states;
     }
 
+    /*
+    * @return string
+    * @access public
+    */
     public static function convert_state_format($state, $search_key = 'name') {
         $states = self::get_states();
         $return_value = false;
@@ -88,7 +92,10 @@ class NWS_Alert_Utils {
 
 
 
-
+    /*
+    * @return string
+    * @access public
+    */
     public static function str_lreplace($search, $replace, $string) {
         $position = strrpos($string, $search);
 
@@ -101,7 +108,10 @@ class NWS_Alert_Utils {
 
 
 
-
+    /*
+    * @return string
+    * @access public
+    */
     public static function str_freplace($search, $replace, $string) {
         $position = strpos($string, $search);
 
@@ -125,8 +135,11 @@ class NWS_Alert_Utils {
 
 
 
-
-    public static function array_merge_by_order($associative_array, $order_array) {
+    /*
+    * @return string
+    * @access public
+    */
+    public static function array_merge_by_order($associative_array = array(), $order_array = array()) {
         if (!empty($associative_array)) {
             $return_array = array();
 

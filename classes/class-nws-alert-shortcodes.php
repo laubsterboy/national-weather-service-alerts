@@ -20,7 +20,7 @@ class NWS_Alert_Shortcodes {
 
         if ($scope !== NWS_ALERT_SCOPE_NATIONAL && $scope !== NWS_ALERT_SCOPE_STATE && $scope !== NWS_ALERT_SCOPE_COUNTY) $scope = NWS_ALERT_SCOPE_COUNTY;
 
-        $nws_alert_data = new NWS_Alert($zip, $city, $state, $county, $scope);
+        $nws_alert_data = new NWS_Alert(array('zip' => $zip, 'city' => $city, 'state' => $state, 'county' => $county, 'scope' => $scope));
 
         if ($display == NWS_ALERT_DISPLAY_BASIC) {
             return $nws_alert_data->get_output_html(false);
