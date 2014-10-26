@@ -43,7 +43,7 @@ class NWS_Alert_Admin {
 
                 dbDelta($sql);
 
-                $zip_codes_file = fopen(dirname(__FILE__) . '/data/zip-codes.txt', 'r');
+                $zip_codes_file = fopen(NWS_ALERT_ABSPATH . 'data/zip-codes.txt', 'r');
 
                 while ($line = fgets($zip_codes_file)) {
                     list($zip, $latitude, $longitude, $city, $state, $county, $zipclass) = explode(',', str_replace('"', '', strtolower($line)));
@@ -70,7 +70,7 @@ class NWS_Alert_Admin {
 
                 dbDelta($sql);
 
-                $ansi_codes_file = fopen(dirname(__FILE__) . '/data/ansi-codes.txt', 'r');
+                $ansi_codes_file = fopen(NWS_ALERT_ABSPATH . 'data/ansi-codes.txt', 'r');
 
                 while ($line = fgets($ansi_codes_file)) {
                     list($state, $stateansi, $countyansi, $county, $ansiclass) = explode(',', strtolower($line));

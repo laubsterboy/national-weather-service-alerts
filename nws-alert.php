@@ -20,9 +20,8 @@ require_once('classes/class-nws-alert-widgets.php');
 require_once('classes/class-nws-alert-client.php');
 require_once('classes/class-nws-alert-admin.php');
 
-// Cannot use __FILE__ for the first parameter because the plugin is using a symlink which resolves to a directory outside the WP plugins directory
-register_activation_hook(NWS_ALERT_DIR . 'classes/class-nws-alert-admin', 'NWS_Alert_Admin::activation');
-register_deactivation_hook(NWS_ALERT_DIR . 'classes/class-nws-alert-admin', 'NWS_Alert_Admin::deactivation');
+register_activation_hook(NWS_ALERT_ABSPATH . 'nws-alert.php', 'NWS_Alert_Admin::activation');
+register_deactivation_hook(NWS_ALERT_ABSPATH . 'nws-alert.php', 'NWS_Alert_Admin::deactivation');
 
 // Shortcodes
 add_shortcode('nws_alert', 'NWS_Alert_Shortcodes::shortcode_handler');

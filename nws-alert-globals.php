@@ -3,6 +3,8 @@
 * NWS Alert Plugin Global constants
 */
 
+global $wpdb, $tinymce_version;
+
 // NWS Alert Version Information
 define('NWS_ALERT_VERSION', '1.0.0');
 define('NWS_ALERT_MIN_WP_VERSION', '3.1');
@@ -14,7 +16,8 @@ if (intval(substr($tinymce_version, 0, 1)) === 4) {
 }
 
 define('NWS_ALERT_DESCRIPTION', 'Easily add official National Weather Service alerts to your website.');
-define('NWS_ALERT_DIR', plugin_dir_path(__FILE__));
+define('NWS_ALERT_PATH', trailingslashit(basename(dirname(__FILE__))));
+define('NWS_ALERT_ABSPATH', plugin_dir_path(__FILE__));
 define('NWS_ALERT_URL', plugins_url('/', __FILE__));
 
 define('NWS_ALERT_TABLE_NAME_CODES', $wpdb->prefix . 'nws_alert_codes');
