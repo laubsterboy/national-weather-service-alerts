@@ -5,6 +5,7 @@
     z-index:100;
     float:left;
     box-sizing:border-box;
+    opacity:1;
 }
 .nws-alert:hover {
     z-index:110;
@@ -15,6 +16,16 @@
     clear:both;
 }
 
+
+
+
+.nws-alert-updated {
+    -webkit-animation: nws-alert-fade-in 1000ms;
+    -moz-animation: nws-alert-fade-in 1000ms;
+    -ms-animation: nws-alert-fade-in 1000ms;
+    -o-animation: nws-alert-fade-in 1000ms;
+    animation: nws-alert-fade-in 1000ms;
+}
 
 
 
@@ -59,7 +70,6 @@
 .nws-alert-heading-no-graphic .nws-alert-event {
     margin-left:0;
 }
-
 
 
 
@@ -115,7 +125,6 @@
 
 
 
-
 .nws-alert-entries {
     display:block;
     padding:20px;
@@ -133,7 +142,6 @@
 	font-size:0.8em;
 	font-weight:100;
 }
-
 
 
 
@@ -229,34 +237,18 @@
     height:30px;
 }
 
-.nws-alert-blizzard-warning-color {
-
-}
-
-.nws-alert-flash-flood-warning-color {
-
-}
-
-.nws-alert-high-wind-warning-color {
-
-}
-
-.nws-alert-severe-thunderstorm-warning-color {
-
-}
-
-.nws-alert-tornado-warning-color {
-
-}
-
-.nws-alert-winter-storm-warning-color {
-
-}
-
-
-
-
 .nws-alert-map {
     width:100%;
     height:300px;
 }
+
+
+
+
+
+/* Animations */
+@-webkit-keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
+@-moz-keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
+@-ms-keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
+@-o-keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
+@keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }

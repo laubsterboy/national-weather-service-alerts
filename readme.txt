@@ -10,103 +10,54 @@ Easily add official National Weather Service alerts to your website.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+The National Weather Service Alerts plugin allows you to easily display weather alerts, such as tornado warnings, 
+severe thunderstorm warnings, or flash flood warnings, on your website. The alerts are pulled directly from the
+National Weather Service (http://alerts.weather.gov) based on the location that you specify and are then parsed,
+sorted, and then output to your website using clean html5 markup. The alerts are then automatically updated using
+AJAX based on the severity of the alerts for the specified location. The location can be set by using zipcode, 
+city and state, or state and county. There is also the option to choose the scope of what alerts to include, 
+such as alerts only for your county, alerts only for your state, or alerts for the entire United States.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+If applicable, a Google Map will be included with polygon overlays to show the affected regions of certain alert
+types, such as tornado warnings or flash flood warnings.
 
-A few notes about the sections above:
-
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
-
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
-
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+*Currently the National Weather Service Alerts plugin only works for areas within United States. However, the
+plugin expects Atom feeds that use the Common Alerting Protocol (CAP) format so in theory any CAP feed could be
+used.*
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+1. Go to Plugins > Add New in the admin area, and search for National Weather Service Alerts.
+1. Click install.
+1. Once installed, just activate and you're done.
 
-e.g.
+**Note that the first time the plugin is activated the database tables used for location searching are built and
+this process can take up to a minute to complete, so please be patient**
 
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+Once the plugin is installed and activated you can easily add weather alerts to your website by using the included
+NWS Alert widget or by using the [nws_alert] shortcode. The plugin adds a "National Weather Service Alerts" button
+to the WordPress editor that can be used to build properly formatted nws_alert shortcodes.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= I'm only seeing the following message: The specified location could not be found. Try specifying a county and state instead. =
 
-An answer to that question.
+The plugin is letting your know that there was an error when attempting to retrieve additional location information
+about the specified location. Check for spelling errors in the city or county name. On rare occasion the locations
+database table may not include the specified city and is thus unable to retrieve additional information necessary
+for the plugin to function properly and the only workaround is to instead use the zipcode.
 
-= What about foo bar? =
-
-Answer to foo bar dilemma.
-
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets 
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png` 
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+= I'm seeing the following message: Data Error =
+The plugin will show this message when it is unable to retrieve the Atom feed from the National Weather Service.
+It is rare for this to happen and when it does it's generally because the Atom feed is temporarily unavailable. 
+Simply refreshing the page should fix the problem.
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+= 1.0.0 =
+* Initial release of the National Weather Service Alerts plugin.
 
 == Upgrade Notice ==
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+= 1.0.0 =
+* Initial release of the National Weather Service Alerts plugin.

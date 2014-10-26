@@ -356,7 +356,6 @@ class NWS_Alert {
 
         $entries = array();
 
-        /* add_feature - add filter to allow alert_type_sort_order to be rearranged */
         $alert_types = apply_filters('nws_alert_sort_alert_types',
                                      array('Tornado Warning',
                                            'Severe Thunderstorm Warning',

@@ -4,7 +4,7 @@
 */
 
 // NWS Alert Version Information
-define('NWS_ALERT_VERSION', '0.1');
+define('NWS_ALERT_VERSION', '1.0.0');
 define('NWS_ALERT_MIN_WP_VERSION', '3.1');
 define('NWS_ALERT_MIN_PHP_VERSION', '5');
 if (intval(substr($tinymce_version, 0, 1)) === 4) {

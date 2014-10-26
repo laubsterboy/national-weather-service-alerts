@@ -3,7 +3,7 @@
 * Plugin Name: National Weather Service Alerts
 * Plugin URI: http://www.laubsterboy.com/blog/nws-alert/
 * Description: Easily add official National Weather Service alerts to your website.
-* Version: 0.1
+* Version: 1.0.0
 * Author: John Russell
 * Author URI: http://www.laubsterboy.com
 * Copyright: (c) 2014 John Russell

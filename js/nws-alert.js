@@ -5,19 +5,12 @@ Author: John Russell
 Author URI: http://www.laubsterboy.com
 */
 
-/*global jQuery*/
+/*global jQuery,ajaxurl*/
 
 (function ($) {
     "use strict";
 
-    var nonce = '';
-
-    function update (html, originalElement) {
-        $(html).addClass('nws-alert-updated').insertBefore(originalElement).each(setup);
-        $(originalElement).remove();
-    }
-
-    function setup () {
+    function setup() {
         var zip = $(this).data('zip'),
             display = $(this).data('display'),
             scope = $(this).data('scope'),
@@ -30,7 +23,6 @@ Author URI: http://www.laubsterboy.com
                 url: ajaxurl,
                 data: {
                     action: 'nws_alert_refresh',
-                    security: nonce,
                     zip: zip,
                     display: display,
                     scope: scope
@@ -40,6 +32,11 @@ Author URI: http://www.laubsterboy.com
                 }
             });
         }, refresh_rate);
+    }
+
+    function update(html, originalElement) {
+        $(html).addClass('nws-alert-updated').insertBefore(originalElement).each(setup);
+        $(originalElement).remove();
     }
 
     // Initialize each nws-alert
