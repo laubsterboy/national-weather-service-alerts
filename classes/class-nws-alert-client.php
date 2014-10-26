@@ -40,15 +40,16 @@ class NWS_Alert_Client {
     public static function refresh() {
         //check_ajax_referer($this->nonce_string, 'security');
 
-        $s_zip = sanitize_text_field($_POST['zip']);
-		$s_display = sanitize_text_field($_POST['display']);
-		$s_scope = sanitize_text_field($_POST['scope']);
+
+        $s_zip = isset($_POST['zip']) ? sanitize_text_field($_POST['zip']) : '';
+		$s_display = isset($_POST['display']) ? sanitize_text_field($_POST['display']) : '';
+		$s_scope = isset($_POST['scope']) ? sanitize_text_field($_POST['scope']) : '';
         if (empty($s_zip) || empty($s_display) || empty($s_scope)) {
             echo 0;
             die();
         }
 
-        $nws_alert_data = new NWS_Alert($s_zip, null, null, null, $s_scope);
+        $nws_alert_data = new NWS_Alert(array('zip' => $s_zip, 'scope' => $s_scope));
 
         if ($s_display == NWS_ALERT_DISPLAY_BASIC) {
             echo $nws_alert_data->get_output_html(false);

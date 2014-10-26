@@ -138,12 +138,12 @@ class NWS_Alert {
                           'state' => null,
                           'county' => null,
                           'scope' => NWS_ALERT_SCOPE_COUNTY);
-        $atts = wp_parse_args($args, $defaults);
+        $args = wp_parse_args($args, $defaults);
 
-        $zip = $args['zip'] === null || empty($args['zip']) ? null : sanitize_text_field($args['zip']);
-        $city = $args['city'] === null || empty($args['city']) ? null : sanitize_text_field($args['city']);
-        $state = $args['state'] === null || empty($args['state']) ? null : sanitize_text_field($args['state']);
-        $county = $args['county'] === null || empty($args['county']) ? null : sanitize_text_field($args['county']);
+        $zip = ($args['zip'] === null || empty($args['zip'])) ? null : sanitize_text_field($args['zip']);
+        $city = ($args['city'] === null || empty($args['city'])) ? null : sanitize_text_field($args['city']);
+        $state = ($args['state'] === null || empty($args['state'])) ? null : sanitize_text_field($args['state']);
+        $county = ($args['county'] === null || empty($args['county'])) ? null : sanitize_text_field($args['county']);
         $scope = (string) sanitize_text_field($args['scope']);
 
         // Based on available attributes, search the nws_alert_locations database table for a match
