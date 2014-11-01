@@ -110,7 +110,7 @@ class NWS_Alerts {
     *
     * @var string
     */
-    public $scope = NWS_ALERTSS_SCOPE_COUNTY;
+    public $scope = NWS_ALERTS_SCOPE_COUNTY;
 
     /**
     * The refresh_rate (in minutes), determined by the alert types. More severe alerts will be refreshed more often.

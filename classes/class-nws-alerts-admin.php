@@ -17,7 +17,6 @@ class NWS_Alerts_Admin {
     */
     public static function activation() {
         global $wpdb, $wp_version;
-        $file;
         $sql;
         $table_name = NWS_ALERTS_TABLE_NAME_LOCATIONS;
 
