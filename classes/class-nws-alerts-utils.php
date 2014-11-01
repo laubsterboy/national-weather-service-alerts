@@ -1,7 +1,7 @@
 <?php
-// NWS Alert Plugin Utility Functions
+// NWS Alerts Plugin Utility Functions
 
-class NWS_Alert_Utils {
+class NWS_Alerts_Utils {
     /*
     * @return array
     * @access public

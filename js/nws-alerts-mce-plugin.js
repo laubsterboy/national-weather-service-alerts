@@ -2,7 +2,7 @@
 * NWS Alert TinyMCE Plugin
 *
 * Adds a button to the first row of TinyMCE buttons which
-* allows for form input to generate a nws_alert shortcode
+* allows for form input to generate a nws_alerts shortcode
 * for WordPress.
 */
 
@@ -11,9 +11,9 @@
 (function ($) {
     "use strict";
 
-    var nwsAlertShortcodes, controls = {}, editor, controlValues = {}, controlValuesDefaults;
+    var nwsAlertsShortcodes, controls = {}, editor, controlValues = {}, controlValuesDefaults;
 
-    nwsAlertShortcodes = {
+    nwsAlertsShortcodes = {
         init: function () {
             controlValues.zip = '';
             controlValues.city = '';
@@ -24,40 +24,40 @@
 
             controlValuesDefaults = $.extend({}, controlValues);
 
-			controls.backdrop = $('#nws-alert-shortcodes-backdrop');
-			controls.wrap = $('#nws-alert-shortcodes-wrap');
-			controls.dialog = $('#nws-alert-shortcodes');
-            controls.errors = $('#nws-alert-shortcodes-errors');
+			controls.backdrop = $('#nws-alerts-shortcodes-backdrop');
+			controls.wrap = $('#nws-alerts-shortcodes-wrap');
+			controls.dialog = $('#nws-alerts-shortcodes');
+            controls.errors = $('#nws-alerts-shortcodes-errors');
             controls.errors.hide();
-			controls.submit = $('#nws-alert-shortcodes-submit');
-			controls.close = $('#nws-alert-shortcodes-close');
+			controls.submit = $('#nws-alerts-shortcodes-submit');
+			controls.close = $('#nws-alerts-shortcodes-close');
 
 			// Bind event handlers
-			$('.nws-alert-control-multi-container input').click(function (event) {
-				nwsAlertShortcodes.controlListenerMulti(this);
+			$('.nws-alerts-control-multi-container input').click(function (event) {
+				nwsAlertsShortcodes.controlListenerMulti(this);
 			});
-			$('.nws-alert-control-boolean-container input').click(function (event) {
-				nwsAlertShortcodes.controlListenerBoolean(this);
+			$('.nws-alerts-control-boolean-container input').click(function (event) {
+				nwsAlertsShortcodes.controlListenerBoolean(this);
 			});
-			$('.nws-alert-control-select-container select').change(function (event) {
-				nwsAlertShortcodes.controlListenerSelect(this);
+			$('.nws-alerts-control-select-container select').change(function (event) {
+				nwsAlertsShortcodes.controlListenerSelect(this);
 			});
-			$('.nws-alert-control-text-container input').keyup(function (event) {
-				nwsAlertShortcodes.controlListenerText(this);
+			$('.nws-alerts-control-text-container input').keyup(function (event) {
+				nwsAlertsShortcodes.controlListenerText(this);
 			});
 			controls.submit.click(function (event) {
 				event.preventDefault();
-				nwsAlertShortcodes.update();
+				nwsAlertsShortcodes.update();
 			});
-			controls.close.add(controls.backdrop).add('#nws-alert-shortcodes-cancel a').click(function (event) {
+			controls.close.add(controls.backdrop).add('#nws-alerts-shortcodes-cancel a').click(function (event) {
 				event.preventDefault();
-				nwsAlertShortcodes.close();
+				nwsAlertsShortcodes.close();
 			});
         },
         open: function (editorId) {
             var ed;
 
-			nwsAlertShortcodes.range = null;
+			nwsAlertsShortcodes.range = null;
 
 			if (editorId) {
 				window.wpActiveEditor = editorId;
@@ -96,7 +96,7 @@
         update: function () {
             var errors = false,
                 match = false,
-                shortcode = '[nws_alert';
+                shortcode = '[nws_alerts';
 
             if (controlValues.zip !== controlValuesDefaults.zip) { shortcode += ' zip="' + controlValues.zip + '"'; }
             if (controlValues.city !== controlValuesDefaults.city) { shortcode += ' city="' + controlValues.city + '"'; }
@@ -134,7 +134,7 @@
                 controls.errors.show().text(errors);
             } else {
                 editor.execCommand('mceInsertContent', false, shortcode);
-                nwsAlertShortcodes.close();
+                nwsAlertsShortcodes.close();
             }
         },
         controlListenerMulti: function (checkbox) {
@@ -204,21 +204,21 @@
         }
     };
 
-    $(document).ready(nwsAlertShortcodes.init);
+    $(document).ready(nwsAlertsShortcodes.init);
 
-    window.tinymce.create('tinymce.plugins.nws_alert', {
+    window.tinymce.create('tinymce.plugins.nws_alerts', {
         init: function (editor, url) {
-            editor.addButton('nws_alert_shortcodes', {
+            editor.addButton('nws_alerts_shortcodes', {
                 //text: 'NWS Alert',
                 title: 'National Weather Service Alerts Shortcode',
                 icon: true,
-                image: url + '/../images/nws-alert-mce-icon.png',
+                image: url + '/../images/nws-alerts-mce-icon.png',
                 onclick: function () { window.tinyMCE.activeEditor.execCommand('NWS_Alert_Shortcodes_Listener'); }
             });
 
             editor.addCommand('NWS_Alert_Shortcodes_Listener', function () {
-                if (typeof nwsAlertShortcodes !== 'undefined') {
-                    nwsAlertShortcodes.open(editor.id);
+                if (typeof nwsAlertsShortcodes !== 'undefined') {
+                    nwsAlertsShortcodes.open(editor.id);
                 }
             });
         },
@@ -236,5 +236,5 @@
         }
     });
 
-    window.tinymce.PluginManager.add('nws_alert', window.tinymce.plugins.nws_alert);
+    window.tinymce.PluginManager.add('nws_alerts', window.tinymce.plugins.nws_alerts);
 }(jQuery));

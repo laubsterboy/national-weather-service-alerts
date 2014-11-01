@@ -1,19 +1,19 @@
 <?php
 /**
-* NWS_Alert Client
+* NWS_Alerts Client
 *
 * @since 1.0.0
 */
 
-class NWS_Alert_Client {
+class NWS_Alerts_Client {
 
-    var $nonce_string = 'nws_alert_nonce';
+    var $nonce_string = 'nws_alerts_nonce';
     var $nonce;
 
     /*
     * set_ajaxurl
     *
-    * Is called when the NWS_Alert plugin is activated and creates necessary database tables and populates them with data
+    * Is called when the NWS_Alerts plugin is activated and creates necessary database tables and populates them with data
     *
     * @return void
     * @access public
@@ -49,12 +49,12 @@ class NWS_Alert_Client {
             die();
         }
 
-        $nws_alert_data = new NWS_Alert(array('zip' => $s_zip, 'scope' => $s_scope));
+        $nws_alerts_data = new NWS_Alerts(array('zip' => $s_zip, 'scope' => $s_scope));
 
-        if ($s_display == NWS_ALERT_DISPLAY_BASIC) {
-            echo $nws_alert_data->get_output_html(false);
+        if ($s_display == NWS_ALERTS_DISPLAY_BASIC) {
+            echo $nws_alerts_data->get_output_html(false);
         } else {
-            echo $nws_alert_data->get_output_html(true);
+            echo $nws_alerts_data->get_output_html(true);
         }
 
         die();
@@ -73,10 +73,10 @@ class NWS_Alert_Client {
     */
     public static function scripts_styles() {
         // Stylesheets
-        wp_enqueue_style('nws-alert-css', NWS_ALERT_URL . 'css/nws-alert.css');
+        wp_enqueue_style('nws-alerts-css', NWS_ALERTS_URL . 'css/nws-alerts.css');
 
         /* JavaScript */
-        wp_enqueue_script('nws-alert-js', NWS_ALERT_URL . 'js/nws-alert.js', array('jquery'), null, true);
+        wp_enqueue_script('nws-alerts-js', NWS_ALERTS_URL . 'js/nws-alerts.js', array('jquery'), null, true);
         wp_enqueue_script('google-map-api', 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather&sensor=false', false, null, false);
     }
 }

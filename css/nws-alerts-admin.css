@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#nws-alert-shortcodes-backdrop {
+#nws-alerts-shortcodes-backdrop {
 	display:none;
 	position:fixed;
 	top:0;
@@ -13,7 +13,7 @@
 	filter:alpha(opacity=70);
 	z-index:100100;
 }
-#nws-alert-shortcodes-wrap {
+#nws-alerts-shortcodes-wrap {
 	display: none;
 	background-color:#f1f1f1;
 	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.3);
@@ -36,7 +36,7 @@
 
 
 /* Modal Title */
-.nws-alert-modal-title {
+.nws-alerts-modal-title {
 	background: #fcfcfc;
 	border-bottom: 1px solid #dfdfdf;
 	height: 36px;
@@ -48,7 +48,7 @@
 	right: 0;
 	left: 0;
 }
-.nws-alert-close {
+.nws-alerts-close {
 	color: #666;
 	cursor: pointer;
 	padding: 0;
@@ -59,7 +59,7 @@
 	height: 36px;
 	text-align: center;
 }
-.nws-alert-close:before {
+.nws-alerts-close:before {
 	font: 400 20px/36px dashicons;
 	vertical-align: top;
 	speak: none;
@@ -69,8 +69,8 @@
 	height: 36px;
 	content: '\f158';
 }
-.nws-alert-close:focus,
-.nws-alert-close:hover {
+.nws-alerts-close:focus,
+.nws-alerts-close:hover {
 	color: #2ea2cc;
 }
 
@@ -79,7 +79,7 @@
 
 
 /* Modal Options */
-.nws-alert-options {
+.nws-alerts-options {
 	position:absolute;
 	top:37px;
 	bottom:43px;
@@ -87,25 +87,25 @@
 	padding:16px;
 	overflow-y:auto;
 }
-.nws-alert-options label span {
+.nws-alerts-options label span {
 	display:inline-block;
 	width:176px;
 	text-align:right;
 	padding-right:4px;
 }
-.nws-alert-options table {
+.nws-alerts-options table {
 	width:100%;
 }
-.nws-alert-options td {
+.nws-alerts-options td {
 	border-bottom: 1px solid #dfdfdf;
 	padding: 16px;
 }
-.nws-alert-options h4 {
+.nws-alerts-options h4 {
 	min-width:160px;
 }
 
 /* Modal Options Errors */
-.nws-alert-errors {
+.nws-alerts-errors {
     padding:16px;
     border-left:4px solid #cc0000;
     font-style:italic;
@@ -119,7 +119,7 @@
 
 
 /* Modal Submit */
-.nws-alert-submitbox {
+.nws-alerts-submitbox {
 	padding: 8px 16px;
 	background: #fcfcfc;
 	border-top: 1px solid #dfdfdf;
@@ -128,10 +128,10 @@
 	left: 0;
 	right: 0;
 }
-.nws-alert-cancel {
+.nws-alerts-cancel {
 	line-height: 25px;
 }
-.nws-alert-update {
+.nws-alerts-update {
 	line-height: 23px;
 	float: right;
 }

@@ -1,16 +1,16 @@
 @charset "UTF-8";
 
-.nws-alert {
+.nws-alerts {
     position:relative;
     z-index:100;
     float:left;
     box-sizing:border-box;
     opacity:1;
 }
-.nws-alert:hover {
+.nws-alerts:hover {
     z-index:110;
 }
-.nws-alert:after {
+.nws-alerts:after {
     content:"";
     display:block;
     clear:both;
@@ -19,12 +19,12 @@
 
 
 
-.nws-alert-updated {
-    -webkit-animation: nws-alert-fade-in 1000ms;
-    -moz-animation: nws-alert-fade-in 1000ms;
-    -ms-animation: nws-alert-fade-in 1000ms;
-    -o-animation: nws-alert-fade-in 1000ms;
-    animation: nws-alert-fade-in 1000ms;
+.nws-alerts-updated {
+    -webkit-animation: nws-alerts-fade-in 1000ms;
+    -moz-animation: nws-alerts-fade-in 1000ms;
+    -ms-animation: nws-alerts-fade-in 1000ms;
+    -o-animation: nws-alerts-fade-in 1000ms;
+    animation: nws-alerts-fade-in 1000ms;
 }
 
 
@@ -32,7 +32,7 @@
 
 
 
-.nws-alert-heading {
+.nws-alerts-heading {
     position:relative;
     z-index:1;
     float:left;
@@ -40,34 +40,34 @@
     box-sizing:border-box;
     white-space:nowrap;
 }
-.nws-alert-heading-graphic {
+.nws-alerts-heading-graphic {
     position:absolute;
     top:20px;
     left:20px;
     margin-right:20px;
     display:block;
 }
-.nws-alert-heading-scope {
+.nws-alerts-heading-scope {
     margin:0 0 0 70px;
     display:block;
     font-size: 0.9em;
     color: #888;
     line-height:1;
 }
-.nws-alert-heading-location {
+.nws-alerts-heading-location {
     clear:none;
     margin:0 0 0 70px;
     display:block;
     line-height:1
 }
-.nws-alert-heading .nws-alert-event {
+.nws-alerts-heading .nws-alerts-event {
     margin:0 0 0 70px;
     display:block;
     white-space:nowrap;
 }
-.nws-alert-heading-no-graphic .nws-alert-heading-scope,
-.nws-alert-heading-no-graphic .nws-alert-heading-location,
-.nws-alert-heading-no-graphic .nws-alert-event {
+.nws-alerts-heading-no-graphic .nws-alerts-heading-scope,
+.nws-alerts-heading-no-graphic .nws-alerts-heading-location,
+.nws-alerts-heading-no-graphic .nws-alerts-event {
     margin-left:0;
 }
 
@@ -76,7 +76,7 @@
 
 
 
-.nws-alert-details {
+.nws-alerts-details {
     position:absolute;
     z-index:0;
     top:50%;
@@ -90,14 +90,14 @@
     transition:top 400ms, opacity 400ms;
     border-radius:6px;
 }
-.nws-alert:hover .nws-alert-details {
+.nws-alerts:hover .nws-alerts-details {
     top:100%;
     height:auto;
     opacity:1;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.4);
     overflow:visible;
 }
-.nws-alert-details:after, .nws-alert-details:before {
+.nws-alerts-details:after, .nws-alerts-details:before {
 	bottom:100%;
 	left:50%;
 	border:solid transparent;
@@ -108,13 +108,13 @@
 	pointer-events:none;
 }
 
-.nws-alert-details:after {
+.nws-alerts-details:after {
 	border-color:rgba(241, 241, 241, 0);
 	border-bottom-color:#f1f1f1;
 	border-width:20px;
 	margin-left:-20px;
 }
-.nws-alert-details:before {
+.nws-alerts-details:before {
 	border-color:rgba(204, 204, 204, 0);
 	border-bottom-color:#cccccc;
 	border-width:21px;
@@ -125,7 +125,7 @@
 
 
 
-.nws-alert-entries {
+.nws-alerts-entries {
     display:block;
     padding:20px;
     box-sizing:border-box;
@@ -135,10 +135,10 @@
     overflow:auto;
     transition:max-height 300ms;
 }
-.nws-alert:hover .nws-alert-entries {
+.nws-alerts:hover .nws-alerts-entries {
     max-height:300px;
 }
-.nws-alert-entry {
+.nws-alerts-entry {
 	font-size:0.8em;
 	font-weight:100;
 }
@@ -147,97 +147,97 @@
 
 
 
-.nws-alert-event {
+.nws-alerts-event {
     font-weight:bold;
 }
 
-.nws-alert-graphic-container:before {
+.nws-alerts-graphic-container:before {
     display:block;
     padding-top:100%;
     content:"";
 }
-.nws-alert-graphic-container {
+.nws-alerts-graphic-container {
     position:relative;
     width:100%;
     margin:0;
     padding:0;
 }
 
-.nws-alert-entry-graphic {
+.nws-alerts-entry-graphic {
     float:left;
     margin-right:20px;
     display:block;
 }
 
 /* Blizzard Warning */
-.nws-alert-blizzard-warning-graphic,
-.nws-alert-blizzard-watch-graphic {
+.nws-alerts-blizzard-warning-graphic,
+.nws-alerts-blizzard-watch-graphic {
     background-image:url('../images/blizzard-warning.png');
     background-image:url('../images/blizzard-warning.svg'), none;
 }
 
 /* Flash Flood Warning */
-.nws-alert-flash-flood-warning-graphic,
-.nws-alert-flash-flood-watch-graphic,
-.nws-alert-flood-warning-graphic,
-.nws-alert-flood-watch-graphic {
+.nws-alerts-flash-flood-warning-graphic,
+.nws-alerts-flash-flood-watch-graphic,
+.nws-alerts-flood-warning-graphic,
+.nws-alerts-flood-watch-graphic {
     background-image:url('../images/flash-flood-warning.png');
     background-image:url('../images/flash-flood-warning.svg'), none;
 }
 
 /* High Wind Warning and Wind Advisory */
-.nws-alert-high-wind-warning-graphic,
-.nws-alert-wind-advisory-graphic {
+.nws-alerts-high-wind-warning-graphic,
+.nws-alerts-wind-advisory-graphic {
     background-image:url('../images/high-wind-warning.png');
     background-image:url('../images/high-wind-warning.svg'), none;
 }
 
 /* Severe Thunderstorm Warning */
-.nws-alert-severe-thunderstorm-warning-graphic,
-.nws-alert-severe-thunderstorm-watch-graphic {
+.nws-alerts-severe-thunderstorm-warning-graphic,
+.nws-alerts-severe-thunderstorm-watch-graphic {
     background-image:url('../images/severe-thunderstorm-warning.png');
     background-image:url('../images/severe-thunderstorm-warning.svg'), none;
 }
 
 /* Tornado Warning */
-.nws-alert-tornado-warning-graphic,
-.nws-alert-tornado-watch-graphic {
+.nws-alerts-tornado-warning-graphic,
+.nws-alerts-tornado-watch-graphic {
     background-image:url('../images/tornado-warning.png');
     background-image:url('../images/tornado-warning.svg'), none;
 }
 
 /* Winter Storm Warning */
-.nws-alert-winter-storm-warning-graphic,
-.nws-alert-winter-storm-watch-graphic,
-.nws-alert-winter-weather-advisory-graphic,
-.nws-alert-freeze-warning-graphic {
+.nws-alerts-winter-storm-warning-graphic,
+.nws-alerts-winter-storm-watch-graphic,
+.nws-alerts-winter-weather-advisory-graphic,
+.nws-alerts-freeze-warning-graphic {
     background-image:url('../images/winter-storm-warning.png');
     background-image:url('../images/winter-storm-warning.svg'), none;
 }
 
-.nws-alert-heading-graphic,
-.nws-alert-entry-graphic {
+.nws-alerts-heading-graphic,
+.nws-alerts-entry-graphic {
     display:block;
     background-repeat:no-repeat;
     background-size:cover;
 }
 
-.nws-alert-size-large {
+.nws-alerts-size-large {
     width:100px;
     height:100px;
 }
 
-.nws-alert-size-medium {
+.nws-alerts-size-medium {
     width:60px;
     height:60px;
 }
 
-.nws-alert-size-small {
+.nws-alerts-size-small {
     width:30px;
     height:30px;
 }
 
-.nws-alert-map {
+.nws-alerts-map {
     width:100%;
     height:300px;
 }
@@ -247,8 +247,8 @@
 
 
 /* Animations */
-@-webkit-keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
-@-moz-keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
-@-ms-keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
-@-o-keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
-@keyframes nws-alert-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
+@-webkit-keyframes nws-alerts-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
+@-moz-keyframes nws-alerts-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
+@-ms-keyframes nws-alerts-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
+@-o-keyframes nws-alerts-fade-in { 0% {opacity:0;} 100% {opacity:1;} }
+@keyframes nws-alerts-fade-in { 0% {opacity:0;} 100% {opacity:1;} }

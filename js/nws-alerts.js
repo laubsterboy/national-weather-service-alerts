@@ -1,6 +1,6 @@
 /*
-Plugin Name: National Weather Service Alert
-Plugin URI: http://www.laubsterboy.com/blog/nws-alert-plugin/
+Plugin Name: National Weather Service Alerts
+Plugin URI: http://www.laubsterboy.com/blog/nws-alerts/
 Author: John Russell
 Author URI: http://www.laubsterboy.com
 */
@@ -35,10 +35,10 @@ Author URI: http://www.laubsterboy.com
     }
 
     function update(html, originalElement) {
-        $(html).addClass('nws-alert-updated').insertBefore(originalElement).each(setup);
+        $(html).addClass('nws-alerts-updated').insertBefore(originalElement).each(setup);
         $(originalElement).remove();
     }
 
     // Initialize each nws-alert
-    $('.nws-alert').each(setup);
+    $('.nws-alerts').each(setup);
 }(jQuery));
