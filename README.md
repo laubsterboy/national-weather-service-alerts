@@ -69,8 +69,10 @@
 </ul>
 <h4>Example</h4>
 <pre>[nws_alerts zip="90001" city="Los Angeles" state="California" county="Los Angeles" display="full" scope="county"]</pre>
+<h4>Example for a theme page template</h4>
+<pre>echo do_shortcode('[nws_alerts zip="90001" city="Los Angeles" state="California" county="Los Angeles" display="full" scope="county"]');</pre>
 
-<h2>Developers</h2>
+<h2>Reference</h2>
 <h3>Filters</h3>
 <strong>nws_alerts_allowed_alert_types</strong>
 <ul>
@@ -133,7 +135,7 @@
         <ul>
             <li>$alert_types
                 <ul>
-                    <li><em>(array)</em> The order of the alert types in the array is the order at which they will be displayed. The default order places the most severe and life threatening alerts first.</li>
+                    <li><em>(array)</em> The order of the alert types in the array is the order in which alert entries will be displayed. The default order places the most severe and life threatening alerts first.</li>
                 </ul>
             </li>
             <li>$args
