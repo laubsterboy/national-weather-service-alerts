@@ -12,7 +12,7 @@
 <p>An <em>NWS Alerts</em> widget is included as part of the plugin and can be added to any sidebar theme location by going to your themes Appearance > Widgets, adding the widget to the desired sidebar, and then filling out the location information.</p>
 <h3>Shortcode</h3>
 <p>If the plugin is installed on WordPress 3.9 or greater then a new button will be added to the WordPress editor that will open a modal window which is used to build a properly formatted shortcode based on user input.</p>
-<p>Regardless of WordPress version, the shortcode can still be typed out manually or added to a theme template file</p>
+<p>Regardless of WordPress version, the shortcode can still be typed out manually or added to a theme template file.</p>
 <h4>Attributes</h4>
 <ul>
     <li><strong>zip</strong>
