@@ -1,20 +1,25 @@
 === Plugin Name ===
+
 Contributors: laubsterboy
 Tags: National Weather Service, NWS, Storm Prediction Center, SPC, Alert, Weather, Storm, Severe, Tornado, Thunder, Flood
 Requires at least: 3.1
 Tested up to: 4.0
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easily add official National Weather Service alerts to your website.
+
+
+
 
 == Description ==
 
 The National Weather Service Alerts plugin allows you to easily display weather alerts, such as tornado warnings, 
 severe thunderstorm warnings, or flash flood warnings, on your website. The alerts are pulled directly from the
 National Weather Service (http://alerts.weather.gov) based on the location that you specify and are then parsed,
-sorted, and then output to your website using clean html5 markup. The alerts are then automatically updated using
-AJAX based on the severity of the alerts for the specified location. The location can be set by using zipcode, 
+sorted, and output to your website. The alerts are then automatically updated using
+AJAX, based on the severity of the alerts for the specified location. The location can be set by using zipcode, 
 city and state, or state and county. There is also the option to choose the scope of what alerts to include, 
 such as alerts only for your county, alerts only for your state, or alerts for the entire United States.
 
@@ -25,23 +30,37 @@ types, such as tornado warnings or flash flood warnings.
 plugin expects Atom feeds that use the Common Alerting Protocol (CAP) format so in theory any CAP feed could be
 used.*
 
+**Features**
+* Shortcode
+* Widget
+* Clean html5 markup
+* CSS classes that make it easy to override default styles
+* Developer API (filters)
+
+
+
+
+
 == Installation ==
 
 1. Go to Plugins > Add New in the admin area, and search for National Weather Service Alerts.
 1. Click install.
-1. Once installed, just activate and you're done.
+1. Once installed, activate and you're done.
 
 **Note that the first time the plugin is activated the database tables used for location searching are built and
-this process can take up to a minute to complete, so please be patient**
+this process can take up to a minute to complete, so please be patient. These tables are deleted from the database
+when the plugin is deactivatd and deleted from the WordPress admin Plugins area.**
 
 Once the plugin is installed and activated you can easily add weather alerts to your website by using the included
 NWS Alert widget or by using the [nws_alert] shortcode. The plugin adds a "National Weather Service Alerts" button
 to the WordPress editor that can be used to build properly formatted nws_alert shortcodes.
 
+
+
+
 == Frequently Asked Questions ==
 
 = I'm only seeing the following message: The specified location could not be found. Try specifying a county and state instead. =
-
 The plugin is letting your know that there was an error when attempting to retrieve additional location information
 about the specified location. Check for spelling errors in the city or county name. On rare occasion the locations
 database table may not include the specified city and is thus unable to retrieve additional information necessary
@@ -52,12 +71,32 @@ The plugin will show this message when it is unable to retrieve the Atom feed fr
 It is rare for this to happen and when it does it's generally because the Atom feed is temporarily unavailable. 
 Simply refreshing the page should fix the problem.
 
+
+
+
+== Screenshots ==
+
+1. *Full display example - with no Google map*
+
+
+
+
 == Changelog ==
+
+= 1.0.1 =
+* Improvement: Typos
+* Change: Updated readme
 
 = 1.0.0 =
 * Initial release of the National Weather Service Alerts plugin.
 
+
+
+
 == Upgrade Notice ==
+
+= 1.0.1 =
+* Updated reference.
 
 = 1.0.0 =
 * Initial release of the National Weather Service Alerts plugin.
