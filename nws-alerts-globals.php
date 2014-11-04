@@ -6,7 +6,7 @@
 global $wpdb, $tinymce_version;
 
 // NWS Alerts Version Information
-define('NWS_ALERTS_VERSION', '1.0.0');
+define('NWS_ALERTS_VERSION', '1.0.1');
 define('NWS_ALERTS_MIN_WP_VERSION', '3.1');
 define('NWS_ALERTS_MIN_PHP_VERSION', '5');
 if (intval(substr($tinymce_version, 0, 1)) === 4) {
