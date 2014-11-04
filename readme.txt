@@ -31,6 +31,7 @@ plugin expects Atom feeds that use the Common Alerting Protocol (CAP) format so 
 used.*
 
 **Features**
+
 * Shortcode
 * Widget
 * Clean html5 markup
