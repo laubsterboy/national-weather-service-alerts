@@ -50,11 +50,13 @@ used.*
 
 **Note that the first time the plugin is activated the database tables used for location searching are built and
 this process can take up to a minute to complete, so please be patient. These tables are deleted from the database
-when the plugin is deactivatd and deleted from the WordPress admin Plugins area.**
+when the plugin is deactivated, and then deleted, in the WordPress admin Plugins area.**
 
 Once the plugin is installed and activated you can easily add weather alerts to your website by using the included
-NWS Alert widget or by using the [nws_alert] shortcode. The plugin adds a "National Weather Service Alerts" button
+NWS Alerts widget or by using the [nws_alert] shortcode. The plugin adds a "National Weather Service Alerts" button
 to the WordPress editor that can be used to build properly formatted nws_alert shortcodes.
+
+For further documentation and developer reference check out the GitHub repository: https://github.com/laubsterboy/nws-alerts
 
 
 
@@ -78,6 +80,9 @@ Simply refreshing the page should fix the problem.
 == Screenshots ==
 
 1. *Full display example - with no Google map*
+1. *Full display example - with Google map*
+1. *Shortcode builder in the page/post editor*
+1. *Widget*
 
 
 
