@@ -103,6 +103,25 @@ class NWS_Alerts_Admin {
 
 
 
+    public static function add_settings_menu() {
+        add_submenu_page('options-general.php', 'National Weather Service Alerts', 'NWS Alerts', 'manage_options', 'nws-alerts', 'NWS_Alerts_Admin::add_settings_page');
+    }
+
+
+
+
+    public static function add_settings_page() {
+        echo '<div class="wrap">';
+        echo '<h2>National Weather Service Alerts</h2>';
+
+        echo self::get_module('alerts_bar');
+
+        echo '</div>';
+    }
+
+
+
+
     /**
     * admin_head_action
     *
@@ -181,22 +200,22 @@ class NWS_Alerts_Admin {
     * @access   public
     */
     public static function mce_markup() {
-        echo self::get_mce_modal('shortcodes');
+        echo self::get_modal('shortcode');
     }
 
 
 
 
     /**
-    * get_mce_modal
+    * get_modal
     *
     * The html markup for the NWS Alerts TinyMCE Plugin - Modals
     *
     * @return   void
     * @access   public
     */
-    public static function get_mce_modal($modal) {
-        if ($modal === 'shortcodes') {
+    public static function get_modal($modal) {
+        if ($modal === 'shortcode') {
             $return_value = '';
             $modal_id_prefix = 'nws-alerts';
             $control_id_prefix = $modal_id_prefix . '-' . $modal;
@@ -211,12 +230,12 @@ class NWS_Alerts_Admin {
                     $return_value .= '<table>';
                         $return_value .= '<tbody>';
 
-                            $return_value .= self::get_mce_control('zip', $control_id_prefix);
-                            $return_value .= self::get_mce_control('city', $control_id_prefix);
-                            $return_value .= self::get_mce_control('state', $control_id_prefix);
-                            $return_value .= self::get_mce_control('county', $control_id_prefix);
-                            $return_value .= self::get_mce_control('display', $control_id_prefix);
-                            $return_value .= self::get_mce_control('scope', $control_id_prefix);
+                            $return_value .= self::get_control('zip', $control_id_prefix);
+                            $return_value .= self::get_control('city', $control_id_prefix);
+                            $return_value .= self::get_control('state', $control_id_prefix);
+                            $return_value .= self::get_control('county', $control_id_prefix);
+                            $return_value .= self::get_control('display', $control_id_prefix);
+                            $return_value .= self::get_control('scope', $control_id_prefix);
 
 
                         $return_value .= '</tbody>';
@@ -242,14 +261,67 @@ class NWS_Alerts_Admin {
 
 
     /**
-    * get_mce_control
+    * get_module
     *
-    * The html markup for the NWS Alerts TinyMCE Plugin - Controls
+    * The html markup for the NWS Alerts Form Input - Module
     *
     * @return   void
     * @access   public
     */
-    public static function get_mce_control($control, $control_id_prefix) {
+    public static function get_module($module) {
+        if ($module === 'alerts_bar') {
+            $return_value = '';
+            $module_id_prefix = 'nws-alerts';
+            $control_id_prefix = $module_id_prefix . '-' . $module;
+
+            $return_value .= '<div class="metabox-holder"><div class="meta-box-sortables ui-sortable"><div class="postbox"><h3 class="hndle"><span>NWS Alerts Bar</span></h3>';
+            $return_value .= '<div class="inside">';
+                $return_value .= '<p class="description">Add the NWS Alerts bar to the top of your website. Displays nothing if there are no current alerts for the designated location.</p>';
+                $return_value .= '<form id="' . $control_id_prefix . '" tabindex="-1" method="post" action="">';
+
+                    $return_value .= '<div id="' . $control_id_prefix . '-errors" class="' . $module_id_prefix . '-errors"></div>';
+                    $return_value .= '<table>';
+                        $return_value .= '<tbody>';
+
+                            $return_value .= self::get_control('zip', $control_id_prefix);
+                            $return_value .= self::get_control('city', $control_id_prefix);
+                            $return_value .= self::get_control('state', $control_id_prefix);
+                            $return_value .= self::get_control('county', $control_id_prefix);
+                            $return_value .= self::get_control('display', $control_id_prefix);
+                            $return_value .= self::get_control('scope', $control_id_prefix);
+
+
+                        $return_value .= '</tbody>';
+                    $return_value .= '</table>';
+
+                    $return_value .= '<div class="submitbox ' . $module_id_prefix . '-submitbox">';
+                        $return_value .= '<div id="' . $control_id_prefix . '-update" class="' . $module_id_prefix . '-update">';
+                            $return_value .= '<input type="submit" value="Insert NWS Alerts Shortcode" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . $control_id_prefix . '-submit">';
+                        $return_value .= '</div>';
+                        $return_value .= '<div id="' . $control_id_prefix . '-cancel" class="' . $module_id_prefix . '-cancel">';
+                            $return_value .= '<a class="submitdelete deletion" href="#">Cancel</a>';
+                        $return_value .= '</div>';
+                    $return_value .= '</div>';
+                $return_value .= '</form>';
+            $return_value .= '</div>';
+            $return_value .= '</div>';
+        }
+
+        return $return_value;
+    }
+
+
+
+
+    /**
+    * get_control
+    *
+    * The html markup for the NWS Alerts TinyMCE Plugin and Admin page - Controls
+    *
+    * @return   void
+    * @access   public
+    */
+    public static function get_control($control, $control_id_prefix) {
     	$return_value = '';
 
         if ($control === 'zip') {

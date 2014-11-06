@@ -36,6 +36,9 @@ add_action('wp_enqueue_scripts', 'NWS_Alerts_Client::scripts_styles');
 if(is_admin()) add_action('wp_ajax_nopriv_nws_alerts_refresh', 'NWS_Alerts_Client::refresh');
 if(is_admin()) add_action('wp_ajax_nws_alerts_refresh', 'NWS_Alerts_Client::refresh');
 
+// Admin - WordPress Settings Page
+add_action('admin_menu', 'NWS_Alerts_Admin::add_settings_menu');
+
 // Admin - WordPress Editor Buttons - TinyMCE Plugins
 add_action('admin_head', 'NWS_Alerts_Admin::admin_head_action');
 add_action('admin_enqueue_scripts', 'NWS_Alerts_Admin::admin_enqueue_scripts_action');
