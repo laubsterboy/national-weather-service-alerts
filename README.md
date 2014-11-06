@@ -76,7 +76,7 @@
 <h3>Filters</h3>
 <strong>nws_alerts_allowed_alert_types</strong>
 <ul>
-    <li>Source File: <a href="https://github.com/laubsterboy/nws-alerts/national-weather-service-alerts/blob/master/classes/class-nws-alerts.php">classes/class-nws-alerts.php</a></li>
+    <li>Source File: <a href="https://github.com/laubsterboy/nws-alerts/blob/master/national-weather-service-alerts/classes/class-nws-alerts.php">classes/class-nws-alerts.php</a></li>
     <li>Parameters:
         <ul>
             <li>$allowed_alert_types
@@ -94,7 +94,7 @@
 </ul>
 <strong>nws_alerts_allowed_msg_types</strong>
 <ul>
-    <li>Source File: <a href="https://github.com/laubsterboy/nws-alerts/national-weather-service-alerts/blob/master/classes/class-nws-alerts.php">classes/class-nws-alerts.php</a></li>
+    <li>Source File: <a href="https://github.com/laubsterboy/nws-alerts/blob/master/national-weather-service-alerts/classes/class-nws-alerts.php">classes/class-nws-alerts.php</a></li>
     <li>Parameters:
         <ul>
             <li>$allowed_msg_types
@@ -112,7 +112,7 @@
 </ul>
 <strong>nws_alerts_allowed_status_types</strong>
 <ul>
-    <li>Source File: <a href="https://github.com/laubsterboy/nws-alerts/national-weather-service-alerts/blob/master/classes/class-nws-alerts.php">classes/class-nws-alerts.php</a></li>
+    <li>Source File: <a href="https://github.com/laubsterboy/nws-alerts/blob/master/national-weather-service-alerts/classes/class-nws-alerts.php">classes/class-nws-alerts.php</a></li>
     <li>Parameters:
         <ul>
             <li>$allowed_status_types
@@ -130,7 +130,7 @@
 </ul>
 <strong>nws_alerts_sort_alert_types</strong>
 <ul>
-    <li>Source File: <a href="https://github.com/laubsterboy/nws-alerts/national-weather-service-alerts/blob/master/classes/class-nws-alerts.php">classes/class-nws-alerts.php</a></li>
+    <li>Source File: <a href="https://github.com/laubsterboy/nws-alerts/blob/master/national-weather-service-alerts/classes/class-nws-alerts.php">classes/class-nws-alerts.php</a></li>
     <li>Parameters:
         <ul>
             <li>$alert_types
