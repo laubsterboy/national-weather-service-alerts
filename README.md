@@ -2,7 +2,7 @@
 <p>The official repository for the National Weather Service Alerts WordPress plugin.</p>
 <hr />
 <ul>
-    <li>Readme: <a href="https://github.com/laubsterboy/nws-alerts/national-weather-service-alerts/blob/master/readme.txt">https://github.com/laubsterboy/nws-alerts/blob/master/readme.txt</a></li>
+    <li>Readme: <a href="https://github.com/laubsterboy/nws-alerts/blob/master/national-weather-service-alerts/readme.txt">readme.txt</a></li>
     <li>WordPress Repository: <a href="https://wordpress.org/plugins/national-weather-service-alerts/">https://wordpress.org/plugins/national-weather-service-alerts/</a></a></li>
 </ul>
 <hr />
