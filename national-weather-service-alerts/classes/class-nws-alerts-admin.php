@@ -293,14 +293,8 @@ class NWS_Alerts_Admin {
                         $return_value .= '</tbody>';
                     $return_value .= '</table>';
 
-                    $return_value .= '<div class="submitbox ' . $module_id_prefix . '-submitbox">';
-                        $return_value .= '<div id="' . $control_id_prefix . '-update" class="' . $module_id_prefix . '-update">';
-                            $return_value .= '<input type="submit" value="Insert NWS Alerts Shortcode" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . $control_id_prefix . '-submit">';
-                        $return_value .= '</div>';
-                        $return_value .= '<div id="' . $control_id_prefix . '-cancel" class="' . $module_id_prefix . '-cancel">';
-                            $return_value .= '<a class="submitdelete deletion" href="#">Cancel</a>';
-                        $return_value .= '</div>';
-                    $return_value .= '</div>';
+                    $return_value .= '<input type="submit" value="Insert NWS Alerts Shortcode" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . $control_id_prefix . '-submit">';
+
                 $return_value .= '</form>';
             $return_value .= '</div>';
             $return_value .= '</div>';
