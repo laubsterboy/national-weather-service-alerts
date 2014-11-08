@@ -97,7 +97,7 @@ class NWS_Alerts_Client {
         return $buffer;
     }
 
-    public static function buffer_start() { ob_start("buffer_callback"); }
+    public static function buffer_start() { ob_start("NWS_Alerts_Client::buffer_callback"); }
 
     public static function buffer_end() { ob_end_flush(); }
 }
