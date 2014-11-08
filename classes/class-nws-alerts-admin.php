@@ -297,7 +297,7 @@ class NWS_Alerts_Admin {
 
                 $return_value .= '</form>'; 
             $return_value .= '</div>'; 
-            $return_value .= '</div>';
+            $return_value .= '</div>'; 
         }
 
         return $return_value;
