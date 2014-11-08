@@ -276,7 +276,7 @@ class NWS_Alerts_Admin {
 
             $return_value .= '<div class="metabox-holder"><div class="meta-box-sortables ui-sortable"><div class="postbox"><h3 class="hndle"><span>Alerts Bar</span></h3>';
             $return_value .= '<div class="inside">';
-                $return_value .= '<p class="description">If the alerts bar is enabled, current alerts for the specified location will be added immediately following the <body> tag using a horizontal bar display style. If there are no current alerts then the alerts bar will be added to allow for AJAX auto-refreshing, but nothing will display.</p>';
+                $return_value .= '<p class="description">If the alerts bar is enabled, current alerts for the specified location will be added immediately following the &lt;body&gr; tag using a horizontal bar display style. If there are no current alerts then the alerts bar will be added to allow for AJAX auto-refreshing, but nothing will display.</p>';
                 $return_value .= '<form id="' . $control_id_prefix . '" method="post" action="">';
 
                     $return_value .= '<table>';
