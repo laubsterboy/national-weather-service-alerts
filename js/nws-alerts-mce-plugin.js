@@ -213,10 +213,10 @@
                 title: 'National Weather Service Alerts Shortcode',
                 icon: true,
                 image: url + '/../images/nws-alerts-mce-icon.png',
-                onclick: function () { window.tinyMCE.activeEditor.execCommand('NWS_Alert_Shortcodes_Listener'); }
+                onclick: function () { window.tinyMCE.activeEditor.execCommand('NWS_Alerts_Shortcodes_Listener'); }
             });
 
-            editor.addCommand('NWS_Alert_Shortcodes_Listener', function () {
+            editor.addCommand('NWS_Alerts_Shortcodes_Listener', function () {
                 if (typeof nwsAlertsShortcodes !== 'undefined') {
                     nwsAlertsShortcodes.open(editor.id);
                 }
