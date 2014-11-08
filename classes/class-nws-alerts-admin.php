@@ -313,44 +313,48 @@ class NWS_Alerts_Admin {
     * @return   void
     * @access   public
     */
-    public static function get_control($control, $control_id_prefix) {
+    public static function get_control($control, $control_id_prefix, $default = false) {
     	$return_value = '';
 
         if ($control === 'alerts-bar') {
+            if ($default) { $default = ' checked="checked"'; } else { $default = ''; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>Enable alerts bar</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-checkbox-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="checkbox" />';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="checkbox"' . $default . ' />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
         } else if ($control === 'zip') {
+            if ($default) { $default = ' value="' . $default . '"'; } else { $default = ''; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>Zipcode</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-text-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text" size="5" maxlength="5" />';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text" size="5" maxlength="5"' . $default . ' />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
         } else if ($control === 'city') {
+            if ($default) { $default = ' value="' . $default . '"'; } else { $default = ''; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>City</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-text-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text" />';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text"' . $default . ' />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
         } else if ($control === 'state') {
+            if ($default === false) { $default = 'AL'; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>State</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
                         $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '">';
                             foreach (NWS_Alerts_Utils::get_states() as $state) {
-                                if ($state['abbrev'] === 'AL') {
+                                if ($state['abbrev'] === $default) {
                                     $return_value .= '<option value="' . $state['abbrev'] . '" selected="selected">' . $state['name'] . '</option>';
                                 } else {
                                     $return_value .= '<option value="' . $state['abbrev'] . '">' . $state['name'] . '</option>';
@@ -361,35 +365,38 @@ class NWS_Alerts_Admin {
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
         } else if ($control === 'county') {
+            if ($default) { $default = ' value="' . $default . '"'; } else { $default = ''; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>County</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-text-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text" />';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text"' . $default . ' />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
         } else if ($control === 'display') {
+            if ($default === false) { $default = NWS_ALERTS_DISPLAY_FULL; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>Display</h4><p class="howto">Full: Graphic, Scope, Location, and Alert Type for the most severe current alert, and mouse over for all other alerts (including Alert Descriptions and Google Map) within the scope of the designated location.</p><p class="howto">Basic: Graphic, Scope, Location, and Alert Type for the most severe current alert, but no mouse over details.</p></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
                         $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '">';
-                            $return_value .= '<option value="full" selected="selected">Full</option>';
-                            $return_value .= '<option value="basic">Basic</option>';
+                            $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_FULL . '"' . selected($default, NWS_ALERTS_DISPLAY_FULL, false) . '>Full</option>';
+                            $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_BASIC . '"' . selected($default, NWS_ALERTS_DISPLAY_BASIC, false) . '>Basic</option>';
                         $return_value .= '</select>';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
         } else if ($control === 'scope') {
+            if ($default === false) { $default = NWS_ALERTS_SCOPE_COUNTY; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>Scope</h4><p class="howto">Show alerts at only the selected county, state, or national level.</p></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
                         $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '">';
-                            $return_value .= '<option value="county" selected="selected">County</option>';
-                            $return_value .= '<option value="state">State</option>';
-                            $return_value .= '<option value="national">National</option>';
+                            $return_value .= '<option value="' . NWS_ALERTS_SCOPE_COUNTY . '"' . selected($default, NWS_ALERTS_SCOPE_COUNTY, false) . '>County</option>';
+                            $return_value .= '<option value="' . NWS_ALERTS_SCOPE_STATE . '"' . selected($default, NWS_ALERTS_SCOPE_STATE, false) . '>State</option>';
+                            $return_value .= '<option value="' . NWS_ALERTS_SCOPE_NATIONAL . '"' . selected($default, NWS_ALERTS_SCOPE_NATIONAL, false) . '>National</option>';
                         $return_value .= '</select>';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
