@@ -290,7 +290,7 @@ class NWS_Alerts_Admin {
                             $return_value .= self::get_control('display', $control_id_prefix);
                             $return_value .= self::get_control('scope', $control_id_prefix);
 
-                        $return_value .= '</tbody>';
+                        $return_value .= '</tbody>'; 
                     $return_value .= '</table>'; 
 
                     $return_value .= '<input type="submit" value="Insert NWS Alerts Shortcode" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . $control_id_prefix . '-submit">';
