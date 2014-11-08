@@ -46,4 +46,8 @@ add_action('admin_enqueue_scripts', 'NWS_Alerts_Admin::admin_enqueue_scripts_act
 // Admin/Client - WordPress Widget
 add_action('widgets_init', 'NWS_Alerts_Admin::register_widget');
 
+// Client - WordPress output buffer
+add_action('wp_head', 'NWS_Alerts_Client::buffer_start');
+add_action('wp_footer', 'NWS_Alerts_Client::buffer_end');
+
 ?>

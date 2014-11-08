@@ -56,7 +56,7 @@ Once the plugin is installed and activated you can easily add weather alerts to 
 NWS Alerts widget or by using the [nws_alert] shortcode. The plugin adds a "National Weather Service Alerts" button
 to the WordPress editor that can be used to build properly formatted nws_alert shortcodes.
 
-For further documentation and developer reference check out the GitHub repository: https://github.com/laubsterboy/nws-alerts
+For further documentation and developer reference check out the GitHub repository: https://github.com/laubsterboy/national-weather-service-alerts
 
 
 

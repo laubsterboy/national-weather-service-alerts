@@ -79,4 +79,25 @@ class NWS_Alerts_Client {
         wp_enqueue_script('nws-alerts-js', NWS_ALERTS_URL . 'js/nws-alerts.js', array('jquery'), null, true);
         wp_enqueue_script('google-map-api', 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather&sensor=false', false, null, false);
     }
+
+
+
+
+    /*
+    *
+    */
+    public static function buffer_callback($buffer) {
+        // modify buffer here, and then return the updated code
+        $nws_alerts_data = new NWS_Alerts(array('zip' => '90210', 'scope' => 'national'));
+
+        $body_tag_start_pos = stripos($buffer, '<body');
+        $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos);
+        $buffer = substr_replace($buffer, $nws_alerts_data->get_output_html(true), $body_tag_end_pos, 0);
+
+        return $buffer;
+    }
+
+    public static function buffer_start() { ob_start("buffer_callback"); }
+
+    public static function buffer_end() { ob_end_flush(); }
 }
