@@ -274,14 +274,14 @@ class NWS_Alerts_Admin {
             $module_id_prefix = 'nws-alerts';
             $control_id_prefix = $module_id_prefix . '-' . $module;
 
-            $return_value .= '<div class="metabox-holder"><div class="meta-box-sortables ui-sortable"><div class="postbox"><h3 class="hndle"><span>NWS Alerts Bar</span></h3>';
+            $return_value .= '<div class="metabox-holder"><div class="meta-box-sortables ui-sortable"><div class="postbox"><h3 class="hndle"><span>Alerts Bar</span></h3>';
             $return_value .= '<div class="inside">';
-                $return_value .= '<p class="description">Add the NWS Alerts bar to the top of your website. Displays nothing if there are no current alerts for the designated location.</p>';
-                $return_value .= '<form id="' . $control_id_prefix . '" tabindex="-1" method="post" action="">';
+                $return_value .= '<p class="description">If the alerts bar is enabled, current alerts for the specified location will be added immediately following the <body> tag using a horizontal bar display style. If there are no current alerts then the alerts bar will be added to allow for AJAX auto-refreshing, but nothing will display.</p>';
+                $return_value .= '<form id="' . $control_id_prefix . '" method="post" action="">';
 
-                    $return_value .= '<div id="' . $control_id_prefix . '-errors" class="' . $module_id_prefix . '-errors"></div>';
                     $return_value .= '<table>';
                         $return_value .= '<tbody>';
+
                             $return_value .= self::get_control('alerts-bar', $control_id_prefix);
                             $return_value .= self::get_control('zip', $control_id_prefix);
                             $return_value .= self::get_control('city', $control_id_prefix);
@@ -318,10 +318,10 @@ class NWS_Alerts_Admin {
 
         if ($control === 'alerts-bar') {
             $return_value .= '<tr>';
-				$return_value .= '<td><h4>Enable alerts bar</h4><p>If the alerts bar is enabled, current alerts for the specified location will be added immediately following the <body> tag. If there are no current alerts then the alerts bar will be added to allow for AJAX auto-refreshing, but nothing will display.</p></td>';
+				$return_value .= '<td><h4>Enable alerts bar</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-checkbox-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="checkbox" /> Enable alerts bar';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="checkbox" />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
