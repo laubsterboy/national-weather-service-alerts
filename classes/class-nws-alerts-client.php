@@ -91,7 +91,7 @@ class NWS_Alerts_Client {
         $nws_alerts_data = new NWS_Alerts(array('zip' => '90210', 'scope' => 'national'));
 
         $body_tag_start_pos = stripos($buffer, '<body');
-        $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos);
+        $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos) + 1;
         $buffer = substr_replace($buffer, $nws_alerts_data->get_output_html(true), $body_tag_end_pos, 0);
 
         return $buffer;
