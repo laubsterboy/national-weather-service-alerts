@@ -11,10 +11,11 @@
 (function ($) {
     "use strict";
 
-    var nwsAlertsShortcodes, controls = {}, editor, controlValues = {}, controlValuesDefaults;
+    var nwsAlertsShortcode, controls = {}, editor, controlValues = {}, controlValuesDefaults;
 
-    nwsAlertsShortcodes = {
+    nwsAlertsShortcode = {
         init: function () {
+            console.log('init');
             controlValues.zip = '';
             controlValues.city = '';
             controlValues.state = 'AL';
@@ -24,40 +25,40 @@
 
             controlValuesDefaults = $.extend({}, controlValues);
 
-			controls.backdrop = $('#nws-alerts-shortcodes-backdrop');
-			controls.wrap = $('#nws-alerts-shortcodes-wrap');
-			controls.dialog = $('#nws-alerts-shortcodes');
-            controls.errors = $('#nws-alerts-shortcodes-errors');
+			controls.backdrop = $('#nws-alerts-shortcode-backdrop');
+			controls.wrap = $('#nws-alerts-shortcode-wrap');
+			controls.dialog = $('#nws-alerts-shortcode');
+            controls.errors = $('#nws-alerts-shortcode-errors');
             controls.errors.hide();
-			controls.submit = $('#nws-alerts-shortcodes-submit');
-			controls.close = $('#nws-alerts-shortcodes-close');
+			controls.submit = $('#nws-alerts-shortcode-submit');
+			controls.close = $('#nws-alerts-shortcode-close');
 
 			// Bind event handlers
 			$('.nws-alerts-control-multi-container input').click(function (event) {
-				nwsAlertsShortcodes.controlListenerMulti(this);
+				nwsAlertsShortcode.controlListenerMulti(this);
 			});
 			$('.nws-alerts-control-boolean-container input').click(function (event) {
-				nwsAlertsShortcodes.controlListenerBoolean(this);
+				nwsAlertsShortcode.controlListenerBoolean(this);
 			});
 			$('.nws-alerts-control-select-container select').change(function (event) {
-				nwsAlertsShortcodes.controlListenerSelect(this);
+				nwsAlertsShortcode.controlListenerSelect(this);
 			});
 			$('.nws-alerts-control-text-container input').keyup(function (event) {
-				nwsAlertsShortcodes.controlListenerText(this);
+				nwsAlertsShortcode.controlListenerText(this);
 			});
 			controls.submit.click(function (event) {
 				event.preventDefault();
-				nwsAlertsShortcodes.update();
+				nwsAlertsShortcode.update();
 			});
-			controls.close.add(controls.backdrop).add('#nws-alerts-shortcodes-cancel a').click(function (event) {
+			controls.close.add(controls.backdrop).add('#nws-alerts-shortcode-cancel a').click(function (event) {
 				event.preventDefault();
-				nwsAlertsShortcodes.close();
+				nwsAlertsShortcode.close();
 			});
         },
         open: function (editorId) {
             var ed;
 
-			nwsAlertsShortcodes.range = null;
+			nwsAlertsShortcode.range = null;
 
 			if (editorId) {
 				window.wpActiveEditor = editorId;
@@ -134,7 +135,7 @@
                 controls.errors.show().text(errors);
             } else {
                 editor.execCommand('mceInsertContent', false, shortcode);
-                nwsAlertsShortcodes.close();
+                nwsAlertsShortcode.close();
             }
         },
         controlListenerMulti: function (checkbox) {
@@ -204,21 +205,20 @@
         }
     };
 
-    $(document).ready(nwsAlertsShortcodes.init);
+    $(document).ready(nwsAlertsShortcode.init);
 
     window.tinymce.create('tinymce.plugins.nws_alerts', {
         init: function (editor, url) {
-            editor.addButton('nws_alerts_shortcodes', {
-                //text: 'NWS Alert',
+            editor.addButton('nws_alerts_shortcode', {
                 title: 'National Weather Service Alerts Shortcode',
                 icon: true,
                 image: url + '/../images/nws-alerts-mce-icon.png',
-                onclick: function () { window.tinyMCE.activeEditor.execCommand('NWS_Alerts_Shortcodes_Listener'); }
+                onclick: function () { window.tinyMCE.activeEditor.execCommand('NWS_Alerts_Shortcode_Listener'); }
             });
 
-            editor.addCommand('NWS_Alerts_Shortcodes_Listener', function () {
-                if (typeof nwsAlertsShortcodes !== 'undefined') {
-                    nwsAlertsShortcodes.open(editor.id);
+            editor.addCommand('NWS_Alerts_Shortcode_Listener', function () {
+                if (typeof nwsAlertsShortcode !== 'undefined') {
+                    nwsAlertsShortcode.open(editor.id);
                 }
             });
         },
@@ -227,7 +227,7 @@
         },
         getInfo: function () {
             return {
-                longname : 'NWS Alert Plugin',
+                longname : 'NWS Alerts Plugin',
                 author : 'laubsterboy',
                 authorurl : 'http://laubsterboy.com',
                 infourl : 'http://laubsterboy.com',

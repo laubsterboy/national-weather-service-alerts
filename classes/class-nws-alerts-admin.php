@@ -183,7 +183,7 @@ class NWS_Alerts_Admin {
     * @return void
     */
     public static function mce_buttons_filter($buttons) {
-        array_push($buttons, 'nws_alerts_shortcodes');
+        array_push($buttons, 'nws_alerts_shortcode');
 
         return $buttons;
     }
