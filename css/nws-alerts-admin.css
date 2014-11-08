@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#nws-alerts-shortcodes-backdrop {
+#nws-alerts-shortcode-backdrop {
 	display:none;
 	position:fixed;
 	top:0;
@@ -13,7 +13,7 @@
 	filter:alpha(opacity=70);
 	z-index:100100;
 }
-#nws-alerts-shortcodes-wrap {
+#nws-alerts-shortcode-wrap {
 	display: none;
 	background-color:#f1f1f1;
 	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.3);
