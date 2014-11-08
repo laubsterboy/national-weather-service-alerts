@@ -295,7 +295,7 @@ class NWS_Alerts_Admin {
 
                     $return_value .= '<input type="submit" value="Insert NWS Alerts Shortcode" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . $control_id_prefix . '-submit">';
 
-                $return_value .= '</form>';
+                $return_value .= '</form>'; 
             $return_value .= '</div>';
             $return_value .= '</div>';
         }
