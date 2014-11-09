@@ -127,7 +127,7 @@ class NWS_Alerts_Admin {
         echo '<div class="wrap">';
         echo '<h2>National Weather Service Alerts</h2>';
 
-        echo self::get_module('alerts_bar');
+        echo self::get_module('alerts-bar');
 
         echo '</div>';
     }
@@ -282,7 +282,7 @@ class NWS_Alerts_Admin {
     * @access   public
     */
     public static function get_module($module) {
-        if ($module === 'alerts_bar') {
+        if ($module === 'alerts-bar') {
             $return_value = '';
             $module_id_prefix = 'nws-alerts';
             $control_id_prefix = $module_id_prefix . '-' . $module;
