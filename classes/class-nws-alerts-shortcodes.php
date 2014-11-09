@@ -22,11 +22,9 @@ class NWS_Alerts_Shortcodes {
 
         $nws_alerts_data = new NWS_Alerts(array('zip' => $zip, 'city' => $city, 'state' => $state, 'county' => $county, 'scope' => $scope));
 
-        if ($display == NWS_ALERTS_DISPLAY_BASIC) {
-            return $nws_alerts_data->get_output_html(false);
-        } else {
-            return $nws_alerts_data->get_output_html(true);
-        }
+
+        return $nws_alerts_data->get_output_html($display);
+
 
         unset($nws_alerts_data);
     }

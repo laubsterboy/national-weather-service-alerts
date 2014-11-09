@@ -464,8 +464,9 @@ class NWS_Alerts_Admin {
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
                         $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '">';
-                            $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_FULL . '"' . selected($default, NWS_ALERTS_DISPLAY_FULL, false) . '>Full</option>';
+                            $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_BAR . '"' . selected($default, NWS_ALERTS_DISPLAY_BAR, false) . '>Bar</option>';
                             $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_BASIC . '"' . selected($default, NWS_ALERTS_DISPLAY_BASIC, false) . '>Basic</option>';
+                            $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_FULL . '"' . selected($default, NWS_ALERTS_DISPLAY_FULL, false) . '>Full</option>';
                         $return_value .= '</select>';
 					$return_value .= '</div>';
 				$return_value .= '</td>';

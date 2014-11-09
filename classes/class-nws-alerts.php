@@ -591,12 +591,12 @@ class NWS_Alerts {
     * @param NWS_Alerts $nws_alerts a full populated NWS_Alerts object
     * @return string
     */
-    public function get_output_html($show_entries = true) {
+    public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL) {
         $return_value = '';
 
-        $return_value .= '<article class="nws-alerts" data-zip="' . $this->zip . '" data-display="' . $show_entries . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
+        $return_value .= '<article class="nws-alerts nws-alerts-' . $display . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
         $return_value .= $this->get_output_heading();
-        if ($show_entries) {
+        if ($display === NWS_ALERTS_DISPLAY_FULL) {
             $return_value .= '<section class="nws-alerts-details">';
             $return_value .= $this->get_output_entries();
             $return_value .= $this->get_output_google_map();

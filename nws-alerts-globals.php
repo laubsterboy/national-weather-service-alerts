@@ -37,8 +37,9 @@ define('NWS_ALERTS_SCOPE_STATE', 'state');
 define('NWS_ALERTS_SCOPE_NATIONAL', 'national');
 
 // Display
-define('NWS_ALERTS_DISPLAY_FULL', 'full');
+define('NWS_ALERTS_DISPLAY_BAR', 'bar');
 define('NWS_ALERTS_DISPLAY_BASIC', 'basic');
+define('NWS_ALERTS_DISPLAY_FULL', 'full');
 
 // NWS Alerts Error messages
 define('NWS_ALERTS_ERROR_NO_ACTIVATION', 'The <strong>National Weather Service Alerts</strong> plugin requires WordPress version ' . NWS_ALERTS_MIN_WP_VERSION . ' or greater and PHP version ' . NWS_ALERTS_MIN_PHP_VERSION . ' or greater. Please update WordPress before activating the plugin.');
