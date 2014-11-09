@@ -115,7 +115,7 @@ class NWS_Alerts_Admin {
             if (isset($_POST['nws_alerts_alerts_bar_action']) && $_POST['nws_alerts_alerts_bar_action'] === 'update' && check_admin_referer('update', 'nws_alerts_alerts_bar_nonce')) {
 
                 $key = 'nws_alerts_alerts_bar_enabled';
-                if (isset($_POST[$key]) && $_POST[$key] === 'on') {
+                if (isset($_POST[$key]) && $_POST[$key] == 'on') {
                     update_option($key, 1);
                 } else {
                     update_option($key, 0);
