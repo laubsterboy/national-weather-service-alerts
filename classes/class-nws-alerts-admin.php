@@ -112,21 +112,22 @@ class NWS_Alerts_Admin {
 
     public static function add_settings_page() {
         if (!empty($_POST)) {
-            if (isset($_POST['nws-alerts-alerts-bar-action']) && $_POST['nws-alerts-alerts-bar-action'] === 'update' && check_admin_referer('update', 'nws-alerts-alerts-bar-nonce')) {
+            if (isset($_POST['nws_alerts_alerts_bar_action']) && $_POST['nws_alerts_alerts_bar_action'] === 'update' && check_admin_referer('update', 'nws_alerts_alerts_bar_nonce')) {
 
-                //nws-alerts-alerts-bar-alerts-bar
-                //nws-alerts-alerts-bar-zip
-                //nws-alerts-alerts-bar-city
-                //nws-alerts-alerts-bar-state
-                //nws-alerts-alerts-bar-county
-                //nws-alerts-alerts-bar-scope
+                if (isset($_POST['nws_alerts_alerts_bar_enabled'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_enabled'];
+
+                if (isset($_POST['nws_alerts_alerts_bar_zip'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_zip'];
+                if (isset($_POST['nws_alerts_alerts_bar_city'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_city'];
+                if (isset($_POST['nws_alerts_alerts_bar_state'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_state'];
+                if (isset($_POST['nws_alerts_alerts_bar_county'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_county'];
+                if (isset($_POST['nws_alerts_alerts_bar_scope'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_scope'];
             }
         }
 
         echo '<div class="wrap">';
         echo '<h2>National Weather Service Alerts</h2>';
 
-        echo self::get_module('alerts-bar');
+        echo self::get_module('alerts_bar');
 
         echo '</div>';
     }
@@ -281,7 +282,7 @@ class NWS_Alerts_Admin {
     * @access   public
     */
     public static function get_module($module) {
-        if ($module === 'alerts-bar') {
+        if ($module === 'alerts_bar') {
             $return_value = '';
             $module_id_prefix = 'nws-alerts';
             $control_id_prefix = $module_id_prefix . '-' . $module;
@@ -297,7 +298,7 @@ class NWS_Alerts_Admin {
                     $return_value .= '<table>';
                         $return_value .= '<tbody>';
 
-                            $return_value .= self::get_control('alerts-bar', $control_id_prefix);
+                            $return_value .= self::get_control('alerts_bar', $control_id_prefix);
                             $return_value .= self::get_control('nonce', $control_id_prefix);
                             $return_value .= self::get_control('zip', $control_id_prefix);
                             $return_value .= self::get_control('city', $control_id_prefix);
@@ -308,7 +309,7 @@ class NWS_Alerts_Admin {
                         $return_value .= '</tbody>'; 
                     $return_value .= '</table>';  
 
-                    $return_value .= '<input type="submit" value="Save Changes" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . $control_id_prefix . '-submit">';
+                    $return_value .= '<input type="submit" value="Save Changes" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . str_replace('-', '_', $control_id_prefix) . '-submit">';
 
                 $return_value .= '</form>'; 
             $return_value .= '</div>'; 
@@ -334,17 +335,17 @@ class NWS_Alerts_Admin {
 
         if ($control === 'action') {
             if ($default) { $default = ' value="' . $default . '"'; } else { $default = ' value="update"'; }
-            $return_value .= '<input id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="hidden"' . $default . ' />';
+            $return_value .= '<input id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="hidden"' . $default . ' />';
         } else if ($control === 'nonce') {
             if ($default === false) { $default = 'update'; }
             $return_value .= wp_nonce_field($default, $control_id_prefix . '-' . $control, true, false);
-        } else if ($control === 'alerts-bar') {
+        } else if ($control === 'enabled') {
             if ($default) { $default = ' checked="checked"'; } else { $default = ''; }
             $return_value .= '<tr>';
-				$return_value .= '<td><h4>Enable alerts bar</h4></td>';
+				$return_value .= '<td><h4>Enable</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-checkbox-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="checkbox"' . $default . ' />';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="checkbox"' . $default . ' />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
@@ -354,7 +355,7 @@ class NWS_Alerts_Admin {
 				$return_value .= '<td><h4>Zipcode</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-text-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text" size="5" maxlength="5"' . $default . ' />';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="text" size="5" maxlength="5"' . $default . ' />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
@@ -364,7 +365,7 @@ class NWS_Alerts_Admin {
 				$return_value .= '<td><h4>City</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-text-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text"' . $default . ' />';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="text"' . $default . ' />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
@@ -374,7 +375,7 @@ class NWS_Alerts_Admin {
 				$return_value .= '<td><h4>State</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
-                        $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '">';
+                        $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '">';
                             foreach (NWS_Alerts_Utils::get_states() as $state) {
                                 if ($state['abbrev'] === $default) {
                                     $return_value .= '<option value="' . $state['abbrev'] . '" selected="selected">' . $state['name'] . '</option>';
@@ -392,7 +393,7 @@ class NWS_Alerts_Admin {
 				$return_value .= '<td><h4>County</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-text-container">';
-				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="text"' . $default . ' />';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="text"' . $default . ' />';
 					$return_value .= '</div>';
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
@@ -402,7 +403,7 @@ class NWS_Alerts_Admin {
 				$return_value .= '<td><h4>Display</h4><p class="howto">Full: Graphic, Scope, Location, and Alert Type for the most severe current alert, and mouse over for all other alerts (including Alert Descriptions and Google Map) within the scope of the designated location.</p><p class="howto">Basic: Graphic, Scope, Location, and Alert Type for the most severe current alert, but no mouse over details.</p></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
-                        $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '">';
+                        $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '">';
                             $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_FULL . '"' . selected($default, NWS_ALERTS_DISPLAY_FULL, false) . '>Full</option>';
                             $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_BASIC . '"' . selected($default, NWS_ALERTS_DISPLAY_BASIC, false) . '>Basic</option>';
                         $return_value .= '</select>';
@@ -415,7 +416,7 @@ class NWS_Alerts_Admin {
 				$return_value .= '<td><h4>Scope</h4><p class="howto">Show alerts at only the selected county, state, or national level.</p></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
-                        $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '">';
+                        $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '">';
                             $return_value .= '<option value="' . NWS_ALERTS_SCOPE_COUNTY . '"' . selected($default, NWS_ALERTS_SCOPE_COUNTY, false) . '>County</option>';
                             $return_value .= '<option value="' . NWS_ALERTS_SCOPE_STATE . '"' . selected($default, NWS_ALERTS_SCOPE_STATE, false) . '>State</option>';
                             $return_value .= '<option value="' . NWS_ALERTS_SCOPE_NATIONAL . '"' . selected($default, NWS_ALERTS_SCOPE_NATIONAL, false) . '>National</option>';
