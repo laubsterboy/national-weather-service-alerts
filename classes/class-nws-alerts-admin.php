@@ -116,6 +116,7 @@ class NWS_Alerts_Admin {
 
                 $key = 'nws_alerts_alerts_bar_enabled';
                 if (isset($_POST[$key])) {
+                    echo '<h1>enabled: ran</h1>';
                     if ($_POST[$key] === 'on') {
                         echo '<h1>enabled</h1>';
                         update_option($key, 1);
