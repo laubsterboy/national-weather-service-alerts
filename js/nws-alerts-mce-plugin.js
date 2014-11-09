@@ -18,7 +18,7 @@
             console.log('init');
             controlValues.zip = '';
             controlValues.city = '';
-            controlValues.state = 'AL';
+            controlValues.state = '';
             controlValues.county = '';
             controlValues.display = 'full';
             controlValues.scope = 'county';
