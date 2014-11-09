@@ -298,7 +298,7 @@ class NWS_Alerts_Admin {
                     $return_value .= '<table>';
                         $return_value .= '<tbody>';
 
-                            $return_value .= self::get_control('alerts_bar', $control_id_prefix);
+                            $return_value .= self::get_control('enabled', $control_id_prefix);
                             $return_value .= self::get_control('nonce', $control_id_prefix);
                             $return_value .= self::get_control('zip', $control_id_prefix);
                             $return_value .= self::get_control('city', $control_id_prefix);
