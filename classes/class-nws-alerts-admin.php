@@ -160,9 +160,9 @@ class NWS_Alerts_Admin {
                 $key = $prefix . $control;
                 $allow_enabled = false;
 
-                if (isset($controls['zip'])) $allow_enabled = true;
-                if (isset($controls['city']) && isset($controls['state'])) $allow_enabled = true;
-                if (isset($controls['state']) && isset($controls['county'])) $allow_enabled = true;
+                if (isset($controls['zip']) && !empty($controls['zip'])) $allow_enabled = true;
+                if (isset($controls['city']) && !empty($controls['city']) && isset($controls['state']) && !empty($controls['state'])) $allow_enabled = true;
+                if (isset($controls['state']) && !empty($controls['state']) && isset($controls['county']) && !empty($controls['county'])) $allow_enabled = true;
 
                 if ($allow_enabled && isset($_POST[$key]) && $_POST[$key] == 'on') {
                     update_option($key, 1);
