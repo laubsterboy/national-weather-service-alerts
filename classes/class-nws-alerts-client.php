@@ -97,7 +97,13 @@ class NWS_Alerts_Client {
         return $buffer;
     }
 
-    public static function buffer_start() { ob_start("NWS_Alerts_Client::buffer_callback"); }
+    public static function buffer_start() {
+        // check if admin bar is enabled
+        ob_start("NWS_Alerts_Client::buffer_callback");
+    }
 
-    public static function buffer_end() { ob_end_flush(); }
+    public static function buffer_end() {
+        // check if admin bar is enabled
+        ob_end_flush();
+    }
 }

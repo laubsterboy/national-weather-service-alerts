@@ -111,6 +111,18 @@ class NWS_Alerts_Admin {
 
 
     public static function add_settings_page() {
+        if (!empty($_POST)) {
+            if (isset($_POST['nws-alerts-alerts-bar-action']) && $_POST['nws-alerts-alerts-bar-action'] === 'update' && check_admin_referer('update', 'nws-alerts-alerts-bar-nonce')) {
+
+                //nws-alerts-alerts-bar-alerts-bar
+                //nws-alerts-alerts-bar-zip
+                //nws-alerts-alerts-bar-city
+                //nws-alerts-alerts-bar-state
+                //nws-alerts-alerts-bar-county
+                //nws-alerts-alerts-bar-scope
+            }
+        }
+
         echo '<div class="wrap">';
         echo '<h2>National Weather Service Alerts</h2>';
 
@@ -279,10 +291,14 @@ class NWS_Alerts_Admin {
                 $return_value .= '<p class="description">If the alerts bar is enabled, current alerts for the specified location will be added immediately following the &lt;body&gt; tag using a horizontal bar display style. If there are no current alerts then the alerts bar will be added to allow for AJAX auto-refreshing, but nothing will display.</p>';
                 $return_value .= '<form id="' . $control_id_prefix . '" method="post" action="">';
 
+                    $return_value .= self::get_control('action', $control_id_prefix);
+                    $return_value .= self::get_control('nonce', $control_id_prefix);
+
                     $return_value .= '<table>';
                         $return_value .= '<tbody>';
 
                             $return_value .= self::get_control('alerts-bar', $control_id_prefix);
+                            $return_value .= self::get_control('nonce', $control_id_prefix);
                             $return_value .= self::get_control('zip', $control_id_prefix);
                             $return_value .= self::get_control('city', $control_id_prefix);
                             $return_value .= self::get_control('state', $control_id_prefix);
@@ -316,7 +332,13 @@ class NWS_Alerts_Admin {
     public static function get_control($control, $control_id_prefix, $default = false) {
     	$return_value = '';
 
-        if ($control === 'alerts-bar') {
+        if ($control === 'action') {
+            if ($default) { $default = ' value="' . $default . '"'; } else { $default = ' value="update"'; }
+            $return_value .= '<input id="' . $control_id_prefix . '-' . $control . '" name="' . $control_id_prefix . '-' . $control . '" type="hidden"' . $default . ' />';
+        } else if ($control === 'nonce') {
+            if ($default === false) { $default = 'update'; }
+            $return_value .= wp_nonce_field($default, $control_id_prefix . '-' . $control, true, false);
+        } else if ($control === 'alerts-bar') {
             if ($default) { $default = ' checked="checked"'; } else { $default = ''; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>Enable alerts bar</h4></td>';
