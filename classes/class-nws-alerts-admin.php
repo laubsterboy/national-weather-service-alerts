@@ -117,15 +117,9 @@ class NWS_Alerts_Admin {
             if (isset($_POST['nws_alerts_alerts_bar_action']) && $_POST['nws_alerts_alerts_bar_action'] === 'update' && check_admin_referer('update', 'nws_alerts_alerts_bar_nonce')) {
                 $prefix = 'nws_alerts_alerts_bar_';
 
-                $control = 'enabled';
+                $control = 'error';
                 $key = $prefix . $control;
-                if (isset($_POST[$key]) && $_POST[$key] == 'on') {
-                    update_option($key, 1);
-                    $controls[$control] = true;
-                } else {
-                    update_option($key, 0);
-                    $controls[$control] = false;
-                }
+                $controls[$control] = false;
 
                 $control = 'zip';
                 $key = $prefix . $control;
@@ -160,6 +154,25 @@ class NWS_Alerts_Admin {
                 if (isset($_POST[$key])) {
                     update_option($key, $_POST[$key]);
                     $controls[$control] = $_POST[$key];
+                }
+
+                $control = 'enabled';
+                $key = $prefix . $control;
+                $allow_enabled = false;
+
+                if (NWS_ALERTS_BAR_ZIP !== null || isset($controls['zip'])) $allow_enabled = true;
+                if ((NWS_ALERTS_BAR_CITY !== null || isset($controls['city'])) && (NWS_ALERTS_BAR_STATE !== null || isset($controls['state']))) $allow_enabled = true;
+                if ((NWS_ALERTS_BAR_STATE !== null || isset($controls['state'])) && (NWS_ALERTS_BAR_COUNTY !== null || isset($controls['county']))) $allow_enabled = true;
+                if ($allow_enabled && isset($_POST[$key]) && $_POST[$key] == 'on') {
+                    update_option($key, 1);
+                    $controls[$control] = true;
+                } else {
+                    if (isset($_POST[$key]) && $_POST[$key] == 'on') {
+                        $controls['error'] = 'Not enough location information was provided to enable the alerts bar';
+                    }
+
+                    update_option($key, 0);
+                    $controls[$control] = false;
                 }
             }
         }
@@ -323,7 +336,8 @@ class NWS_Alerts_Admin {
     */
     public static function get_module($module, $controls) {
         if ($module === 'alerts-bar') {
-            $defaults = array('enabled' => NWS_ALERTS_BAR_ENABLED,
+            $defaults = array('error' => false,
+                              'enabled' => NWS_ALERTS_BAR_ENABLED,
                               'zip' => false,
                               'city' => false,
                               'state' => false,
@@ -382,6 +396,11 @@ class NWS_Alerts_Admin {
         } else if ($control === 'nonce') {
             if ($default === false) { $default = 'update'; }
             $return_value .= wp_nonce_field($default, str_replace('-', '_', $control_id_prefix . '_' . $control), true, false);
+        } else if ($control === 'error') {
+            if ($default === false) return;
+            $return_value .= '<tr>';
+				$return_value .= '<td><h4>' . $default . '</h4></td>';
+			$return_value .= '</tr>';
         } else if ($control === 'enabled') {
             if ($default) { $default = ' checked="checked"'; } else { $default = ''; }
             $return_value .= '<tr>';
