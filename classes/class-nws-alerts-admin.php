@@ -111,39 +111,55 @@ class NWS_Alerts_Admin {
 
 
     public static function add_settings_page() {
+        $controls = array();
+
         if (!empty($_POST)) {
             if (isset($_POST['nws_alerts_alerts_bar_action']) && $_POST['nws_alerts_alerts_bar_action'] === 'update' && check_admin_referer('update', 'nws_alerts_alerts_bar_nonce')) {
+                $prefix = 'nws_alerts_alerts_bar_';
 
-                $key = 'nws_alerts_alerts_bar_enabled';
+                $control = 'enabled';
+                $key = $prefix . $control;
                 if (isset($_POST[$key]) && $_POST[$key] == 'on') {
                     update_option($key, 1);
+                    $controls[$control] = true;
                 } else {
                     update_option($key, 0);
+                    $controls[$control] = false;
                 }
 
-                $key = 'nws_alerts_alerts_bar_zip';
+                $control = 'zip';
+                $key = $prefix . $control;
                 if (isset($_POST[$key])) {
-
+                    update_option($key, $_POST[$key]);
+                    $controls[$control] = $_POST[$key];
                 }
 
-                $key = 'nws_alerts_alerts_bar_city';
+                $control = 'city';
+                $key = $prefix . $control;
                 if (isset($_POST[$key])) {
-
+                    update_option($key, $_POST[$key]);
+                    $controls[$control] = $_POST[$key];
                 }
 
-                $key = 'nws_alerts_alerts_bar_state';
+                $control = 'state';
+                $key = $prefix . $control;
                 if (isset($_POST[$key])) {
-
+                    update_option($key, $_POST[$key]);
+                    $controls[$control] = $_POST[$key];
                 }
 
-                $key = 'nws_alerts_alerts_bar_county';
+                $control = 'county';
+                $key = $prefix . $control;
                 if (isset($_POST[$key])) {
-
+                    update_option($key, $_POST[$key]);
+                    $controls[$control] = $_POST[$key];
                 }
 
-                $key = 'nws_alerts_alerts_bar_scope';
+                $control = 'scope';
+                $key = $prefix . $control;
                 if (isset($_POST[$key])) {
-
+                    update_option($key, $_POST[$key]);
+                    $controls[$control] = $_POST[$key];
                 }
             }
         }
@@ -151,7 +167,7 @@ class NWS_Alerts_Admin {
         echo '<div class="wrap">';
         echo '<h2>National Weather Service Alerts</h2>';
 
-        echo self::get_module('alerts-bar');
+        echo self::get_module('alerts-bar', $controls);
 
         echo '</div>';
     }
@@ -305,8 +321,15 @@ class NWS_Alerts_Admin {
     * @return   void
     * @access   public
     */
-    public static function get_module($module) {
+    public static function get_module($module, $controls) {
         if ($module === 'alerts-bar') {
+            $defaults = array('enabled' => NWS_ALERTS_BAR_ENABLED,
+                              'zip' => false,
+                              'city' => false,
+                              'state' => false,
+                              'county' => false,
+                              'scope' => false);
+            $controls = wp_parse_args($controls, $defaults);
             $return_value = '';
             $module_id_prefix = 'nws-alerts';
             $control_id_prefix = $module_id_prefix . '-' . $module;
@@ -322,12 +345,9 @@ class NWS_Alerts_Admin {
                     $return_value .= '<table>';
                         $return_value .= '<tbody>';
 
-                            $return_value .= self::get_control('enabled', $control_id_prefix, get_option(str_replace('-', '_', $control_id_prefix . '_enabled')));
-                            $return_value .= self::get_control('zip', $control_id_prefix);
-                            $return_value .= self::get_control('city', $control_id_prefix);
-                            $return_value .= self::get_control('state', $control_id_prefix);
-                            $return_value .= self::get_control('county', $control_id_prefix);
-                            $return_value .= self::get_control('scope', $control_id_prefix);
+                            foreach($controls as $control => $default) {
+                                $return_value .= self::get_control($control, $control_id_prefix, $default);
+                            }
 
                         $return_value .= '</tbody>'; 
                     $return_value .= '</table>';  

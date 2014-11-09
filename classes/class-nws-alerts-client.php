@@ -88,7 +88,11 @@ class NWS_Alerts_Client {
     */
     public static function buffer_callback($buffer) {
         // modify buffer here, and then return the updated code
-        $nws_alerts_data = new NWS_Alerts(array('zip' => '90210', 'scope' => 'national'));
+        $nws_alerts_data = new NWS_Alerts(array('zip' => NWS_ALERTS_BAR_ZIP,
+                                                'city' => NWS_ALERTS_BAR_CITY,
+                                                'state' => NWS_ALERTS_BAR_STATE,
+                                                'county' => NWS_ALERTS_BAR_COUNTY,
+                                                'scope' => NWS_ALERTS_BAR_SCOPE));
 
         $body_tag_start_pos = stripos($buffer, '<body');
         $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos) + 1;
