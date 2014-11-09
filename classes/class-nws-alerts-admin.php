@@ -169,7 +169,7 @@ class NWS_Alerts_Admin {
                     $controls[$control] = true;
                 } else {
                     if (isset($_POST[$key]) && $_POST[$key] == 'on') {
-                        $controls['error'] = 'Not enough location information was provided to enable the alerts bar';
+                        $controls['error'] = 'Not enough location information was provided to enable the Alerts Bar';
                     }
 
                     update_option($key, 0);
