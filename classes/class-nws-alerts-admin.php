@@ -114,13 +114,39 @@ class NWS_Alerts_Admin {
         if (!empty($_POST)) {
             if (isset($_POST['nws_alerts_alerts_bar_action']) && $_POST['nws_alerts_alerts_bar_action'] === 'update' && check_admin_referer('update', 'nws_alerts_alerts_bar_nonce')) {
 
-                if (isset($_POST['nws_alerts_alerts_bar_enabled'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_enabled'];
+                $key = 'nws_alerts_alerts_bar_enabled';
+                if (isset($_POST[$key])) {
+                    if ($_POST[$key] === 'on') {
+                        update_option($key, 1);
+                    } else {
+                        update_option($key, 0);
+                    }
+                }
 
-                if (isset($_POST['nws_alerts_alerts_bar_zip'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_zip'];
-                if (isset($_POST['nws_alerts_alerts_bar_city'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_city'];
-                if (isset($_POST['nws_alerts_alerts_bar_state'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_state'];
-                if (isset($_POST['nws_alerts_alerts_bar_county'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_county'];
-                if (isset($_POST['nws_alerts_alerts_bar_scope'])) echo 'enabled: ' . $_POST['nws_alerts_alerts_bar_scope'];
+                $key = 'nws_alerts_alerts_bar_zip';
+                if (isset($_POST[$key])) {
+
+                }
+
+                $key = 'nws_alerts_alerts_bar_city';
+                if (isset($_POST[$key])) {
+
+                }
+
+                $key = 'nws_alerts_alerts_bar_state';
+                if (isset($_POST[$key])) {
+
+                }
+
+                $key = 'nws_alerts_alerts_bar_county';
+                if (isset($_POST[$key])) {
+
+                }
+
+                $key = 'nws_alerts_alerts_bar_scope';
+                if (isset($_POST[$key])) {
+
+                }
             }
         }
 

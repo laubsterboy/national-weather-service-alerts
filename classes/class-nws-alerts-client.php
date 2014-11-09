@@ -98,12 +98,14 @@ class NWS_Alerts_Client {
     }
 
     public static function buffer_start() {
-        // check if admin bar is enabled
-        ob_start("NWS_Alerts_Client::buffer_callback");
+        if (NWS_ALERTS_BAR_ENABLED) {
+            ob_start("NWS_Alerts_Client::buffer_callback");
+        }
     }
 
     public static function buffer_end() {
-        // check if admin bar is enabled
-        ob_end_flush();
+        if (NWS_ALERTS_BAR_ENABLED) {
+            ob_end_flush();
+        }
     }
 }
