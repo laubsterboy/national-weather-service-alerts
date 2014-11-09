@@ -337,7 +337,7 @@ class NWS_Alerts_Admin {
             $return_value .= '<input id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="hidden"' . $default . ' />';
         } else if ($control === 'nonce') {
             if ($default === false) { $default = 'update'; }
-            $return_value .= wp_nonce_field($default, $control_id_prefix . '-' . $control, true, false);
+            $return_value .= wp_nonce_field($default, str_replace('-', '_', $control_id_prefix . '_' . $control), true, false);
         } else if ($control === 'enabled') {
             if ($default) { $default = ' checked="checked"'; } else { $default = ''; }
             $return_value .= '<tr>';
