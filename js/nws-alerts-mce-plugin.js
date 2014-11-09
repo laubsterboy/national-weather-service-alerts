@@ -18,7 +18,7 @@
             console.log('init');
             controlValues.zip = '';
             controlValues.city = '';
-            controlValues.state = ' ';
+            controlValues.state = '';
             controlValues.county = '';
             controlValues.display = 'full';
             controlValues.scope = 'county';
@@ -109,13 +109,13 @@
             shortcode += ']';
 
             // validate input
-            if (controlValues.state === controlValuesDefaults.state && controlValues.county === controlValuesDefaults.county && match === false) {
+            if ((controlValues.state === controlValuesDefaults.state || controlValues.county === controlValuesDefaults.county) && match === false) {
                 errors = "Please enter a state and county";
             } else {
                 match = true;
                 errors = false;
             }
-            if (controlValues.city === controlValuesDefaults.city && controlValues.state === controlValuesDefaults.state && match === false) {
+            if ((controlValues.city === controlValuesDefaults.city || controlValues.state === controlValuesDefaults.state) && match === false) {
                 errors = "Please enter a city and state";
             } else {
                 match = true;

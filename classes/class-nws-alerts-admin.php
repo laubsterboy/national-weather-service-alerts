@@ -433,13 +433,13 @@ class NWS_Alerts_Admin {
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
         } else if ($control === 'state') {
-            if ($default === false) { $default = ' '; }
+            if ($default === false) { $default = ''; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>State</h4></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
                         $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '">';
-                            $return_value .= '<option value=" "' . selected($default, ' ', false) . '></option>';
+                            $return_value .= '<option value=""' . selected($default, '', false) . '></option>';
                             foreach (NWS_Alerts_Utils::get_states() as $state) {
                                 $return_value .= '<option value="' . $state['abbrev'] . '"' . selected($default, $state['abbrev'], false) . '>' . $state['name'] . '</option>';
                             }
