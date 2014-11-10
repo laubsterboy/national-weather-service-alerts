@@ -87,27 +87,29 @@ class NWS_Alerts_Client {
     *
     */
     public static function buffer_callback($buffer) {
-        $nws_alerts_data = new NWS_Alerts(array('zip' => NWS_ALERTS_BAR_ZIP,
-                                                'city' => NWS_ALERTS_BAR_CITY,
-                                                'state' => NWS_ALERTS_BAR_STATE,
-                                                'county' => NWS_ALERTS_BAR_COUNTY,
-                                                'scope' => NWS_ALERTS_BAR_SCOPE));
+        if (NWS_ALERTS_BODY_CLASS_SUPPORT) {
+            $nws_alerts_data = new NWS_Alerts(array('zip' => NWS_ALERTS_BAR_ZIP,
+                                                    'city' => NWS_ALERTS_BAR_CITY,
+                                                    'state' => NWS_ALERTS_BAR_STATE,
+                                                    'county' => NWS_ALERTS_BAR_COUNTY,
+                                                    'scope' => NWS_ALERTS_BAR_SCOPE));
 
-        $body_tag_start_pos = stripos($buffer, '<body');
-        $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos) + 1;
-        $buffer = substr_replace($buffer, $nws_alerts_data->get_output_html(NWS_ALERTS_DISPLAY_BAR), $body_tag_end_pos, 0);
+            $body_tag_start_pos = stripos($buffer, '<body');
+            $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos) + 1;
+            $buffer = substr_replace($buffer, $nws_alerts_data->get_output_html(NWS_ALERTS_DISPLAY_BAR), $body_tag_end_pos, 0);
+        }
 
         return $buffer;
     }
 
     public static function buffer_start() {
-        if (NWS_ALERTS_BAR_ENABLED && NWS_ALERTS_BODY_CLASS_SUPPORT) {
+        if (NWS_ALERTS_BAR_ENABLED) {
             ob_start("NWS_Alerts_Client::buffer_callback");
         }
     }
 
     public static function buffer_end() {
-        if (NWS_ALERTS_BAR_ENABLED && NWS_ALERTS_BODY_CLASS_SUPPORT) {
+        if (NWS_ALERTS_BAR_ENABLED) {
             ob_end_flush();
         }
     }
