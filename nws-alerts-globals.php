@@ -21,11 +21,11 @@ define('NWS_ALERTS_ABSPATH', plugin_dir_path(__FILE__));
 define('NWS_ALERTS_URL', plugins_url('/', __FILE__));
 
 define('NWS_ALERTS_BAR_ENABLED', get_option('nws_alerts_alerts_bar_enabled') == 1 ? true : false);
-define('NWS_ALERTS_BAR_ZIP', get_option('nws_alerts_alerts_bar_zip') ? get_option('nws_alerts_alerts_bar_zip') : null);
-define('NWS_ALERTS_BAR_CITY', get_option('nws_alerts_alerts_bar_city') ? get_option('nws_alerts_alerts_bar_city') : null);
-define('NWS_ALERTS_BAR_STATE', get_option('nws_alerts_alerts_bar_state') ? get_option('nws_alerts_alerts_bar_state') : null);
-define('NWS_ALERTS_BAR_COUNTY', get_option('nws_alerts_alerts_bar_county') ? get_option('nws_alerts_alerts_bar_county') : null);
-define('NWS_ALERTS_BAR_SCOPE', get_option('nws_alerts_alerts_bar_scope') ? get_option('nws_alerts_alerts_bar_scope') : null);
+define('NWS_ALERTS_BAR_ZIP', get_option('nws_alerts_alerts_bar_zip') !== false ? get_option('nws_alerts_alerts_bar_zip') : null);
+define('NWS_ALERTS_BAR_CITY', get_option('nws_alerts_alerts_bar_city') !== false ? get_option('nws_alerts_alerts_bar_city') : null);
+define('NWS_ALERTS_BAR_STATE', get_option('nws_alerts_alerts_bar_state') !== false ? get_option('nws_alerts_alerts_bar_state') : null);
+define('NWS_ALERTS_BAR_COUNTY', get_option('nws_alerts_alerts_bar_county') !== false ? get_option('nws_alerts_alerts_bar_county') : null);
+define('NWS_ALERTS_BAR_SCOPE', get_option('nws_alerts_alerts_bar_scope') !== false ? get_option('nws_alerts_alerts_bar_scope') : null);
 
 
 define('NWS_ALERTS_TABLE_NAME_CODES', $wpdb->prefix . 'nws_alerts_codes');
