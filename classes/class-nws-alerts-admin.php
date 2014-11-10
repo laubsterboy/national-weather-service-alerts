@@ -179,7 +179,7 @@ class NWS_Alerts_Admin {
         }
 
         echo '<div class="wrap">';
-        if (NWS_ALERTS_BODY_CLASS_SUPPORT) { echo 'NO SUPPORT'; } else { echo 'SUPPORT'; }
+
         echo '<h2>National Weather Service Alerts</h2>';
 
         echo self::get_module('alerts-bar', $controls);

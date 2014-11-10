@@ -87,7 +87,6 @@ class NWS_Alerts_Client {
     *
     */
     public static function buffer_callback($buffer) {
-        // modify buffer here, and then return the updated code
         $nws_alerts_data = new NWS_Alerts(array('zip' => NWS_ALERTS_BAR_ZIP,
                                                 'city' => NWS_ALERTS_BAR_CITY,
                                                 'state' => NWS_ALERTS_BAR_STATE,
@@ -102,13 +101,13 @@ class NWS_Alerts_Client {
     }
 
     public static function buffer_start() {
-        if (NWS_ALERTS_BAR_ENABLED) {
+        if (NWS_ALERTS_BAR_ENABLED && NWS_ALERTS_BODY_CLASS_SUPPORT) {
             ob_start("NWS_Alerts_Client::buffer_callback");
         }
     }
 
     public static function buffer_end() {
-        if (NWS_ALERTS_BAR_ENABLED) {
+        if (NWS_ALERTS_BAR_ENABLED && NWS_ALERTS_BODY_CLASS_SUPPORT) {
             ob_end_flush();
         }
     }
