@@ -13,10 +13,10 @@ class NWS_Alerts_Widget extends WP_Widget {
 	function __construct() {
 		parent::__construct('nws_alert_widget', 'NWS Alerts', array('description' => NWS_ALERTS_DESCRIPTION));
 
-        $this->defaults = array('zip' => null,
-                                'city' => null,
-                                'state' => null,
-                                'county' => null,
+        $this->defaults = array('zip' => false,
+                                'city' => false,
+                                'state' => false,
+                                'county' => false,
                                 'display' => NWS_ALERTS_DISPLAY_FULL,
                                 'scope' => NWS_ALERTS_SCOPE_COUNTY);
 	}

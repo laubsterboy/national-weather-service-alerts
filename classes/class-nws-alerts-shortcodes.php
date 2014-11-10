@@ -16,7 +16,7 @@ class NWS_Alerts_Shortcodes {
     * @return string
     */
     public static function shortcode_handler($atts) {
-        extract(shortcode_atts(array('zip' => null, 'city' => null, 'state' => null, 'county' => null, 'display' => NWS_ALERTS_DISPLAY_FULL, 'scope' => NWS_ALERTS_SCOPE_COUNTY), $atts));
+        extract(shortcode_atts(array('zip' => false, 'city' => false, 'state' => false, 'county' => false, 'display' => NWS_ALERTS_DISPLAY_FULL, 'scope' => NWS_ALERTS_SCOPE_COUNTY), $atts));
 
         if ($scope !== NWS_ALERTS_SCOPE_NATIONAL && $scope !== NWS_ALERTS_SCOPE_STATE && $scope !== NWS_ALERTS_SCOPE_COUNTY) $scope = NWS_ALERTS_SCOPE_COUNTY;
 

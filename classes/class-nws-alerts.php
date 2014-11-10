@@ -133,27 +133,27 @@ class NWS_Alerts {
         $table_name_codes = NWS_ALERTS_TABLE_NAME_CODES;
         $table_name_locations = NWS_ALERTS_TABLE_NAME_LOCATIONS;
 
-        $defaults = array('zip' => null,
-                          'city' => null,
-                          'state' => null,
-                          'county' => null,
+        $defaults = array('zip' => false,
+                          'city' => false,
+                          'state' => false,
+                          'county' => false,
                           'scope' => NWS_ALERTS_SCOPE_COUNTY);
         $args = wp_parse_args($args, $defaults);
 
-        $zip = ($args['zip'] === null || empty($args['zip'])) ? null : sanitize_text_field($args['zip']);
-        $city = ($args['city'] === null || empty($args['city'])) ? null : sanitize_text_field($args['city']);
-        $state = ($args['state'] === null || empty($args['state'])) ? null : sanitize_text_field($args['state']);
-        $county = ($args['county'] === null || empty($args['county'])) ? null : sanitize_text_field($args['county']);
+        $zip = ($args['zip'] === false || empty($args['zip'])) ? false : sanitize_text_field($args['zip']);
+        $city = ($args['city'] === false || empty($args['city'])) ? false : sanitize_text_field($args['city']);
+        $state = ($args['state'] === false || empty($args['state'])) ? false : sanitize_text_field($args['state']);
+        $county = ($args['county'] === false || empty($args['county'])) ? false : sanitize_text_field($args['county']);
         $scope = (string) sanitize_text_field($args['scope']);
 
         // Based on available attributes, search the nws_alerts_locations database table for a match
-        if ($zip !== null && is_numeric($zip)) {
+        if ($zip !== false && is_numeric($zip)) {
             $locations_query = $wpdb->get_row("SELECT * FROM $table_name_locations WHERE zip = $zip", ARRAY_A);
-        } else if ($city !== null && $state !== null) {
+        } else if ($city !== false && $state !== false) {
             $city = strtolower($city);
             $state = strlen($state) > 2 ? NWS_Alerts_Utils::convert_state_format($state) : $state;
             $locations_query = $wpdb->get_row("SELECT * FROM $table_name_locations WHERE city LIKE '$city' AND state LIKE '$state'", ARRAY_A);
-        } else if ($state !== null && $county !== null) {
+        } else if ($state !== false && $county !== false) {
             $state = strlen($state) > 2 ? NWS_Alerts_Utils::convert_state_format($state) : $state;
             $county = strtolower($county);
             $locations_query = $wpdb->get_row("SELECT * FROM $table_name_locations WHERE state LIKE '$state' AND county LIKE '$county'", ARRAY_A);
