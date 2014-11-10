@@ -47,4 +47,19 @@ define('NWS_ALERTS_ERROR_NO_ALERTS', 'There are currently no active weather aler
 define('NWS_ALERTS_ERROR_NO_LOCATION', 'The specified location could not be found. Try specifying a county and state instead.');
 define('NWS_ALERTS_ERROR_NO_XML', 'There was an error retrieving the National Weather Service alert data.');
 define('NWS_ALERTS_ERROR_NO_XML_SHORT', 'Data Error');
+
+// NWS body class
+function nws_alerts_body_class($classes) {
+
+    if (NWS_ALERTS_BAR_ENABLED) {
+        $classes[] = 'nws-alerts-bar-enabled';
+        define('NWS_ALERTS_BODY_CLASS_SUPPORT', true);
+    } else {
+        define('NWS_ALERTS_BODY_CLASS_SUPPORT', false);
+    }
+
+    return $classes;
+}
+add_filter('body_class', 'nws_alerts_body_class');
+
 ?>
