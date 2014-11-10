@@ -340,11 +340,11 @@ class NWS_Alerts_Admin {
         if ($module === 'alerts-bar') {
             $defaults = array('error' => false,
                               'enabled' => NWS_ALERTS_BAR_ENABLED,
-                              'zip' => false,
-                              'city' => false,
-                              'state' => false,
-                              'county' => false,
-                              'scope' => false);
+                              'zip' => NWS_ALERTS_BAR_ZIP,
+                              'city' => NWS_ALERTS_BAR_CITY,
+                              'state' => NWS_ALERTS_BAR_STATE,
+                              'county' => NWS_ALERTS_BAR_COUNTY,
+                              'scope' => NWS_ALERTS_BAR_SCOPE);
             $controls = wp_parse_args($controls, $defaults);
             $return_value = '';
             $module_id_prefix = 'nws-alerts';
