@@ -598,7 +598,7 @@ class NWS_Alerts {
 
             return $return_value . $args['suffix'];
         } else {
-            return $args['prefix'] . NWS_ALERTS_ERROR_NO_ALERTS . $args['suffix'];
+            return $args['prefix'] . NWS_ALERTS_ERROR_NO_ENTRIES . $args['suffix'];
         }
     }
 
@@ -614,9 +614,12 @@ class NWS_Alerts {
     * @return string
     */
     public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL) {
+        $classes = array('nws-alerts-' . $display);
         $return_value = '';
 
-        $return_value .= '<article class="nws-alerts nws-alerts-' . $display . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
+        if (empty($this->entries)) $classes[] = 'nws-alerts-no-entries';
+
+        $return_value .= '<article class="nws-alerts ' . implode(' ', $classes) . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
 
         if ($display === NWS_ALERTS_DISPLAY_BAR) {
             $return_value .= $this->get_output_heading(array('graphic' => 1, 'display' => $display));

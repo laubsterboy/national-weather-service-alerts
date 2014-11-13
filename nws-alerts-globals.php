@@ -43,7 +43,7 @@ define('NWS_ALERTS_DISPLAY_FULL', 'full');
 
 // NWS Alerts Error messages
 define('NWS_ALERTS_ERROR_NO_ACTIVATION', 'The <strong>National Weather Service Alerts</strong> plugin requires WordPress version ' . NWS_ALERTS_MIN_WP_VERSION . ' or greater and PHP version ' . NWS_ALERTS_MIN_PHP_VERSION . ' or greater. Please update WordPress before activating the plugin.');
-define('NWS_ALERTS_ERROR_NO_ALERTS', 'There are currently no active weather alerts.');
+define('NWS_ALERTS_ERROR_NO_ENTRIES', 'There are currently no active weather alerts.');
 define('NWS_ALERTS_ERROR_NO_LOCATION', 'The specified location could not be found. Try specifying a county and state instead.');
 define('NWS_ALERTS_ERROR_NO_XML', 'There was an error retrieving the National Weather Service alert data.');
 define('NWS_ALERTS_ERROR_NO_XML_SHORT', 'Data Error');
