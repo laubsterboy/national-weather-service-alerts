@@ -541,7 +541,7 @@ class NWS_Alerts {
             }
 
             if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
-                $return_value .= '<h2 class="nws-alerts-heading-location">in the United States</h2><span class="nws-alerts-heading-scope">National Weather Alerts</span>';
+                $return_value .= '<h2 class="nws-alerts-heading-location">United States</h2><span class="nws-alerts-heading-scope">National Weather Alerts</span>';
             } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
                 $return_value .= '<h2 class="nws-alerts-heading-location">' . $this->state . '</h2><span class="nws-alerts-heading-scope">State Weather Alerts</span>';
             } else {
