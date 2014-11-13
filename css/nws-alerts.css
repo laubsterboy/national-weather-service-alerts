@@ -267,7 +267,25 @@
 
 
 /* Colors */
-.nws-alerts-color-winter-storm-warning {color:#11ccff;}
+.nws-alerts-color-tornado-warning,
+.nws-alerts-color-tornado-watch {color:#FF0000;}
+.nws-alerts-color-severe-thunderstorm-warning,
+.nws-alerts-color-severe-thunderstorm-watch,
+.nws-alerts-color-thunderstorm-warning,
+.nws-alerts-color-thunderstorm-watch {color:#ffdf00;}
+.nws-alerts-color-flash-flood-warning,
+.nws-alerts-color-flash-flood-watch,
+.nws-alerts-color-flood-warning,
+.nws-alerts-color-flood-watch,
+.nws-alerts-color-flash-flood-statement,
+.nws-alerts-color-flood-statement{color:#00AA00;}
+.nws-alerts-color-blizzard-warning,
+.nws-alerts-color-winter-storm-warning,
+.nws-alerts-color-winter-storm-watch,
+.nws-alerts-color-freeze-warning,
+.nws-alerts-color-freeze-watch,
+.nws-alerts-color-avalanche-watch,
+.nws-alerts-color-frost-advisory {color:#11ccff;}
 
 
 

@@ -180,7 +180,7 @@ class NWS_Alerts_Entry {
         if (strpos($this->cap_event, 'Tornado') !== false) { $google_map_point_color = 'strokeColor:"#FF0000", strokeOpacity: 0.8, strokeWeight: 2, fillColor:"#FF0000", fillOpacity: 0.2';
         } else if (strpos($this->cap_event, 'Thunderstorm') !== false) { $google_map_point_color = 'strokeColor:"#ffdf00", strokeOpacity: 1.0, strokeWeight: 2, fillColor:"#ffdf00", fillOpacity: 0.2';
         } else if (strpos($this->cap_event, 'Flood') !== false) { $google_map_point_color = 'strokeColor:"#00AA00", strokeOpacity: 0.8, strokeWeight: 2, fillColor:"#00AA00", fillOpacity: 0.2';
-        } else if (strpos($this->cap_event, 'Blizzard') !== false || strpos($this->cap_event, 'Winter') !== false || strpos($this->cap_event, 'Freeze') !== false) { $google_map_point_color = 'strokeColor:"#FFFFFF", strokeOpacity: 0.8, strokeWeight: 2, fillColor:"#FFFFFF", fillOpacity: 0.2';
+        } else if (strpos($this->cap_event, 'Blizzard') !== false || strpos($this->cap_event, 'Winter') !== false || strpos($this->cap_event, 'Freeze') !== false) { $google_map_point_color = 'strokeColor:"#11ccff", strokeOpacity: 0.8, strokeWeight: 2, fillColor:"#11ccff", fillOpacity: 0.2';
         } else { return false; }
 
         $google_map_polys = '
