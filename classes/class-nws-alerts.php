@@ -626,7 +626,11 @@ class NWS_Alerts {
 
         if ($display === NWS_ALERTS_DISPLAY_FULL || $display === NWS_ALERTS_DISPLAY_BAR) {
             $return_value .= '<section class="nws-alerts-details">';
-            $return_value .= $this->get_output_entries();
+            if ($display === NWS_ALERTS_DISPLAY_BAR) {
+                $return_value .= $this->get_output_entries(array('graphic' => 1));
+            } else {
+                $return_value .= $this->get_output_entries();
+            }
             $return_value .= $this->get_output_google_map();
             $return_value .= '</section>';
         }
