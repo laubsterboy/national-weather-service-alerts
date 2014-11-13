@@ -15,6 +15,11 @@
     display:block;
     clear:both;
 }
+.nws-alerts-bar {
+    width:100%;
+    background-color:#fff;
+    margin-bottom:1em;
+}
 
 
 
@@ -70,6 +75,18 @@
 .nws-alerts-heading-no-graphic .nws-alerts-event {
     margin-left:0;
 }
+.nws-alerts-bar .nws-alerts-heading span {
+    display:inline;
+    font-weight:normal;
+    font-size:1em;
+}
+.nws-alerts-bar .nws-alerts-heading .nws-alerts-event {
+    margin:0 0 0 50px;
+}
+.nws-alerts-bar .nws-alerts-heading-location,
+.nws-alerts-bar .nws-alerts-heading-scope {
+    margin:0 0 0 1em;
+}
 
 
 
@@ -119,6 +136,10 @@
 	border-bottom-color:#cccccc;
 	border-width:21px;
 	margin-left:-21px;
+}
+
+.nws-alerts-bar .nws-alerts-details {
+    border-radius:0;
 }
 
 
@@ -246,7 +267,7 @@
 
 
 /* Colors */
-
+.nws-alerts-colorwinter-storm-warning {color:#11ccff;}
 
 
 
