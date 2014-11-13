@@ -541,11 +541,11 @@ class NWS_Alerts {
             }
 
             if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
-                $return_value .= '<h2 class="nws-alerts-heading-location">United States</h2><span class="nws-alerts-heading-scope">National Weather Alerts</span>';
+                $return_value .= '<span class="nws-alerts-heading-location">United States</span><span class="nws-alerts-heading-scope">National Weather Alerts</span>';
             } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
-                $return_value .= '<h2 class="nws-alerts-heading-location">' . $this->state . '</h2><span class="nws-alerts-heading-scope">State Weather Alerts</span>';
+                $return_value .= '<span class="nws-alerts-heading-location">' . $this->state . '</span><span class="nws-alerts-heading-scope">State Weather Alerts</span>';
             } else {
-                $return_value .= '<h2 class="nws-alerts-heading-location">' . $this->city . ', ' . $this->state . '</h2><span class="nws-alerts-heading-scope">Local Weather Alerts</span>';
+                $return_value .= '<span class="nws-alerts-heading-location">' . $this->city . ', ' . $this->state . '</span><span class="nws-alerts-heading-scope">Local Weather Alerts</span>';
             }
         } else {
             // Stacked layout
@@ -617,7 +617,13 @@ class NWS_Alerts {
         $return_value = '';
 
         $return_value .= '<article class="nws-alerts nws-alerts-' . $display . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
-        $return_value .= $this->get_output_heading(array('display' => $display));
+
+        if ($display === NWS_ALERTS_DISPLAY_BAR) {
+            $return_value .= $this->get_output_heading(array('graphic' => 1, 'display' => $display));
+        } else {
+            $return_value .= $this->get_output_heading();
+        }
+
         if ($display === NWS_ALERTS_DISPLAY_FULL || $display === NWS_ALERTS_DISPLAY_BAR) {
             $return_value .= '<section class="nws-alerts-details">';
             $return_value .= $this->get_output_entries();
