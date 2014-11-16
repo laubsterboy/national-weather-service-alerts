@@ -613,9 +613,16 @@ class NWS_Alerts {
     * @param NWS_Alerts $nws_alerts a full populated NWS_Alerts object
     * @return string
     */
-    public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL) {
-        $classes = array('nws-alerts-' . $display);
+    public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL, $classes = array()) {
         $return_value = '';
+        $default_classes = array('nws-alerts-' . $display);
+
+        if (is_string($classes)) {
+            $classes = explode(' ', trim($classes));
+        } else if (!is_array($classes)) {
+            $classes = array();
+        }
+        $classes = array_merge($default_classes, $classes);
 
         if (empty($this->entries)) $classes[] = 'nws-alerts-no-entries';
 

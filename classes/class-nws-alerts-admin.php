@@ -156,6 +156,13 @@ class NWS_Alerts_Admin {
                     $controls[$control] = $_POST[$key];
                 }
 
+                $control = 'fix';
+                $key = $prefix . $control;
+                if (isset($_POST[$key])) {
+                    update_option($key, $_POST[$key]);
+                    $controls[$control] = $_POST[$key];
+                }
+
                 $control = 'enabled';
                 $key = $prefix . $control;
                 $allow_enabled = false;
@@ -344,7 +351,8 @@ class NWS_Alerts_Admin {
                               'city' => NWS_ALERTS_BAR_CITY,
                               'state' => NWS_ALERTS_BAR_STATE,
                               'county' => NWS_ALERTS_BAR_COUNTY,
-                              'scope' => NWS_ALERTS_BAR_SCOPE);
+                              'scope' => NWS_ALERTS_BAR_SCOPE,
+                              'fix' => NWS_ALERTS_BAR_FIX);
             $controls = wp_parse_args($controls, $defaults);
             $return_value = '';
             $module_id_prefix = 'nws-alerts';
@@ -407,6 +415,16 @@ class NWS_Alerts_Admin {
             if ($default) { $default = ' checked="checked"'; } else { $default = ''; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>Enable</h4></td>';
+				$return_value .= '<td>';
+					$return_value .= '<div class="nws-alerts-control-checkbox-container">';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="checkbox"' . $default . ' />';
+					$return_value .= '</div>';
+				$return_value .= '</td>';
+			$return_value .= '</tr>';
+        } else if ($control === 'fix') {
+            if ($default) { $default = ' checked="checked"'; } else { $default = ''; }
+            $return_value .= '<tr>';
+				$return_value .= '<td><h4>Fixed Header</h4><p class="howto">Check this box if the main header/navigation bar is set to a fixed position. This will position the Alerts Bar below the header rather than above. This is an experimental feature and may not be compatible with all themes. If this does not work with your theme you may need to add the Alerts Bar manually using the <a href="https://github.com/laubsterboy/national-weather-service-alerts" target="_blank">shortcode</a>.</p></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-checkbox-container">';
 				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="checkbox"' . $default . ' />';

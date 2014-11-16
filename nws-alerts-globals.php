@@ -26,6 +26,7 @@ define('NWS_ALERTS_BAR_CITY', get_option('nws_alerts_alerts_bar_city'));
 define('NWS_ALERTS_BAR_STATE', get_option('nws_alerts_alerts_bar_state'));
 define('NWS_ALERTS_BAR_COUNTY', get_option('nws_alerts_alerts_bar_county'));
 define('NWS_ALERTS_BAR_SCOPE', get_option('nws_alerts_alerts_bar_scope'));
+define('NWS_ALERTS_BAR_FIX', get_option('nws_alerts_alerts_bar_fix'));
 
 
 define('NWS_ALERTS_TABLE_NAME_CODES', $wpdb->prefix . 'nws_alerts_codes');
