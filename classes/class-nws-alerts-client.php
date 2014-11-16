@@ -95,7 +95,7 @@ class NWS_Alerts_Client {
                                                     'county' => NWS_ALERTS_BAR_COUNTY,
                                                     'scope' => NWS_ALERTS_BAR_SCOPE));
             $classes = '';
-            if (NWS_ALERTS_BAR_FIX) $classses .= 'nws-alerts-bar-fix';
+            if (NWS_ALERTS_BAR_FIX) $classes .= 'nws-alerts-bar-fix';
 
             $body_tag_start_pos = stripos($buffer, '<body');
             $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos) + 1;
