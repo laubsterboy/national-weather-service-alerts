@@ -14,7 +14,7 @@ Author URI: http://www.laubsterboy.com
         var zip = $(this).data('zip'),
             display = $(this).data('display'),
             scope = $(this).data('scope'),
-            classes = $(this).attr('class');
+            classes = $(this).attr('class'),
             refresh_rate = parseInt($(this).data('refresh_rate')) * 60000,
             element = this;
 
