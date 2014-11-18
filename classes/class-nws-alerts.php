@@ -626,7 +626,7 @@ class NWS_Alerts {
 
         if (empty($this->entries)) $classes[] = 'nws-alerts-no-entries';
 
-        $return_value .= '<article class="nws-alerts ' . implode(' ', $classes) . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
+        $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
 
         if ($display === NWS_ALERTS_DISPLAY_BAR) {
             $return_value .= $this->get_output_heading(array('graphic' => 1, 'display' => $display));
