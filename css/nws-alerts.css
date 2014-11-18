@@ -55,6 +55,7 @@
 }
 .nws-alerts-bar .nws-alerts-heading {float:none;}
 .nws-alerts-bar-fix .nws-alerts-heading {float:left;}
+.nws-alerts-widget .nws-alerts-heading {padding:0 0 20px 0;}
 .nws-alerts-heading-graphic {
     position:absolute;
     top:20px;
