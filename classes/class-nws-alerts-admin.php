@@ -158,9 +158,12 @@ class NWS_Alerts_Admin {
 
                 $control = 'fix';
                 $key = $prefix . $control;
-                if (isset($_POST[$key])) {
-                    update_option($key, $_POST[$key]);
-                    $controls[$control] = $_POST[$key];
+                if (isset($_POST[$key]) && $_POST[$key] == 'on') {
+                    update_option($key, 1);
+                    $controls[$control] = true;
+                } else {
+                    update_option($key, 0);
+                    $controls[$control] = false;
                 }
 
                 $control = 'enabled';
