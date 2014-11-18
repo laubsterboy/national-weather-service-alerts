@@ -16,9 +16,9 @@
     clear:both;
 }
 .nws-alerts-bar {
+    float:none;
     width:100%;
     background-color:#fff;
-    margin-bottom:1em;
     -webkit-box-shadow:0 0 0.25em 0 rgba(0,0,0,0.25);
     -moz-box-shadow:0 0 0.25em 0 rgba(0,0,0,0.25);
     -ms-box-shadow:0 0 0.25em 0 rgba(0,0,0,0.25);
@@ -26,6 +26,10 @@
     box-shadow:0 0 0.25em 0 rgba(0,0,0,0.25);
 }
 .nws-alerts-bar.nws-alerts-no-entries {display:none;}
+.nws-alerts-bar-fix {
+    float:left;
+    margin-bottom:1em;
+}
 
 
 
@@ -49,6 +53,8 @@
     box-sizing:border-box;
     white-space:nowrap;
 }
+.nws-alerts-bar .nws-alerts-heading {float:none;}
+.nws-alerts-bar-fix .nws-alerts-heading {float:left;}
 .nws-alerts-heading-graphic {
     position:absolute;
     top:20px;
