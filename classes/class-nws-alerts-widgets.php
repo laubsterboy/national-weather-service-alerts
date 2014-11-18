@@ -40,7 +40,7 @@ class NWS_Alerts_Widget extends WP_Widget {
         if (!empty($instance['zip']) || (!empty($instance['city']) && !empty($instance['state'])) || (!empty($instance['state']) && !empty($instance['county']))) {
             $nws_alert_data = new NWS_Alerts(array('zip' => $instance['zip'], 'city' => $instance['city'], 'state' => $instance['state'], 'county' => $instance['county'], 'scope' => $instance['scope']));
 
-            echo $nws_alert_data->get_output_html($instance['display']);
+            echo $nws_alert_data->get_output_html($instance['display'], 'nws-alerts-widget');
 
             unset($nws_alert_data);
         }

@@ -170,6 +170,7 @@
     max-height:0;
     overflow:auto;
     transition:max-height 300ms;
+    color:#333;
 }
 .nws-alerts:hover .nws-alerts-entries {
     max-height:300px;
