@@ -630,8 +630,10 @@ class NWS_Alerts {
 
         if ($display === NWS_ALERTS_DISPLAY_BAR) {
             $return_value .= $this->get_output_heading(array('graphic' => 1, 'display' => $display));
+        } else if (in_array('nws-alerts-widget', $classes)) {
+            $return_value .= $this->get_output_heading(array('graphic' => false, 'display' => $display));
         } else {
-            $return_value .= $this->get_output_heading();
+            $return_value .= $this->get_output_heading(array('display' => $display));
         }
 
         if ($display === NWS_ALERTS_DISPLAY_FULL || $display === NWS_ALERTS_DISPLAY_BAR) {
