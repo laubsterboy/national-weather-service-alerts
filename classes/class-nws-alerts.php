@@ -628,10 +628,10 @@ class NWS_Alerts {
 
         $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
 
-        if ($display === NWS_ALERTS_DISPLAY_BAR) {
-            $return_value .= $this->get_output_heading(array('graphic' => 1, 'display' => $display));
-        } else if (in_array('nws-alerts-widget', $classes)) {
+        if (in_array('nws-alerts-widget', $classes)) {
             $return_value .= $this->get_output_heading(array('graphic' => false, 'display' => $display));
+        } else if ($display === NWS_ALERTS_DISPLAY_BAR) {
+            $return_value .= $this->get_output_heading(array('graphic' => 1, 'display' => $display));
         } else {
             $return_value .= $this->get_output_heading(array('display' => $display));
         }

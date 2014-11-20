@@ -53,6 +53,7 @@
     padding:20px;
     box-sizing:border-box;
     white-space:nowrap;
+    color:#000;
 }
 .nws-alerts-bar .nws-alerts-heading {float:none;}
 .nws-alerts-bar-fix .nws-alerts-heading {float:left;}
