@@ -103,8 +103,9 @@ class NWS_Alerts_Widget extends WP_Widget {
         <p>
             <label for="<?php echo $this->get_field_id('display'); ?>">Display:</label>
             <select class="widefat" id="<?php echo $this->get_field_id('display'); ?>" name="<?php echo $this->get_field_name('display'); ?>">
-                <option value="<?php echo NWS_ALERTS_DISPLAY_FULL ?>"<?php selected($instance['display'], NWS_ALERTS_DISPLAY_FULL) ?>><?php echo NWS_ALERTS_DISPLAY_FULL ?></option>
+                <option value="<?php echo NWS_ALERTS_DISPLAY_BAR ?>"<?php selected($instance['display'], NWS_ALERTS_DISPLAY_BAR) ?>><?php echo NWS_ALERTS_DISPLAY_BAR ?></option>
                 <option value="<?php echo NWS_ALERTS_DISPLAY_BASIC ?>"<?php selected($instance['display'], NWS_ALERTS_DISPLAY_BASIC) ?>><?php echo NWS_ALERTS_DISPLAY_BASIC ?></option>
+                <option value="<?php echo NWS_ALERTS_DISPLAY_FULL ?>"<?php selected($instance['display'], NWS_ALERTS_DISPLAY_FULL) ?>><?php echo NWS_ALERTS_DISPLAY_FULL ?></option>
             </select>
         </p>
         <p>
