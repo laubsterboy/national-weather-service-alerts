@@ -26,6 +26,7 @@
     -o-box-shadow:0 0 0.25em 0 rgba(0,0,0,0.25);
     box-shadow:0 0 0.25em 0 rgba(0,0,0,0.25);
 }
+.nws-alerts-bar.nws-alerts-widget {font-size:12px;}
 .nws-alerts-bar.nws-alerts-no-entries {display:none;}
 .nws-alerts-bar-fix {
     float:left;
@@ -58,6 +59,7 @@
 .nws-alerts-bar .nws-alerts-heading {float:none;}
 .nws-alerts-bar-fix .nws-alerts-heading {float:left;}
 .nws-alerts-widget .nws-alerts-heading {padding:0 0 20px 0;}
+.nws-alerts-bar.nws-alerts-widget .nws-alerts-heading {padding:16px;}
 .nws-alerts-heading-graphic {
     position:absolute;
     top:20px;
@@ -93,6 +95,10 @@
     font-weight:normal;
     font-size:1em;
     line-height:1.5;
+}
+.nws-alerts-bar.nws-alerts-widget .nws-alerts-heading span {
+	display:block;
+	margin:0;
 }
 .nws-alerts-bar .nws-alerts-heading .nws-alerts-event {
     margin:0 0 0 50px;
@@ -146,14 +152,14 @@
 .nws-alerts-details:after {
 	border-color:rgba(241, 241, 241, 0);
 	border-bottom-color:#f1f1f1;
-	border-width:20px;
-	margin-left:-20px;
+	border-width:16px;
+	margin-left:-16px;
 }
 .nws-alerts-details:before {
 	border-color:rgba(204, 204, 204, 0);
 	border-bottom-color:#cccccc;
-	border-width:21px;
-	margin-left:-21px;
+	border-width:17px;
+	margin-left:-17px;
 }
 
 .nws-alerts-bar .nws-alerts-details {
