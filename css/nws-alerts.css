@@ -26,6 +26,9 @@
     -o-box-shadow:0 0 0.25em 0 rgba(0,0,0,0.25);
     box-shadow:0 0 0.25em 0 rgba(0,0,0,0.25);
 }
+.nws-alerts-widget {
+    width:100%;
+}
 .nws-alerts-bar.nws-alerts-widget {font-size:12px;}
 .nws-alerts-bar.nws-alerts-no-entries {display:none;}
 .nws-alerts-bar-fix {
