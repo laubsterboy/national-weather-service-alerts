@@ -183,6 +183,9 @@
 .nws-alerts:hover .nws-alerts-entries {
     max-height:300px;
 }
+.nws-alerts-widget:hover .nws-alerts-entries {
+    max-height:200px;
+}
 .nws-alerts-entry {
 	font-size:0.8em;
 	font-weight:100;
