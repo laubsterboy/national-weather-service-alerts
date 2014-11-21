@@ -43,6 +43,7 @@ class NWS_Alerts_Widget extends WP_Widget {
             echo $args['before_widget'];
             echo $nws_alert_data->get_output_html($instance['display'], 'nws-alerts-widget');
             echo $args['after_widget'];
+
             unset($nws_alert_data);
         }
 	}

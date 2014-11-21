@@ -66,23 +66,24 @@
     margin-right:20px;
     display:block;
 }
-.nws-alerts-heading-scope {
+.nws-alerts-heading .nws-alerts-heading-scope {
     margin:0 0 0 70px;
     display:block;
     font-size: 0.9em;
     color: #888;
-    line-height:1;
+    line-height:1.5;
 }
-.nws-alerts-heading-location {
+.nws-alerts-heading .nws-alerts-heading-location {
     clear:none;
     margin:0 0 0 70px;
     display:block;
-    line-height:1
+    line-height:1;
 }
 .nws-alerts-heading .nws-alerts-event {
     margin:0 0 0 70px;
     display:block;
     white-space:nowrap;
+    line-height:1.5;
 }
 .nws-alerts-heading-no-graphic .nws-alerts-heading-scope,
 .nws-alerts-heading-no-graphic .nws-alerts-heading-location,
