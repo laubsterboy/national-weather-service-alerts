@@ -44,8 +44,9 @@
             <li>Value:</li>
             <li>
                 <ul>
-                    <li>Option: full</li>
+                    <li>Option: bar</li>
                     <li>Option: basic</li>
+                    <li>Option: full</li>
                 </ul>
             </li>
             <li>Default: full</li>

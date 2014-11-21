@@ -34,6 +34,7 @@ used.*
 
 * Shortcode
 * Widget
+* NWS Alerts settings page for adding the Alerts Bar 
 * Clean html5 markup
 * CSS classes that make it easy to override default styles
 * Developer API (filters)
@@ -83,11 +84,17 @@ Simply refreshing the page should fix the problem.
 1. *Full display example - with Google map*
 1. *Shortcode builder in the page/post editor*
 1. *Widget*
+1. *Alerts Bar example - with Google map*
 
 
 
 
 == Changelog ==
+
+= 1.1.0 =
+* Added: NWS Alerts settings page to add the NWS Alerts Bar.
+* Added: Bar display option, which displays in a horizontal layout and only displays when there are active alerts.
+* Improvement: Style and layout compatibility with themes. Also added additional classes to nws alerts markup to allow for more specific adjustments.
 
 = 1.0.1 =
 * Improvement: Typos
@@ -100,6 +107,9 @@ Simply refreshing the page should fix the problem.
 
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+* Added features, including an alerts bar, and improved layout compatibility across across themes.
 
 = 1.0.1 =
 * Updated reference.
