@@ -132,6 +132,7 @@ class NWS_Alerts_Admin {
         $return_value = array('populate_tables' => false);
 
         if (DOING_AJAX && NWS_ALERTS_TABLES_BUILT !== true && $args = get_transient('nws_alerts_populate_tables_args') !== false && $current_file = get_transient('nws_alerts_populate_tables_current_file') !== false && $current_part = get_transient('nws_alerts_populate_tables_current_part') !== false) {
+            write_log('populate_tables -> args:');
             write_log($args);
             $file_name = $args[$current_file]['file_name_base'] . $current_part . '.' . $args[$current_file]['file_extention'];
 
