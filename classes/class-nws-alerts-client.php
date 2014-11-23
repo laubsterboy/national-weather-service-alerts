@@ -38,8 +38,6 @@ class NWS_Alerts_Client {
     * @access public
     */
     public static function refresh() {
-        //check_ajax_referer($this->nonce_string, 'security');
-
 
         $s_zip = isset($_POST['zip']) ? sanitize_text_field($_POST['zip']) : '';
 		$s_display = isset($_POST['display']) ? sanitize_text_field($_POST['display']) : '';

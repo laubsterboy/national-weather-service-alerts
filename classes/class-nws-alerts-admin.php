@@ -16,12 +16,44 @@ class NWS_Alerts_Admin {
     * @access public
     */
     public static function activation() {
-        global $wpdb, $wp_version;
-        $sql;
-        $table_name = NWS_ALERTS_TABLE_NAME_LOCATIONS;
+        global $wp_version;
 
-        // Check for WordPress 3.5 and above.
+        // Check for minimum WordPress and PHP versions
         if(version_compare($wp_version, NWS_ALERTS_MIN_WP_VERSION, '>=') && version_compare(phpversion(), NWS_ALERTS_MIN_PHP_VERSION, '>=')) {
+
+        } else {
+            deactivate_plugins(array('national-weather-service-alerts/nws-alerts.php'), false, is_network_admin());
+            die(NWS_ALERTS_ERROR_NO_ACTIVATION);
+        }
+    }
+
+
+
+
+    /*
+    * deactivation
+    *
+    * Is called when the NWS_Alerts plugin is deactivated
+    *
+    * @return void
+    * @access public
+    */
+    public static function deactivation() {
+
+    }
+
+
+
+    /*
+    * build_tables
+    */
+    public static function build_tables($file = false, $part = false) {
+        $return_value = array('populate_tables' => false, 'status' => 0);
+
+        if (DOING_AJAX) {
+            global $wpdb;
+            $sql;
+            $table_name = NWS_ALERTS_TABLE_NAME_LOCATIONS;
 
             // Only create the table and populate it on the first activation - or if the table_name has changed or been dropped
             if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
@@ -41,14 +73,6 @@ class NWS_Alerts_Admin {
                 );";
 
                 dbDelta($sql);
-
-                $zip_codes_file = fopen(NWS_ALERTS_ABSPATH . 'data/zip-codes.txt', 'r');
-
-                while ($line = fgets($zip_codes_file)) {
-                    list($zip, $latitude, $longitude, $city, $state, $county, $zipclass) = explode(',', str_replace('"', '', strtolower($line)));
-                    $rows_affected = $wpdb->insert($table_name, array('zip' => $zip, 'latitude' => $latitude, 'longitude' => $longitude, 'city' => $city, 'state' => $state, 'county' => $county, 'zipclass' => $zipclass));
-                }
-                fclose($zip_codes_file);
             }
 
             $table_name = NWS_ALERTS_TABLE_NAME_CODES;
@@ -68,36 +92,107 @@ class NWS_Alerts_Admin {
                 );";
 
                 dbDelta($sql);
-
-                $ansi_codes_file = fopen(NWS_ALERTS_ABSPATH . 'data/ansi-codes.txt', 'r');
-
-                while ($line = fgets($ansi_codes_file)) {
-                    list($state, $stateansi, $countyansi, $county, $ansiclass) = explode(',', strtolower($line));
-                    $rows_affected = $wpdb->insert($table_name, array('state' => $state, 'stateansi' => $stateansi, 'countyansi' => $countyansi, 'county' => $county));
-                }
-                fclose($ansi_codes_file);
             }
 
-            /* add_feature - add check to see if database tables were created successfully - if not then do not activate */
-        } else {
-            deactivate_plugins(array('nws-alerts/nws-alerts.php'), false, is_network_admin());
-            die(NWS_ALERTS_ERROR_NO_ACTIVATION);
+            if (NWS_ALERTS_TABLES_BUILT !== true) {
+                //set transients with all necessary info for tracking populating the tables
+                if (get_transient('nws_alerts_populate_tables_args') === false) {
+                    set_transient('nws_alerts_populate_tables_args',
+                        array(
+                            array(
+                                'file_name_base' => 'zip-codes',
+                                'file_extention' => 'txt',
+                                'file_parts' => 9,
+                                'table_name' => NWS_ALERTS_TABLE_NAME_LOCATIONS
+                            ),
+                            array(
+                                'file_name_base' => 'ansi-codes',
+                                'file_extention' => 'txt',
+                                'file_parts' => 3,
+                                'table_name' => NWS_ALERTS_TABLE_NAME_CODES
+                            )
+                        ), 0);
+                }
+                if (get_transient('nws_alerts_populate_tables_current_file') === false) set_transient('nws_alerts_populate_tables_current_file', 0, 0);
+                if (get_transient('nws_alerts_populate_tables_current_part') === false) set_transient('nws_alerts_populate_tables_current_part', 1, 0);
+
+                $return_value['populate_tables'] = true;
+            }
         }
+
+        header('Content-Type: application/json');
+        echo json_encode($return_value);
+        die();
     }
 
 
 
 
-    /*
-    * deactivation
-    *
-    * Is called when the NWS_Alerts plugin is deactivated
-    *
-    * @return void
-    * @access public
-    */
-    public static function deactivation() {
+    public static function populate_tables() {
+        $return_value = array('populate_tables' => false);
 
+        if (DOING_AJAX && NWS_ALERTS_TABLES_BUILT !== true && $args = get_transient('nws_alerts_populate_tables_args') !== false && $current_file = get_transient('nws_alerts_populate_tables_current_file') !== false && $current_part = get_transient('nws_alerts_populate_tables_current_part') !== false) {
+            $file_name = $args[$current_file]['file_name_base'] . $current_part . '.' . $args[$current_file]['file_extention'];
+
+            $opened_file = fopen(NWS_ALERTS_ABSPATH . 'data/' . $file_name, 'r');
+
+            if ($args[$current_file]['file_name_base'] === 'zip-codes') {
+                while ($line = fgets($opened_file)) {
+                    list($zip, $latitude, $longitude, $city, $state, $county, $zipclass) = explode(',', str_replace('"', '', strtolower($line)));
+                    $rows_affected = $wpdb->insert($table_name, array('zip' => $zip, 'latitude' => $latitude, 'longitude' => $longitude, 'city' => $city, 'state' => $state, 'county' => $county, 'zipclass' => $zipclass));
+                }
+            } else if ($args[$current_file]['file_name_base'] === 'ansi-codes') {
+                while ($line = fgets($opened_file)) {
+                    list($state, $stateansi, $countyansi, $county, $ansiclass) = explode(',', strtolower($line));
+                    $rows_affected = $wpdb->insert($table_name, array('state' => $state, 'stateansi' => $stateansi, 'countyansi' => $countyansi, 'county' => $county));
+                }
+            }
+
+            fclose($opened_file);
+
+            // Update file and part
+            if ($current_part < $args[$current_file]['file_parts']) {
+                $current_part += 1;
+            } else {
+                $current_file += 1;
+                $current_part = 1;
+            }
+
+            // Get status
+            $status_parts = 0;
+            $status_parts_total = 0;
+
+            foreach ($args as $key => $files) {
+                $status_parts_total += $files['file_parts'];
+                if ($key < $current_file) {
+                    $status_parts += $file['file_parts'];
+                } else if ($key === $current_file) {
+                    $status_parts += $current_part;
+                }
+            }
+
+            $status = ceil(($status_parts / $status_parts_total) * 100);
+
+            if ($current_file === count($args)) {
+                delete_transient('nws_alerts_populate_tables_args');
+                delete_transient('nws_alerts_populate_tables_current_file');
+                delete_transient('nws_alerts_populate_tables_current_part');
+
+                set_option('nws_alerts_tables_built', true);
+
+                $return_value['status'] = $status;
+            } else {
+                set_transient('nws_alerts_populate_tables_current_file', $current_file, 0);
+                set_transient('nws_alerts_populate_tables_current_part', $current_part, 0);
+
+                $return_value['populate_tables'] = true;
+                $return_value['status'] = $status;
+            }
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($return_value);
+        die();
     }
 
 
@@ -192,6 +287,7 @@ class NWS_Alerts_Admin {
 
         echo '<h2>National Weather Service Alerts</h2>';
 
+        if (NWS_ALERTS_TABLES_BUILT !== true) echo self::get_module('alerts-bar', $controls);
         echo self::get_module('alerts-bar', $controls);
 
         echo '</div>';
@@ -346,7 +442,7 @@ class NWS_Alerts_Admin {
     * @return   void
     * @access   public
     */
-    public static function get_module($module, $controls) {
+    public static function get_module($module = '', $controls = array()) {
         if ($module === 'alerts-bar') {
             $defaults = array('error' => false,
                               'enabled' => NWS_ALERTS_BAR_ENABLED,
@@ -384,6 +480,22 @@ class NWS_Alerts_Admin {
                 $return_value .= '</form>'; 
             $return_value .= '</div>'; 
             $return_value .= '</div>'; 
+        } else if ($module === 'build-tables') {
+            $return_value = '';
+            $module_id_prefix = 'nws-alerts';
+            $control_id_prefix = $module_id_prefix . '-' . $module;
+
+            $return_value .= '<div class="metabox-holder"><div class="meta-box-sortables ui-sortable"><div class="postbox"><h3 class="hndle"><span>Build Database Tables</span></h3>';
+            $return_value .= '<div class="inside">';
+                $return_value .= '<p class="description">The NWS Alerts plugin relies on custom database tables to lookup locations by zip code, city, state, and/or county. These tables must be built before the NWS Alerts plugin can be used. Due to the size of the tables being built the process has been broken up into small steps, and separated from the activation process, in order to accomodate most web hosts.</p>';
+                $return_value .= '<form id="' . $control_id_prefix . '" method="post" action="">';
+
+                    $return_value .= '<div id="' . $control_id_prefix . '-status-bar-container"><div id="' . $control_id_prefix . '-status-bar"></div></div>';
+                    $return_value .= '<input type="submit" value="Build Database Tables" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . str_replace('-', '_', $control_id_prefix) . '-submit">';
+
+                $return_value .= '</form>';
+            $return_value .= '</div>';
+            $return_value .= '</div>';
         }
 
         return $return_value;

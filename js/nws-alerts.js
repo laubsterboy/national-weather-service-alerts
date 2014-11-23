@@ -23,7 +23,7 @@ Author URI: http://www.laubsterboy.com
                 type: 'POST',
                 url: ajaxurl,
                 data: {
-                    action: 'nws_alert_refresh',
+                    action: 'nws_alerts_refresh',
                     zip: zip,
                     display: display,
                     scope: scope,
