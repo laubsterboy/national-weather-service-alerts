@@ -513,6 +513,7 @@ class NWS_Alerts_Admin {
                     $return_value .= '</form>';
                 } else {
                     $return_value .= '<p class="description">The NWS Alerts plugin database tables are fully setup.</p>';
+                }
             $return_value .= '</div>';
             $return_value .= '</div>';
         }
