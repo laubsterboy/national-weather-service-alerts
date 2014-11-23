@@ -23,7 +23,7 @@ Plugin Name: National Weather Service Alerts
         }
     }
 
-    $('#nws-alerts-build-tables-submit').click(function (event) {
+    $('#nws-alerts-build-tables').submit(function (event) {
         event.preventDefault();
 
         $.ajax({
