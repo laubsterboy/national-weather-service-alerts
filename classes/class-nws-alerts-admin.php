@@ -136,8 +136,8 @@ class NWS_Alerts_Admin {
         $return_value = array('populate_tables' => false);
 
         $args = get_transient('nws_alerts_populate_tables_args');
-        $current_file = get_transient('nws_alerts_populate_tables_current_file');
-        $current_part = get_transient('nws_alerts_populate_tables_current_part');
+        $current_file = (int) get_transient('nws_alerts_populate_tables_current_file');
+        $current_part = (int) get_transient('nws_alerts_populate_tables_current_part');
 
         if (DOING_AJAX && NWS_ALERTS_TABLES_BUILT !== true && $args !== false && $current_file !== false && $current_part !== false) {
             write_log('---------------------------------------------------------------------------');
@@ -168,7 +168,7 @@ class NWS_Alerts_Admin {
             */
 
             // Update file and part
-            if ($current_part < $args[$current_file]['file_parts']) {
+            if ($current_part < (int) $args[$current_file]['file_parts']) {
                 $current_part += 1;
             } else {
                 $current_file += 1;
@@ -182,7 +182,7 @@ class NWS_Alerts_Admin {
             foreach ($args as $key => $files) {
                 $status_parts_total += $files['file_parts'];
                 if ($key < $current_file) {
-                    $status_parts += $file['file_parts'];
+                    $status_parts += $files['file_parts'];
                 } else if ($key === $current_file) {
                     $status_parts += $current_part;
                 }
