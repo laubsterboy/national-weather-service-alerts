@@ -124,7 +124,7 @@ class NWS_Alerts_Admin {
 
                 $return_value['populate_tables'] = true;
             } else {
-                //update_site_option('nws_alerts_tables_built', true);
+                update_site_option('nws_alerts_tables_built', true);
             }
         }
 
@@ -147,7 +147,7 @@ class NWS_Alerts_Admin {
 
             $file_name = $args[$current_file]['file_name_base'] . $current_part . '.' . $args[$current_file]['file_extention'];
 
-            /*
+            // Loop through file and insert into database
             $opened_file = fopen(NWS_ALERTS_ABSPATH . 'data/' . $file_name, 'r');
 
             if ($args[$current_file]['file_name_base'] === 'zip-codes') {
@@ -163,7 +163,6 @@ class NWS_Alerts_Admin {
             }
 
             fclose($opened_file);
-            */
 
             // Update file and part
             if ($current_part < (int) $args[$current_file]['file_parts']) {
@@ -193,7 +192,7 @@ class NWS_Alerts_Admin {
                 delete_site_transient('nws_alerts_populate_tables_current_file');
                 delete_site_transient('nws_alerts_populate_tables_current_part');
 
-                //update_site_option('nws_alerts_tables_built', true);
+                update_site_option('nws_alerts_tables_built', true);
 
                 $return_value['status'] = $status;
             } else {
