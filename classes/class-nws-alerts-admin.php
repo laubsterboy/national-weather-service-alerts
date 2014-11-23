@@ -54,6 +54,8 @@ class NWS_Alerts_Admin {
             global $wpdb;
             $sql;
             $table_name = NWS_ALERTS_TABLE_NAME_LOCATIONS;
+            $table_locations_created = false;
+            $table_codes_created = false;
 
             // Only create the table and populate it on the first activation - or if the table_name has changed or been dropped
             if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
@@ -73,6 +75,8 @@ class NWS_Alerts_Admin {
                 );";
 
                 dbDelta($sql);
+
+                $table_locations_created = true;
             }
 
             $table_name = NWS_ALERTS_TABLE_NAME_CODES;
@@ -92,12 +96,14 @@ class NWS_Alerts_Admin {
                 );";
 
                 dbDelta($sql);
+
+                $table_codes_created = true;
             }
 
-            if (NWS_ALERTS_TABLES_BUILT !== true) {
+            if (NWS_ALERTS_TABLES_BUILT !== true && $table_locations_created === true && $table_codes_created === true) {
                 //set transients with all necessary info for tracking populating the tables
-                if (get_transient('nws_alerts_populate_tables_args') === false) {
-                    set_transient('nws_alerts_populate_tables_args',
+                if (get_site_transient('nws_alerts_populate_tables_args') === false) {
+                    set_site_transient('nws_alerts_populate_tables_args',
                         array(
                             array(
                                 'file_name_base' => 'zip-codes',
@@ -113,10 +119,12 @@ class NWS_Alerts_Admin {
                             )
                         ), 0);
                 }
-                if (get_transient('nws_alerts_populate_tables_current_file') === false) set_transient('nws_alerts_populate_tables_current_file', 0, 0);
-                if (get_transient('nws_alerts_populate_tables_current_part') === false) set_transient('nws_alerts_populate_tables_current_part', 1, 0);
+                if (get_site_transient('nws_alerts_populate_tables_current_file') === false) set_site_transient('nws_alerts_populate_tables_current_file', 0, 0);
+                if (get_site_transient('nws_alerts_populate_tables_current_part') === false) set_site_transient('nws_alerts_populate_tables_current_part', 1, 0);
 
                 $return_value['populate_tables'] = true;
+            } else {
+                //update_site_option('nws_alerts_tables_built', true);
             }
         }
 
@@ -131,9 +139,9 @@ class NWS_Alerts_Admin {
     public static function populate_tables() {
         $return_value = array('populate_tables' => false);
 
-        $args = get_transient('nws_alerts_populate_tables_args');
-        $current_file = (int) get_transient('nws_alerts_populate_tables_current_file');
-        $current_part = (int) get_transient('nws_alerts_populate_tables_current_part');
+        $args = get_site_transient('nws_alerts_populate_tables_args');
+        $current_file = (int) get_site_transient('nws_alerts_populate_tables_current_file');
+        $current_part = (int) get_site_transient('nws_alerts_populate_tables_current_part');
 
         if (DOING_AJAX && NWS_ALERTS_TABLES_BUILT !== true && $args !== false && $current_file !== false && $current_part !== false) {
 
@@ -181,16 +189,16 @@ class NWS_Alerts_Admin {
             $status = ceil(($status_parts / $status_parts_total) * 100);
 
             if ($current_file === count($args)) {
-                delete_transient('nws_alerts_populate_tables_args');
-                delete_transient('nws_alerts_populate_tables_current_file');
-                delete_transient('nws_alerts_populate_tables_current_part');
+                delete_site_transient('nws_alerts_populate_tables_args');
+                delete_site_transient('nws_alerts_populate_tables_current_file');
+                delete_site_transient('nws_alerts_populate_tables_current_part');
 
-                //set_option('nws_alerts_tables_built', true);
+                //update_site_option('nws_alerts_tables_built', true);
 
                 $return_value['status'] = $status;
             } else {
-                set_transient('nws_alerts_populate_tables_current_file', $current_file, 0);
-                set_transient('nws_alerts_populate_tables_current_part', $current_part, 0);
+                set_site_transient('nws_alerts_populate_tables_current_file', $current_file, 0);
+                set_site_transient('nws_alerts_populate_tables_current_part', $current_part, 0);
 
                 $return_value['populate_tables'] = true;
                 $return_value['status'] = $status;
@@ -294,7 +302,7 @@ class NWS_Alerts_Admin {
 
         echo '<h2>National Weather Service Alerts</h2>';
 
-        if (NWS_ALERTS_TABLES_BUILT !== true) echo self::get_module('build-tables', $controls);
+        echo self::get_module('build-tables', $controls);
         echo self::get_module('alerts-bar', $controls);
 
         echo '</div>';
@@ -495,13 +503,16 @@ class NWS_Alerts_Admin {
 
             $return_value .= '<div class="metabox-holder"><div class="meta-box-sortables ui-sortable"><div class="postbox"><h3 class="hndle"><span>Build Database Tables</span></h3>';
             $return_value .= '<div class="inside">';
-                $return_value .= '<p class="description">The NWS Alerts plugin relies on custom database tables to lookup locations by zip code, city, state, and/or county. These tables must be built before the NWS Alerts plugin can be used. Due to the size of the tables being built the process has been broken up into small steps, and separated from the activation process, in order to accomodate most web hosts.</p>';
-                $return_value .= '<form id="' . $control_id_prefix . '" method="post" action="">';
+                if (NWS_ALERTS_TABLES_BUILT !== true) {
+                    $return_value .= '<p class="description">The NWS Alerts plugin relies on custom database tables to lookup locations by zip code, city, state, and/or county. These tables must be built before the NWS Alerts plugin can be used. Due to the size of the tables being built the process has been broken up into small steps, and separated from the activation process, in order to accomodate most web hosts.</p>';
+                    $return_value .= '<form id="' . $control_id_prefix . '" method="post" action="">';
 
-                    $return_value .= '<div id="' . $control_id_prefix . '-status-bar-container"><div id="' . $control_id_prefix . '-status-bar"></div></div>';
-                    $return_value .= '<input type="submit" value="Build Database Tables" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . str_replace('-', '_', $control_id_prefix) . '-submit">';
+                        $return_value .= '<div id="' . $control_id_prefix . '-status-bar-container"><div id="' . $control_id_prefix . '-status-bar"></div></div>';
+                        $return_value .= '<input type="submit" value="Build Database Tables" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . str_replace('-', '_', $control_id_prefix) . '-submit">';
 
-                $return_value .= '</form>';
+                    $return_value .= '</form>';
+                } else {
+                    $return_value .= '<p class="description">The NWS Alerts plugin database tables are fully setup.</p>';
             $return_value .= '</div>';
             $return_value .= '</div>';
         }

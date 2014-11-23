@@ -23,3 +23,10 @@ remove_option('nws_alerts_alerts_bar_state');
 remove_option('nws_alerts_alerts_bar_county');
 remove_option('nws_alerts_alerts_bar_scope');
 remove_option('nws_alerts_alerts_bar_fix');
+
+remove_site_option('nws_alerts_tables_built');
+
+// Remove any lingering transients - should never exist if activation and setup ran properly.
+delete_site_transient('nws_alerts_populate_tables_args');
+delete_site_transient('nws_alerts_populate_tables_current_file');
+delete_site_transient('nws_alerts_populate_tables_current_part');

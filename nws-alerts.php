@@ -23,35 +23,37 @@ require_once('classes/class-nws-alerts-admin.php');
 register_activation_hook(NWS_ALERTS_ABSPATH . 'nws-alerts.php', 'NWS_Alerts_Admin::activation');
 register_deactivation_hook(NWS_ALERTS_ABSPATH . 'nws-alerts.php', 'NWS_Alerts_Admin::deactivation');
 
-// Shortcodes
-add_shortcode('nws_alerts', 'NWS_Alerts_Shortcodes::shortcode_handler');
+if (NWS_ALERTS_TABLES_BUILT !== true) {
+    // Admin - AJAX listeners
+    if (is_admin()) add_action('wp_ajax_nws_alerts_build_tables', 'NWS_Alerts_Admin::build_tables');
+    if (is_admin()) add_action('wp_ajax_nws_alerts_populate_tables', 'NWS_Alerts_Admin::populate_tables');
+} else {
+    // Shortcodes
+    add_shortcode('nws_alerts', 'NWS_Alerts_Shortcodes::shortcode_handler');
 
-// Client - Set JavaScript ajaxurl global variable
-add_action('wp_head','NWS_Alerts_Client::set_ajaxurl');
+    // Client - Set JavaScript ajaxurl global variable
+    add_action('wp_head','NWS_Alerts_Client::set_ajaxurl');
 
-// Client - Scripts and Styles
-add_action('wp_enqueue_scripts', 'NWS_Alerts_Client::scripts_styles');
+    // Client - Scripts and Styles
+    add_action('wp_enqueue_scripts', 'NWS_Alerts_Client::scripts_styles');
 
-// Client - AJAX listeners
-if (is_admin()) add_action('wp_ajax_nopriv_nws_alerts_refresh', 'NWS_Alerts_Client::refresh');
-if (is_admin()) add_action('wp_ajax_nws_alerts_refresh', 'NWS_Alerts_Client::refresh');
+    // Client - AJAX listeners
+    if (is_admin()) add_action('wp_ajax_nopriv_nws_alerts_refresh', 'NWS_Alerts_Client::refresh');
+    if (is_admin()) add_action('wp_ajax_nws_alerts_refresh', 'NWS_Alerts_Client::refresh');
 
-// Client - WordPress output buffer
-add_action('wp_head', 'NWS_Alerts_Client::buffer_start');
-add_action('wp_footer', 'NWS_Alerts_Client::buffer_end');
+    // Client - WordPress output buffer
+    add_action('wp_head', 'NWS_Alerts_Client::buffer_start');
+    add_action('wp_footer', 'NWS_Alerts_Client::buffer_end');
+
+    // Admin - WordPress Editor Buttons - TinyMCE Plugins
+    add_action('admin_head', 'NWS_Alerts_Admin::admin_head_action');
+    add_action('admin_enqueue_scripts', 'NWS_Alerts_Admin::admin_enqueue_scripts_action');
+
+    // Admin/Client - WordPress Widget
+    add_action('widgets_init', 'NWS_Alerts_Admin::register_widget');
+}
 
 // Admin - WordPress Settings Page
 add_action('admin_menu', 'NWS_Alerts_Admin::add_settings_menu');
-
-// Admin - WordPress Editor Buttons - TinyMCE Plugins
-add_action('admin_head', 'NWS_Alerts_Admin::admin_head_action');
-add_action('admin_enqueue_scripts', 'NWS_Alerts_Admin::admin_enqueue_scripts_action');
-
-// Admin/Client - WordPress Widget
-add_action('widgets_init', 'NWS_Alerts_Admin::register_widget');
-
-// Admin - AJAX listeners
-if (NWS_ALERTS_TABLES_BUILT !== true && is_admin()) add_action('wp_ajax_nws_alerts_build_tables', 'NWS_Alerts_Admin::build_tables');
-if (NWS_ALERTS_TABLES_BUILT !== true && is_admin()) add_action('wp_ajax_nws_alerts_populate_tables', 'NWS_Alerts_Admin::populate_tables');
 
 ?>
