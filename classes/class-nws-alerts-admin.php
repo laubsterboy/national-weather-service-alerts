@@ -95,6 +95,10 @@ class NWS_Alerts_Admin {
             }
 
             if (NWS_ALERTS_TABLES_BUILT !== true) {
+                delete_transient('nws_alerts_populate_tables_args');
+                delete_transient('nws_alerts_populate_tables_current_file');
+                delete_transient('nws_alerts_populate_tables_current_part');
+
                 //set transients with all necessary info for tracking populating the tables
                 if (get_transient('nws_alerts_populate_tables_args') === false) {
                     set_transient('nws_alerts_populate_tables_args',
