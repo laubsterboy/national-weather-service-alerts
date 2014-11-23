@@ -45,13 +45,15 @@ if (NWS_ALERTS_TABLES_BUILT !== true) {
     add_action('wp_head', 'NWS_Alerts_Client::buffer_start');
     add_action('wp_footer', 'NWS_Alerts_Client::buffer_end');
 
-    // Admin - WordPress Editor Buttons - TinyMCE Plugins
-    add_action('admin_head', 'NWS_Alerts_Admin::admin_head_action');
-    add_action('admin_enqueue_scripts', 'NWS_Alerts_Admin::admin_enqueue_scripts_action');
-
     // Admin/Client - WordPress Widget
     add_action('widgets_init', 'NWS_Alerts_Admin::register_widget');
+
+    // Admin - WordPress Editor Buttons - TinyMCE Plugins
+    add_action('admin_head', 'NWS_Alerts_Admin::admin_head_action');
 }
+
+// Admin - Scripts and Styles
+add_action('admin_enqueue_scripts', 'NWS_Alerts_Admin::admin_enqueue_scripts_action');
 
 // Admin - WordPress Settings Page
 add_action('admin_menu', 'NWS_Alerts_Admin::add_settings_menu');

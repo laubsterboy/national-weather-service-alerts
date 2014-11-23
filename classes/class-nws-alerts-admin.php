@@ -503,7 +503,7 @@ class NWS_Alerts_Admin {
             $return_value .= '<div class="metabox-holder"><div class="meta-box-sortables ui-sortable"><div class="postbox"><h3 class="hndle"><span>Build Database Tables</span></h3>';
             $return_value .= '<div class="inside">';
                 if (NWS_ALERTS_TABLES_BUILT !== true) {
-                    $return_value .= '<p class="description">The NWS Alerts plugin relies on custom database tables to lookup locations by zip code, city, state, and/or county. These tables must be built before the NWS Alerts plugin can be used. Due to the size of the tables being built the process has been broken up into small steps, and separated from the activation process, in order to accomodate most web hosts.</p>';
+                    $return_value .= '<p class="description">The NWS Alerts plugin relies on custom database tables to look up locations by zip code, city, state, and/or county. These tables must be built before the NWS Alerts plugin can be used. Due to the size of the tables being built the process has been broken up into small steps, and separated from the activation process, in order to accomodate most web hosts.</p>';
                     $return_value .= '<form id="' . $control_id_prefix . '" method="post" action="">';
 
                         $return_value .= '<div id="' . $control_id_prefix . '-status-bar-container"><div id="' . $control_id_prefix . '-status-bar"></div></div>';
