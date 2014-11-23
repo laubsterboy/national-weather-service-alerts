@@ -131,11 +131,16 @@ class NWS_Alerts_Admin {
     public static function populate_tables() {
         $return_value = array('populate_tables' => false);
 
-        if (DOING_AJAX && NWS_ALERTS_TABLES_BUILT !== true && $args = get_transient('nws_alerts_populate_tables_args') !== false && $current_file = get_transient('nws_alerts_populate_tables_current_file') !== false && $current_part = get_transient('nws_alerts_populate_tables_current_part') !== false) {
+        $args = get_transient('nws_alerts_populate_tables_args');
+        $current_file = get_transient('nws_alerts_populate_tables_current_file');
+        $current_part = get_transient('nws_alerts_populate_tables_current_part');
+
+        if (DOING_AJAX && NWS_ALERTS_TABLES_BUILT !== true && $args !== false && $current_file !== false && $current_part !== false) {
             write_log('populate_tables -> args:');
             write_log($args);
             $file_name = $args[$current_file]['file_name_base'] . $current_part . '.' . $args[$current_file]['file_extention'];
 
+            /*
             $opened_file = fopen(NWS_ALERTS_ABSPATH . 'data/' . $file_name, 'r');
 
             if ($args[$current_file]['file_name_base'] === 'zip-codes') {
@@ -151,6 +156,7 @@ class NWS_Alerts_Admin {
             }
 
             fclose($opened_file);
+            */
 
             // Update file and part
             if ($current_part < $args[$current_file]['file_parts']) {
@@ -180,7 +186,7 @@ class NWS_Alerts_Admin {
                 delete_transient('nws_alerts_populate_tables_current_file');
                 delete_transient('nws_alerts_populate_tables_current_part');
 
-                set_option('nws_alerts_tables_built', true);
+                //set_option('nws_alerts_tables_built', true);
 
                 $return_value['status'] = $status;
             } else {
