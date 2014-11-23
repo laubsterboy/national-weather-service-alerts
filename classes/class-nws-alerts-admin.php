@@ -287,7 +287,7 @@ class NWS_Alerts_Admin {
 
         echo '<h2>National Weather Service Alerts</h2>';
 
-        if (NWS_ALERTS_TABLES_BUILT !== true) echo self::get_module('alerts-bar', $controls);
+        if (NWS_ALERTS_TABLES_BUILT !== true) echo self::get_module('build-tables', $controls);
         echo self::get_module('alerts-bar', $controls);
 
         echo '</div>';
