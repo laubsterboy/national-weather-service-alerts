@@ -155,12 +155,12 @@ class NWS_Alerts_Admin {
             if ($args[$current_file]['file_name_base'] === 'zip-codes') {
                 while ($line = fgets($opened_file)) {
                     list($zip, $latitude, $longitude, $city, $state, $county, $zipclass) = explode(',', str_replace('"', '', strtolower($line)));
-                    $rows_affected = $wpdb->insert($table_name, array('zip' => $zip, 'latitude' => $latitude, 'longitude' => $longitude, 'city' => $city, 'state' => $state, 'county' => $county, 'zipclass' => $zipclass));
+                    $rows_affected = $wpdb->insert($args[$current_file]['table_name'], array('zip' => $zip, 'latitude' => $latitude, 'longitude' => $longitude, 'city' => $city, 'state' => $state, 'county' => $county, 'zipclass' => $zipclass));
                 }
             } else if ($args[$current_file]['file_name_base'] === 'ansi-codes') {
                 while ($line = fgets($opened_file)) {
                     list($state, $stateansi, $countyansi, $county, $ansiclass) = explode(',', strtolower($line));
-                    $rows_affected = $wpdb->insert($table_name, array('state' => $state, 'stateansi' => $stateansi, 'countyansi' => $countyansi, 'county' => $county));
+                    $rows_affected = $wpdb->insert($args[$current_file]['table_name'], array('state' => $state, 'stateansi' => $stateansi, 'countyansi' => $countyansi, 'county' => $county));
                 }
             }
 

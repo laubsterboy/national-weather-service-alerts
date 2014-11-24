@@ -1,5 +1,6 @@
 /*
 Plugin Name: National Weather Service Alerts
+*/
 
 /*global jQuery,ajaxurl*/
 
