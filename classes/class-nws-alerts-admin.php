@@ -523,8 +523,9 @@ class NWS_Alerts_Admin {
                         $return_value .= '<input type="submit" value="Build Database Tables" class="button button-primary" id="' . $control_id_prefix . '-submit" name="' . str_replace('-', '_', $control_id_prefix) . '-submit">';
 
                     $return_value .= '</form>';
+                } else {
+                    $return_value .= '<p class="description">The NWS Alerts plugin database tables are fully setup and the plugin is ready to be used.</p>';
                 }
-                $return_value .= '<p id="' . $control_id_prefix . '-tables-built" class="description">The NWS Alerts plugin database tables are fully setup and the plugin is ready to be used.</p>';
             $return_value .= '</div>';
             $return_value .= '</div>';
         }

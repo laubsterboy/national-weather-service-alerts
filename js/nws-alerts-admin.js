@@ -7,10 +7,6 @@ Plugin Name: National Weather Service Alerts
 (function ($) {
     "use strict";
 
-    if ($('#nws-alerts-build-tables').length) {
-        $('#nws-alerts-build-tables-tables-built').hide();
-    }
-
     function populate_tables(action, textStatus, jqXHR) {
         $('#nws-alerts-build-tables-status-bar').css('width', action['status'] + '%');
 
@@ -25,7 +21,7 @@ Plugin Name: National Weather Service Alerts
             });
         } else {
             $('#nws-alerts-build-tables').hide();
-            $('#nws-alerts-built-tables-tables-built').show();
+            location.reload();
         }
     }
 
