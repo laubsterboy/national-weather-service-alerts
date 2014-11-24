@@ -524,7 +524,7 @@ class NWS_Alerts_Admin {
 
                     $return_value .= '</form>';
                 }
-                $return_value .= '<p id="' . $control_id_prefix . '-tables-built" class="description"' . (NWS_ALERTS_TABLES_BUILT === true ? '' : ' style="display:none;"') . '>The NWS Alerts plugin database tables are fully setup and the plugin is ready to be used.</p>';
+                $return_value .= '<p id="' . $control_id_prefix . '-tables-built" class="description">The NWS Alerts plugin database tables are fully setup and the plugin is ready to be used.</p>';
             $return_value .= '</div>';
             $return_value .= '</div>';
         }
