@@ -3,8 +3,8 @@
 Contributors: laubsterboy
 Tags: National Weather Service, NWS, Storm Prediction Center, SPC, Alert, Weather, Storm, Severe, Tornado, Thunder, Flood
 Requires at least: 3.1
-Tested up to: 4.0
-Stable tag: 1.1.0
+Tested up to: 4.0.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,11 +47,12 @@ used.*
 
 1. Go to Plugins > Add New in the admin area, and search for National Weather Service Alerts.
 1. Click install.
-1. Once installed, activate and you're done.
+1. Once installed, activate the plugin.
+1. Lastly, go to the NWS Alerts settings page and click **Build Database Tables**.
 
-**Note that the first time the plugin is activated the database tables used for location searching are built and
-this process can take up to a minute to complete, so please be patient. These tables are deleted from the database
-when the plugin is deactivated, and then deleted, in the WordPress admin Plugins area.**
+**Note that building the database tables used for location searching can take up to a minute to complete, so please be patient. 
+The process is monitored via AJAX and a status bar will update you on the progress of the build process.
+These tables are deleted from the database when the plugin is deactivated, and then deleted, in the WordPress admin Plugins area.**
 
 Once the plugin is installed and activated you can easily add weather alerts to your website by using the included
 NWS Alerts widget or by using the [nws_alert] shortcode. The plugin adds a "National Weather Service Alerts" button
@@ -68,7 +69,8 @@ For further documentation and developer reference check out the GitHub repositor
 The plugin is letting your know that there was an error when attempting to retrieve additional location information
 about the specified location. Check for spelling errors in the city or county name. On rare occasion the locations
 database table may not include the specified city and is thus unable to retrieve additional information necessary
-for the plugin to function properly and the only workaround is to instead use the zipcode.
+for the plugin to function properly and the only workaround is to instead use the zipcode. If you continue to seeing
+this error, despite trying the above fixes, please try deactivating and deleting the plugin and re-installing.
 
 = I'm seeing the following message: Data Error =
 The plugin will show this message when it is unable to retrieve the Atom feed from the National Weather Service.
@@ -91,6 +93,11 @@ Simply refreshing the page should fix the problem.
 
 == Changelog ==
 
+= 1.1.1 =
+* Fixed: Bug fix that prevented the alerts from auto-updating using AJAX.
+* Improvement: The plugin activation process is simplified and should work on all web hosts.
+* Improvement: The process to build database tables used for location look-up has been removed from the activation process and broken up into multiple automated parts to be compatible with all web hosts.
+
 = 1.1.0 =
 * Added: NWS Alerts settings page to add the NWS Alerts Bar.
 * Added: Bar display option, which displays in a horizontal layout and only displays when there are active alerts.
@@ -107,6 +114,9 @@ Simply refreshing the page should fix the problem.
 
 
 == Upgrade Notice ==
+
+= 1.1.1=
+* Bug fixes with alerts auto-updating and revamped the activation process.
 
 = 1.1.0 =
 * Added features, including an alerts bar, and improved layout compatibility across across themes.
