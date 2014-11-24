@@ -7,9 +7,9 @@ Plugin Name: National Weather Service Alerts
 (function ($) {
     "use strict";
 
-    $('#nws-alerts-build-tables').each(function () {
-        $('#nws-alerts-built-tables-tables-built').hide();
-    });
+    if ($('#nws-alerts-build-tables').length) {
+        $('#nws-alerts-build-tables-tables-built').hide();
+    }
 
     function populate_tables(action, textStatus, jqXHR) {
         $('#nws-alerts-build-tables-status-bar').css('width', action['status'] + '%');
