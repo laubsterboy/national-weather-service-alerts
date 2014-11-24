@@ -20,7 +20,8 @@ class NWS_Alerts_Admin {
 
         // Check for minimum WordPress and PHP versions
         if(version_compare($wp_version, NWS_ALERTS_MIN_WP_VERSION, '>=') && version_compare(phpversion(), NWS_ALERTS_MIN_PHP_VERSION, '>=')) {
-
+            // Save the plugin version to the database so it can be compared against for future updates
+            update_site_option('nws_alerts_version', NWS_ALERTS_VERSION);
         } else {
             deactivate_plugins(array('national-weather-service-alerts/nws-alerts.php'), false, is_network_admin());
             die(NWS_ALERTS_ERROR_NO_ACTIVATION);

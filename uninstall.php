@@ -24,6 +24,7 @@ remove_option('nws_alerts_alerts_bar_county');
 remove_option('nws_alerts_alerts_bar_scope');
 remove_option('nws_alerts_alerts_bar_fix');
 
+remove_site_option('nws_alerts_version');
 remove_site_option('nws_alerts_tables_built');
 
 // Remove any lingering transients - should never exist if activation and setup ran properly.
