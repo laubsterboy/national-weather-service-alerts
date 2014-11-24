@@ -23,10 +23,6 @@ require_once('classes/class-nws-alerts-admin.php');
 register_activation_hook(NWS_ALERTS_ABSPATH . 'nws-alerts.php', 'NWS_Alerts_Admin::activation');
 register_deactivation_hook(NWS_ALERTS_ABSPATH . 'nws-alerts.php', 'NWS_Alerts_Admin::deactivation');
 
-write_log('nws_alerts_tables_built:');
-write_log(NWS_ALERTS_TABLES_BUILT);
-write_log(gettype(NWS_ALERTS_TABLES_BUILT));
-
 if (NWS_ALERTS_TABLES_BUILT !== true) {
     // Admin - AJAX listeners
     if (is_admin()) add_action('wp_ajax_nws_alerts_build_tables', 'NWS_Alerts_Admin::build_tables');

@@ -20,7 +20,7 @@ define('NWS_ALERTS_PATH', trailingslashit(basename(dirname(__FILE__))));
 define('NWS_ALERTS_ABSPATH', plugin_dir_path(__FILE__));
 define('NWS_ALERTS_URL', plugins_url('/', __FILE__));
 
-define('NWS_ALERTS_BAR_ENABLED', get_option('nws_alerts_alerts_bar_enabled') == 1 ? true : false);
+define('NWS_ALERTS_BAR_ENABLED', filter_var(get_option('nws_alerts_alerts_bar_enabled'), FILTER_VALIDATE_BOOLEAN));
 define('NWS_ALERTS_BAR_ZIP', get_option('nws_alerts_alerts_bar_zip'));
 define('NWS_ALERTS_BAR_CITY', get_option('nws_alerts_alerts_bar_city'));
 define('NWS_ALERTS_BAR_STATE', get_option('nws_alerts_alerts_bar_state'));
@@ -28,7 +28,7 @@ define('NWS_ALERTS_BAR_COUNTY', get_option('nws_alerts_alerts_bar_county'));
 define('NWS_ALERTS_BAR_SCOPE', get_option('nws_alerts_alerts_bar_scope'));
 define('NWS_ALERTS_BAR_FIX', get_option('nws_alerts_alerts_bar_fix'));
 
-define('NWS_ALERTS_TABLES_BUILT', get_site_option('nws_alerts_tables_built'));
+define('NWS_ALERTS_TABLES_BUILT', filter_var(get_site_option('nws_alerts_tables_built'), FILTER_VALIDATE_BOOLEAN));
 define('NWS_ALERTS_TABLE_NAME_CODES', $wpdb->prefix . 'nws_alerts_codes');
 define('NWS_ALERTS_TABLE_NAME_LOCATIONS', $wpdb->prefix . 'nws_alerts_locations');
 
