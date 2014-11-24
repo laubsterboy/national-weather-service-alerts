@@ -28,7 +28,7 @@ Plugin Name: National Weather Service Alerts
     $('#nws-alerts-build-tables').submit(function (event) {
         event.preventDefault();
 
-        $(this).prop('disabled', true);
+        $('#nws-alerts-build-tables-submit').prop('disabled', true);
 
         $.ajax({
             type: 'POST',
