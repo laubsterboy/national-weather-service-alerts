@@ -21,11 +21,14 @@ Plugin Name: National Weather Service Alerts
             });
         } else {
             $('#nws-alerts-build-tables').hide();
+            $('#nws-alerts-built-tables-tables-built').show();
         }
     }
 
     $('#nws-alerts-build-tables').submit(function (event) {
         event.preventDefault();
+
+        $(this).prop('disabled', true);
 
         $.ajax({
             type: 'POST',
