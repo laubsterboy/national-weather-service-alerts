@@ -112,7 +112,7 @@ class NWS_Alerts_Admin {
                 $table_codes_created = true;
             }
 
-            if (NWS_ALERTS_TABLES_BUILT !== true && $table_locations_created === true && $table_codes_created === true) {
+            if ((NWS_ALERTS_TABLES_BUILT !== true && $table_locations_created === true && $table_codes_created === true) || get_site_transient('nws_alerts_populate_tables_args') !== false) {
                 //set transients with all necessary info for tracking populating the tables
                 if (get_site_transient('nws_alerts_populate_tables_args') === false) {
                     set_site_transient('nws_alerts_populate_tables_args',
