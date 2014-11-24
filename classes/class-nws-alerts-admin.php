@@ -22,12 +22,6 @@ class NWS_Alerts_Admin {
         if(version_compare($wp_version, NWS_ALERTS_MIN_WP_VERSION, '>=') && version_compare(phpversion(), NWS_ALERTS_MIN_PHP_VERSION, '>=')) {
             // Save the plugin version to the database so it can be compared against for future updates
             update_site_option('nws_alerts_version', NWS_ALERTS_VERSION);
-
-            if (NWS_ALERTS_TABLES_BUILT !== true) {
-                echo '<div class="updated">';
-                echo '<p>The National Weather Service Alerts plugin isn\'t quite ready to be used. Go to the <a href="' . admin_url('options-general.php?page=nws-alerts') . '">NWS Alerts</a> settings page to finish the install.</p>';
-                echo '</div>';
-            }
         } else {
             deactivate_plugins(array('national-weather-service-alerts/nws-alerts.php'), false, is_network_admin());
             die(NWS_ALERTS_ERROR_NO_ACTIVATION);
@@ -47,6 +41,17 @@ class NWS_Alerts_Admin {
     */
     public static function deactivation() {
 
+    }
+
+
+
+    /*
+    * build_tables_admin_notice
+    *
+    * If the NWS Alerts database tables have not been built then an admin notice will be displayed until they are.
+    */
+    public static function build_tables_admin_notice() {
+        echo '<div class="updated"><p>The National Weather Service Alerts plugin isn\'t quite ready to be used. Go to the <a href="' . admin_url('options-general.php?page=nws-alerts') . '">NWS Alerts</a> settings page to finish the install.</p></div>';
     }
 
 
@@ -519,7 +524,7 @@ class NWS_Alerts_Admin {
 
                     $return_value .= '</form>';
                 }
-                $return_value .= '<p id="' . $control_id_prefix . '-tables-built" class="description"' . NWS_ALERTS_TABLES_BUILT === true ? '' : 'style="display:none;"' . '>The NWS Alerts plugin database tables are fully setup and the plugin is ready to be used.</p>';
+                $return_value .= '<p id="' . $control_id_prefix . '-tables-built" class="description"' . (NWS_ALERTS_TABLES_BUILT === true ? '' : ' style="display:none;"') . '>The NWS Alerts plugin database tables are fully setup and the plugin is ready to be used.</p>';
             $return_value .= '</div>';
             $return_value .= '</div>';
         }

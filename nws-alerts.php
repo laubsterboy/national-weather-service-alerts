@@ -24,6 +24,9 @@ register_activation_hook(NWS_ALERTS_ABSPATH . 'nws-alerts.php', 'NWS_Alerts_Admi
 register_deactivation_hook(NWS_ALERTS_ABSPATH . 'nws-alerts.php', 'NWS_Alerts_Admin::deactivation');
 
 if (NWS_ALERTS_TABLES_BUILT !== true) {
+    // Admin - Notices
+    add_action('admin_notices', 'NWS_Alerts_Admin::build_tables_admin_notice');
+
     // Admin - AJAX listeners
     if (is_admin()) add_action('wp_ajax_nws_alerts_build_tables', 'NWS_Alerts_Admin::build_tables');
     if (is_admin()) add_action('wp_ajax_nws_alerts_populate_tables', 'NWS_Alerts_Admin::populate_tables');
