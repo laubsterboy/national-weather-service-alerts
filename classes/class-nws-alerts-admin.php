@@ -138,6 +138,7 @@ class NWS_Alerts_Admin {
 
 
     public static function populate_tables() {
+        global $wpdb;
         $return_value = array('populate_tables' => false);
 
         $args = get_site_transient('nws_alerts_populate_tables_args');
