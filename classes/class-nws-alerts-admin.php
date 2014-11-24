@@ -51,7 +51,7 @@ class NWS_Alerts_Admin {
     * If the NWS Alerts database tables have not been built then an admin notice will be displayed until they are.
     */
     public static function build_tables_admin_notice() {
-        echo '<div class="updated"><p>The National Weather Service Alerts plugin isn\'t quite ready to be used. Go to the <a href="' . admin_url('options-general.php?page=nws-alerts') . '">NWS Alerts</a> settings page to finish the install.</p></div>';
+        echo '<div class="update-nag"><p>The National Weather Service Alerts plugin isn\'t quite ready to be used. Go to the <a href="' . admin_url('options-general.php?page=nws-alerts') . '">NWS Alerts</a> settings page to finish the install.</p></div>';
     }
 
 
