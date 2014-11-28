@@ -104,7 +104,7 @@ class NWS_Alerts_Widget extends WP_Widget {
             <input class="widefat" id="<?php echo $this->get_field_id('county'); ?>" name="<?php echo $this->get_field_name('county'); ?>" type="text" value="<?php echo esc_attr($instance['county']); ?>">
 		</p>
         <p>
-            <label for="<?php echo $this->get_field_id('location_title'); ?>">County:</label>
+            <label for="<?php echo $this->get_field_id('location_title'); ?>">Location Title:</label>
             <input class="widefat" id="<?php echo $this->get_field_id('location_title'); ?>" name="<?php echo $this->get_field_name('location_title'); ?>" type="text" value="<?php echo esc_attr($instance['location_title']); ?>">
 		</p>
         <p>
