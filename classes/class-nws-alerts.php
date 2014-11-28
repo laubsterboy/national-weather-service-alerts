@@ -196,16 +196,16 @@ class NWS_Alerts {
         $nws_alerts_xml = false;
         if (isset($zip) && $zip !== null) {
             if (get_site_transient('nws_alerts_xml_' . $zip) === false) {
-                if (ini_get('allow_url_fopen')) {
-                    $nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
-                } else if (function_exists('curl_version')) {
+                if (function_exists('curl_version')) {
                     $curl = curl_init($nws_alerts_xml_url);
                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                     $curl_data = curl_exec($curl);
                     $nws_alerts_xml = simplexml_load_string($curl_data, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
-                }
 
-                set_site_transient('nws_alerts_xml_' . $zip, $nws_alerts_xml, 180);
+                    set_site_transient('nws_alerts_xml_' . $zip, $curl_data, 180);
+                } else if (ini_get('allow_url_fopen')) {
+                    $nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
+                }
             } else {
                 $nws_alerts_xml = get_site_transient('nws_alerts_xml_' . $zip);
             }
