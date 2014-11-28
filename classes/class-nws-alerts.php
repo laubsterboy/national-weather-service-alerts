@@ -207,7 +207,7 @@ class NWS_Alerts {
                     $nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
                 }
             } else {
-                $nws_alerts_xml = get_site_transient('nws_alerts_xml_' . $zip);
+                $nws_alerts_xml = simplexml_load_string(get_site_transient('nws_alerts_xml_' . $zip), 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
             }
         }
 
