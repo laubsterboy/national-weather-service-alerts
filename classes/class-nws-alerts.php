@@ -192,14 +192,20 @@ class NWS_Alerts {
             $nws_alerts_xml_url = 'http://alerts.weather.gov/cap/wwaatmget.php?x=' . strtoupper($state_abbrev) . 'C' . $county_code . '&y=0';
         }
 
+        $nws_alerts_xml = false;
+
         // Load XML
-        // Use fetch_feed() instead of simplexml_load_file() and then filter the lifespan to be 180 seconds
-        //$nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
-        $nws_alerts_xml = fetch_feed($nws_alerts_xml_url);
-        print_r($nws_alerts_xml);
+        //if (ini_get('allow_url_fopen')) {
+        //    $nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
+        //} else if (function_exists('curl_version')) {
+            $curl = curl_init($nws_alerts_xml_url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            $curl_data = curl_exec($curl);
+            $nws_alerts_xml = simplexml_load_string($curl_data);
+        //}
         $nws_alerts_data = array();
 
-        if (!is_wp_error($nws_alerts_xml)) {
+        if ($nws_alerts_xml !== false) {
             $nws_alerts_data['id'] = isset($nws_alerts_xml->id) ? (string)$nws_alerts_xml->id : null;
             $nws_alerts_data['generator'] = isset($nws_alerts_xml->generator) ? (string)$nws_alerts_xml->generator : null;
             $nws_alerts_data['updated'] = isset($nws_alerts_xml->updated) ? (string)$nws_alerts_xml->updated : null;

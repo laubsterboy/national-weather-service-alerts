@@ -151,26 +151,6 @@ class NWS_Alerts_Utils {
 
         return $associative_array;
     }
-
-
-
-
-    /**
-    * fetch_feed_lifetime
-    *
-    * The NWS_Alerts class now uses fetch_feed to retrieve the NWS Alerts xml, and the default cache
-    * lifetime needs to be modified from 12 hours to 3 minutes.
-    *
-    * @return integer
-    * @access public
-    */
-    public static function fetch_feed_lifetime($seconds, $filename) {
-        if (strpos($filename, 'alerts.weather.gov') !== false) {
-            $seconds = 180;
-        }
-
-        return $seconds;
-    }
 }
 
 ?>
