@@ -21,6 +21,7 @@ delete_option('nws_alerts_alerts_bar_zip');
 delete_option('nws_alerts_alerts_bar_city');
 delete_option('nws_alerts_alerts_bar_state');
 delete_option('nws_alerts_alerts_bar_county');
+delete_option('nws_alerts_alerts_bar_location_title');
 delete_option('nws_alerts_alerts_bar_scope');
 delete_option('nws_alerts_alerts_bar_fix');
 

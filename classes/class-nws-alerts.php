@@ -537,6 +537,7 @@ class NWS_Alerts {
                           'prefix' => '<section>',
                           'suffix' => '</section>',
                           'current_alert' => true,
+                          'location_title' => false,
                           'display' => NWS_ALERTS_DISPLAY_FULL);
         $args = wp_parse_args($args, $defaults);
 
@@ -559,7 +560,9 @@ class NWS_Alerts {
                 $return_value .= NWS_ALERTS_ERROR_NO_XML_SHORT;
             }
 
-            if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
+            if ($args['location_title'] !== false) {
+                $return_value .= '<span class="nws-alerts-heading-location">' . $args['location_title'] . '</span><span class="nws-alerts-heading-scope">Local Weather Alerts</span>';
+            } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
                 $return_value .= '<span class="nws-alerts-heading-location">United States</span><span class="nws-alerts-heading-scope">National Weather Alerts</span>';
             } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
                 $return_value .= '<span class="nws-alerts-heading-location">' . $this->state . '</span><span class="nws-alerts-heading-scope">State Weather Alerts</span>';
@@ -572,7 +575,9 @@ class NWS_Alerts {
                 $return_value .= $this->entries[0]->get_output_graphic($args['graphic'], 'nws-alerts-heading-graphic');
             }
 
-            if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
+            if ($args['location_title'] !== false) {
+                $return_value .= '<span class="nws-alerts-heading-location">' . $args['location_title'] . '</span><span class="nws-alerts-heading-scope">Local Weather Alerts</span>';
+            } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
                 $return_value .= '<span class="nws-alerts-heading-scope">National Weather Alerts</span><h2 class="nws-alerts-heading-location">United States</h2>';
             } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
                 $return_value .= '<span class="nws-alerts-heading-scope">State Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $this->state . '</h2>';
@@ -632,8 +637,9 @@ class NWS_Alerts {
     * @param NWS_Alerts $nws_alerts a full populated NWS_Alerts object
     * @return string
     */
-    public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL, $classes = array()) {
+    public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL, $classes = array(), $args = array()) {
         $return_value = '';
+        $heading_args = array();
         $default_classes = array('nws-alerts-' . $display);
 
         if (is_string($classes)) {
@@ -643,17 +649,22 @@ class NWS_Alerts {
         }
         $classes = array_merge($default_classes, $classes);
 
+        if (isset($args['location_title'])) $heading_args['location_title'] = $args['location_title'];
+
         if (empty($this->entries)) $classes[] = 'nws-alerts-no-entries';
 
         $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
 
         if (in_array('nws-alerts-widget', $classes)) {
-            $return_value .= $this->get_output_heading(array('graphic' => false, 'display' => $display));
+            $heading_args['graphic'] = false;
+            $heading_args['display'] = $display;
         } else if ($display === NWS_ALERTS_DISPLAY_BAR) {
-            $return_value .= $this->get_output_heading(array('graphic' => 1, 'display' => $display));
+            $heading_args['graphic'] = 1;
+            $heading_args['display'] = $display;
         } else {
-            $return_value .= $this->get_output_heading(array('display' => $display));
+            $heading_args['display'] = $display;
         }
+        $return_value .= $this->get_output_heading($heading_args);
 
         if ($display === NWS_ALERTS_DISPLAY_FULL || $display === NWS_ALERTS_DISPLAY_BAR) {
             $return_value .= '<section class="nws-alerts-details">';

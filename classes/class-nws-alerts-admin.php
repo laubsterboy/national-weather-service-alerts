@@ -271,6 +271,13 @@ class NWS_Alerts_Admin {
                     $controls[$control] = $_POST[$key];
                 }
 
+                $control = 'location_title';
+                $key = $prefix . $control;
+                if (isset($_POST[$key])) {
+                    update_option($key, $_POST[$key]);
+                    $controls[$control] = $_POST[$key];
+                }
+
                 $control = 'scope';
                 $key = $prefix . $control;
                 if (isset($_POST[$key])) {
@@ -436,6 +443,7 @@ class NWS_Alerts_Admin {
                             $return_value .= self::get_control('city', $control_id_prefix);
                             $return_value .= self::get_control('state', $control_id_prefix);
                             $return_value .= self::get_control('county', $control_id_prefix);
+                            $return_value .= self::get_control('location_title', $control_id_prefix);
                             $return_value .= self::get_control('display', $control_id_prefix);
                             $return_value .= self::get_control('scope', $control_id_prefix);
 
@@ -478,6 +486,7 @@ class NWS_Alerts_Admin {
                               'city' => NWS_ALERTS_BAR_CITY,
                               'state' => NWS_ALERTS_BAR_STATE,
                               'county' => NWS_ALERTS_BAR_COUNTY,
+                              'location_title' => NWS_ALERTS_BAR_LOCATION_TITLE,
                               'scope' => NWS_ALERTS_BAR_SCOPE,
                               'fix' => NWS_ALERTS_BAR_FIX);
             $controls = wp_parse_args($controls, $defaults);
@@ -617,6 +626,16 @@ class NWS_Alerts_Admin {
             if ($default) { $default = ' value="' . $default . '"'; } else { $default = ''; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>County</h4></td>';
+				$return_value .= '<td>';
+					$return_value .= '<div class="nws-alerts-control-text-container">';
+				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="text"' . $default . ' />';
+					$return_value .= '</div>';
+				$return_value .= '</td>';
+			$return_value .= '</tr>';
+        } else if ($control === 'location_title') {
+            if ($default) { $default = ' value="' . $default . '"'; } else { $default = ''; }
+            $return_value .= '<tr>';
+				$return_value .= '<td><h4>Location Title (optional)</h4><p class="howto">Override the default location title, such as "Orlando, FL", with something more specific, such as "Disney World".</p></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-text-container">';
 				        $return_value .= '<input data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '" type="text"' . $default . ' />';
