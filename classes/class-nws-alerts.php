@@ -195,14 +195,14 @@ class NWS_Alerts {
         $nws_alerts_xml = false;
 
         // Load XML
-        //if (ini_get('allow_url_fopen')) {
-        //    $nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
-        //} else if (function_exists('curl_version')) {
+        if (ini_get('allow_url_fopen')) {
+            $nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
+        } else if (function_exists('curl_version')) {
             $curl = curl_init($nws_alerts_xml_url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             $curl_data = curl_exec($curl);
             $nws_alerts_xml = simplexml_load_string($curl_data);
-        //}
+        }
         $nws_alerts_data = array();
 
         if ($nws_alerts_xml !== false) {
