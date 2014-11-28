@@ -192,11 +192,12 @@ class NWS_Alerts {
             $nws_alerts_xml_url = 'http://alerts.weather.gov/cap/wwaatmget.php?x=' . strtoupper($state_abbrev) . 'C' . $county_code . '&y=0';
         }
 
-        // Load XML
+        // Load XML and cache if possible
         $nws_alerts_xml = false;
         if (isset($zip) && $zip !== null) {
             if (get_site_transient('nws_alerts_xml_' . $zip) === false) {
                 if (function_exists('curl_version')) {
+                    // Load XML via CURL
                     $curl = curl_init($nws_alerts_xml_url);
                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                     $curl_data = curl_exec($curl);
@@ -204,6 +205,7 @@ class NWS_Alerts {
 
                     set_site_transient('nws_alerts_xml_' . $zip, $curl_data, 180);
                 } else if (ini_get('allow_url_fopen')) {
+                    // Load XML via simplexml_load_file
                     $nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
                 }
             } else {
