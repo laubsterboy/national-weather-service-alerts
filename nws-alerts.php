@@ -32,7 +32,7 @@ if (NWS_ALERTS_TABLES_BUILT !== true) {
     if (is_admin()) add_action('wp_ajax_nws_alerts_populate_tables', 'NWS_Alerts_Admin::populate_tables');
 } else {
     // Utilities fetch_feed cache lifetime
-    add_filter('wp_feed_cache_transient_lifetime', 'NWS_Alerts_Utils::fetch_feed_lifetime', 10, 2)
+    add_filter('wp_feed_cache_transient_lifetime', 'NWS_Alerts_Utils::fetch_feed_lifetime', 10, 2);
 
     // Shortcodes
     add_shortcode('nws_alerts', 'NWS_Alerts_Shortcodes::shortcode_handler');
