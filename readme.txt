@@ -93,6 +93,10 @@ Simply refreshing the page should fix the problem.
 
 == Changelog ==
 
+= 1.2.0 =
+* Added Feature: NWS Alerts XML is now cached, when possible, to speed up page loads.
+* Improvement: NWS Alerts XML is now fetched using CURL if server support is available.
+
 = 1.1.1 =
 * Fixed: Bug fix that prevented the alerts from auto-updating using AJAX.
 * Improvement: The plugin activation process is simplified and should work on all web hosts.
@@ -115,7 +119,10 @@ Simply refreshing the page should fix the problem.
 
 == Upgrade Notice ==
 
-= 1.1.1=
+= 1.2.0 =
+* Improved compatibility with web hosts for fetching NWS Alerts, and alerts are now cached when possible. Added new display features.
+
+= 1.1.1 =
 * Bug fixes with alerts auto-updating and revamped the activation process.
 
 = 1.1.0 =
