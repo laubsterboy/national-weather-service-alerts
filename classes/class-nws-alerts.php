@@ -196,7 +196,7 @@ class NWS_Alerts {
         // Use fetch_feed() instead of simplexml_load_file() and then filter the lifespan to be 180 seconds
         //$nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
         $nws_alerts_xml = fetch_feed($nws_alerts_xml_url);
-        write_log($nws_alerts_xml);
+        print_r($nws_alerts_xml);
         $nws_alerts_data = array();
 
         if (!is_wp_error($nws_alerts_xml)) {
