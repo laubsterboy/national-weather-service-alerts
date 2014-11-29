@@ -103,7 +103,7 @@
             if (controlValues.city !== controlValuesDefaults.city) { shortcode += ' city="' + controlValues.city + '"'; }
             if (controlValues.state !== controlValuesDefaults.state) { shortcode += ' state="' + controlValues.state + '"'; }
             if (controlValues.county !== controlValuesDefaults.county) { shortcode += ' county="' + controlValues.county + '"'; }
-            if (controlValues.locationTitle !== controlValuesDefaults.locationTitle) { shortcode += ' county="' + controlValues.locationTitle + '"'; }
+            if (controlValues.locationTitle !== controlValuesDefaults.locationTitle) { shortcode += ' location_title="' + controlValues.locationTitle + '"'; }
             if (controlValues.display !== controlValuesDefaults.display) { shortcode += ' display="' + controlValues.display + '"'; }
             if (controlValues.scope !== controlValuesDefaults.scope) { shortcode += ' scope="' + controlValues.scope + '"'; }
 
