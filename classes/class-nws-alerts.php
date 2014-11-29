@@ -576,7 +576,7 @@ class NWS_Alerts {
             }
 
             if ($args['location_title'] !== false) {
-                $return_value .= '<span class="nws-alerts-heading-location">' . $args['location_title'] . '</span><span class="nws-alerts-heading-scope">Local Weather Alerts</span>';
+                $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><span class="nws-alerts-heading-location">' . $args['location_title'] . '</span>';
             } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
                 $return_value .= '<span class="nws-alerts-heading-scope">National Weather Alerts</span><h2 class="nws-alerts-heading-location">United States</h2>';
             } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {

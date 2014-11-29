@@ -97,7 +97,7 @@ class NWS_Alerts_Client {
 
             $body_tag_start_pos = stripos($buffer, '<body');
             $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos) + 1;
-            $buffer = substr_replace($buffer, $nws_alerts_data->get_output_html(NWS_ALERTS_DISPLAY_BAR, $classes), $body_tag_end_pos, 0);
+            $buffer = substr_replace($buffer, $nws_alerts_data->get_output_html(NWS_ALERTS_DISPLAY_BAR, $classes, array('location_title' => NWS_ALERTS_BAR_LOCATION_TITLE)), $body_tag_end_pos, 0);
         }
 
         return $buffer;
