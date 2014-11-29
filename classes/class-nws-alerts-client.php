@@ -50,11 +50,7 @@ class NWS_Alerts_Client {
 
         $nws_alerts_data = new NWS_Alerts(array('zip' => $s_zip, 'scope' => $s_scope));
 
-        if ($s_display == NWS_ALERTS_DISPLAY_BASIC) {
-            echo $nws_alerts_data->get_output_html(false, $s_classes);
-        } else {
-            echo $nws_alerts_data->get_output_html(true, $s_classes);
-        }
+        echo $nws_alerts_data->get_output_html($s_display, $s_classes);
 
         die();
     }
