@@ -40,8 +40,9 @@ class NWS_Alerts_Client {
     public static function refresh() {
 
         $s_zip = isset($_POST['zip']) ? sanitize_text_field($_POST['zip']) : '';
-		$s_display = isset($_POST['display']) ? sanitize_text_field($_POST['display']) : '';
-		$s_scope = isset($_POST['scope']) ? sanitize_text_field($_POST['scope']) : '';
+		$s_display = isset($_POST['display']) ? sanitize_text_field($_POST['display']) : NWS_ALERTS_DISPLAY_FULL;
+		$s_scope = isset($_POST['scope']) ? sanitize_text_field($_POST['scope']) : NWS_ALERTS_SCOPE_COUNTY;
+        $s_location_title = isset($_POST['location_title']) ? sanitize_text_field($_POST['location_title']) : false;
         $s_classes = isset($_POST['classes']) ? sanitize_text_field($_POST['classes']) : array();
         if (empty($s_zip) || empty($s_display) || empty($s_scope)) {
             echo 0;
@@ -50,7 +51,7 @@ class NWS_Alerts_Client {
 
         $nws_alerts_data = new NWS_Alerts(array('zip' => $s_zip, 'scope' => $s_scope));
 
-        echo $nws_alerts_data->get_output_html($s_display, $s_classes);
+        echo $nws_alerts_data->get_output_html($s_display, $s_classes, array('location_title' => $s_location_title));
 
         die();
     }

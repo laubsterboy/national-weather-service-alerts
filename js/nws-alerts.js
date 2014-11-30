@@ -15,7 +15,8 @@ Author URI: http://www.laubsterboy.com
             display = $(this).data('display'),
             scope = $(this).data('scope'),
             classes = $(this).attr('class'),
-            refresh_rate = parseInt($(this).data('refresh_rate')) * 60000,
+            locationTitle = $(this).find('.nws-alerts-heading-location'),
+            refreshRate = parseInt($(this).data('refresh_rate')) * 60000,
             element = this;
 
         setTimeout(function () {
@@ -27,13 +28,14 @@ Author URI: http://www.laubsterboy.com
                     zip: zip,
                     display: display,
                     scope: scope,
+                    location_title: locationTitle,
                     classes: classes
                 },
                 success: function (html, textStatus, jqXHR) {
                     if (html != 0) update(html, element);
                 }
             });
-        }, refresh_rate);
+        }, refreshRate);
     }
 
     function update(html, originalElement) {
