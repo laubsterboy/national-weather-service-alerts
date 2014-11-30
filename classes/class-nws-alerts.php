@@ -475,7 +475,7 @@ class NWS_Alerts {
         $this->entries = $entries;
 
         // Set NWS Alerts refresh_rate - If top alerts are extreme or have potential to produce life threatening storms change the refresh_rate to 5 minutes
-        if (!empty($this->entries) && ($this->entries[0]->cap_event === 'Tornado Warning' || $this->entries[0]->cap_event === 'Severe Thunderstorm Warning')) $this->refresh = 5;
+        if (!empty($this->entries) && ($this->entries[0]->cap_event === 'Tornado Warning' || $this->entries[0]->cap_event === 'Severe Thunderstorm Warning')) $this->refresh = 3;
     }
 
 
