@@ -91,6 +91,8 @@ class NWS_Alerts_Client {
                                                     'scope' => NWS_ALERTS_BAR_SCOPE));
             $classes = '';
             if (NWS_ALERTS_BAR_FIX) $classes .= 'nws-alerts-bar-fix';
+            $location_title = false;
+            if (NWS_ALERTS_BAR_LOCATION_TITLE && !empty(NWS_ALERTS_BAR_LOCATION_TITLE)) $location_title = NWS_ALERTS_BAR_LOCATION_TITLE;
 
             $body_tag_start_pos = stripos($buffer, '<body');
             $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos) + 1;
