@@ -234,7 +234,7 @@ class NWS_Alerts_Entry {
 
         // Size
 		if ($details) {
-            $return_value = '<span class="nws-alerts-event nws-alerts-color-' . $this->cap_event_slug . '">' . $this->cap_event . '</span><br /> ' . ucwords(strtolower($this->summary)) . '<div>' . $this->cap_effective . '-' . $this->cap_expiration . '</div>;
+            $return_value = '<span class="nws-alerts-event nws-alerts-color-' . $this->cap_event_slug . '">' . $this->cap_event . '</span><br /> ' . ucwords(strtolower($this->summary)) . '<div>' . $this->cap_effective . '-' . $this->cap_expiration . '</div>';
         } else {
             $return_value = '<span class="nws-alerts-event nws-alerts-color-' . $this->cap_event_slug . '">' . $this->cap_event . '</span>';
         }
