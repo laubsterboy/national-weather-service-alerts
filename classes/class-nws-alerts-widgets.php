@@ -65,6 +65,8 @@ class NWS_Alerts_Widget extends WP_Widget {
 	public function update($new_instance, $old_instance) {
 		$instance = wp_parse_args($new_instance, $this->defaults);
 
+        if ($new_instance['location_title'] === '') $instance['location_title'] = false;
+
 		return $instance;
 	}
 
