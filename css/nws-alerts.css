@@ -2,14 +2,14 @@
 
 .nws-alerts {
     position:relative;
-    z-index:100;
+    z-index:3;
     float:left;
     clear:both;
     box-sizing:border-box;
     opacity:1;
 }
 .nws-alerts:hover {
-    z-index:110;
+    z-index:10000;
 }
 .nws-alerts:after {
     content:"";
