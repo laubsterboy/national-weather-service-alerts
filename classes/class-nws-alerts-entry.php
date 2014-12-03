@@ -7,6 +7,13 @@
 
 class NWS_Alerts_Entry {
     /**
+    * The ID of the NWS_Alerts_Entry - linear starting with 0 and relative to the NWS_Alerts instance.
+    *
+    * @var string
+    */
+    public $ID = '';
+
+    /**
     * The ID of the NWS_Alerts entry - a string URL pointing to the XML file for the specific alert entry.
     *
     * @var string

@@ -349,7 +349,7 @@ class NWS_Alerts {
             foreach ($nws_alerts_data['entries'] as $key => $entry) {
                 // Only add entries of allowed alert types
                 if (in_array($entry['cap_event'], $allowed_alert_types, true) !== false && in_array($entry['cap_msg_type'], $allowed_msg_types, true) !== false && in_array($entry['cap_status'], $allowed_status_types, true) !== false) {
-                    $entry['id'] = (int)$key + 1;
+                    $entry['ID'] = (int)$key + 1;
                     $this->entries[] = new NWS_Alerts_Entry($entry);
                 }
             }
