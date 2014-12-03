@@ -39,6 +39,12 @@
             <li>Required: Only if zip and city are not set.</li>
         </ul>
     </li>
+    <li><strong>location_title</strong>
+        <ul>
+            <li>Value: Any string of text</li>
+            <li>Optional</li>
+        </ul>
+    </li>
     <li><strong>display</strong>
         <ul>
             <li>Value:</li>
