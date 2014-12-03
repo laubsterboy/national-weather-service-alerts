@@ -11,7 +11,7 @@ class NWS_Alerts_Entry {
     *
     * @var string
     */
-    public $ID = '';
+    public $id = '';
 
     /**
     * The date when the NWS_Alerts entry was last updated.
@@ -234,7 +234,7 @@ class NWS_Alerts_Entry {
 
         // Size
 		if ($details) {
-            $return_value = '<span class="nws-alerts-event nws-alerts-color-' . $this->cap_event_slug . '">' . $this->cap_event . '</span><br /> ' . ucwords(strtolower($this->summary)) . '<br />' . $this->cap_effective . '-' . $this->cap_expires;
+            $return_value = '<span class="nws-alerts-event nws-alerts-color-' . $this->cap_event_slug . '">' . $this->cap_event . '</span><br /> ' . ucwords(strtolower($this->summary)) . ' ...<a href="' . $this->id . '">Read More</a>.<br /><span class="nws-alerts-event-effective">' . $this->cap_effective . '</spa> - <span class="nws-alerts-event-expires">' . $this->cap_expires . '</span>';
         } else {
             $return_value = '<span class="nws-alerts-event nws-alerts-color-' . $this->cap_event_slug . '">' . $this->cap_event . '</span>';
         }
