@@ -93,6 +93,9 @@ Simply refreshing the page should fix the problem.
 
 == Changelog ==
 
+= 1.3.0 =
+* Added Feature: Support for WordPress Multisite.
+
 = 1.2.0 =
 * Added Feature: The location title can now be overridden with a custom name.
 * Added Feature: The alert entry details now include a link to the official NWS notice. Also, the effective and expiration date and times are included as part of each entries details.

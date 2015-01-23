@@ -30,8 +30,8 @@ define('NWS_ALERTS_BAR_SCOPE', get_option('nws_alerts_alerts_bar_scope'));
 define('NWS_ALERTS_BAR_FIX', get_option('nws_alerts_alerts_bar_fix'));
 
 define('NWS_ALERTS_TABLES_BUILT', filter_var(get_site_option('nws_alerts_tables_built'), FILTER_VALIDATE_BOOLEAN));
-define('NWS_ALERTS_TABLE_NAME_CODES', $wpdb->prefix . 'nws_alerts_codes');
-define('NWS_ALERTS_TABLE_NAME_LOCATIONS', $wpdb->prefix . 'nws_alerts_locations');
+define('NWS_ALERTS_TABLE_NAME_CODES', $wpdb->base_prefix . 'nws_alerts_codes');
+define('NWS_ALERTS_TABLE_NAME_LOCATIONS', $wpdb->base_prefix . 'nws_alerts_locations');
 
 // Location Scope
 define('NWS_ALERTS_SCOPE_COUNTY', 'county');
