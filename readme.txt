@@ -124,6 +124,9 @@ Simply refreshing the page should fix the problem.
 
 == Upgrade Notice ==
 
+= 1.3.0 =
+* Added support for WordPress Multisite, fixed bugs
+
 = 1.2.0 =
 * Improved compatibility with web hosts for fetching NWS Alerts, and alerts are now cached when possible. Added new display features.
 
