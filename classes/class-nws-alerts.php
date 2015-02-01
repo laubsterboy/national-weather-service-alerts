@@ -497,102 +497,11 @@ class NWS_Alerts {
             }
 
             if (!empty($google_map_polys)) {
-            $return_value = '
-                <script type="text/javascript">
-                    function initialize' . $this->zip . '() {
-                        var mapOptions = {
-                            zoom: ' . ($this->scope === NWS_ALERTS_SCOPE_COUNTY ? '8' : '6') . ',
-                            center: new google.maps.LatLng(' . $this->latitude . ', ' . $this->longitude . '),
-                            mapTypeId: google.maps.MapTypeId.ROADMAP,
-                            styles: [{"stylers": [{"hue": "#ff1a00"},{"invert_lightness": true},{"saturation": -100},{"lightness": 33},{"gamma": 0.5}]},{"featureType": "water","elementType": "geometry","stylers": [{"color": "#2D333C"}]}]
-                        };
-
-                        var nwsAlertTriangle;
-
-                        var map = new google.maps.Map(document.getElementById("nws-alerts-map-' . $this->zip . '"), mapOptions);
-
-                        ' . $google_map_polys . '
-                    }
-
-                    ' . ((defined('DOING_AJAX') && DOING_AJAX) ? ('initialize' . $this->zip . '()') : ('google.maps.event.addDomListener(window, "load", initialize' . $this->zip . ');')) . '
-
-                </script>
-                <section id="nws-alerts-map-' . $this->zip . '" class="nws-alerts-map"></section>';
+                require(NWS_Alerts_Utils::get_template_path('template-map.php'));
             }
         }
 
         return $return_value;
-    }
-
-
-
-
-    /**
-    * Returns the html markup for the city, state of the NWS_Alerts
-    *
-    * @return string
-    */
-    public function get_output_heading($args = array()) {
-        $defaults = array('graphic' => 2,
-                          'prefix' => '<section>',
-                          'suffix' => '</section>',
-                          'current_alert' => true,
-                          'location_title' => false,
-                          'display' => NWS_ALERTS_DISPLAY_FULL);
-        $args = wp_parse_args($args, $defaults);
-
-        if ($args['graphic'] !== false && !empty($this->entries)) {
-            $args['prefix'] = NWS_Alerts_Utils::str_lreplace('>', ' class="nws-alerts-heading">', $args['prefix']);
-        } else {
-            $args['prefix'] = NWS_Alerts_Utils::str_lreplace('>', ' class="nws-alerts-heading nws-alerts-heading-no-graphic">', $args['prefix']);
-        }
-        $return_value = $args['prefix'];
-
-        if ($args['display'] === NWS_ALERTS_DISPLAY_BAR) {
-            // Horizontal layout
-            if ($args['graphic'] !== false && !empty($this->entries)) {
-                $return_value .= $this->entries[0]->get_output_graphic($args['graphic'], 'nws-alerts-heading-graphic');
-            }
-
-            if ($args['current_alert'] && !empty($this->entries)) {
-                $return_value .= $this->entries[0]->get_output_text(false);
-            } else if ($this->error) {
-                $return_value .= NWS_ALERTS_ERROR_NO_XML_SHORT;
-            }
-
-            if ($args['location_title'] !== false) {
-                $return_value .= '<span class="nws-alerts-heading-location">' . $args['location_title'] . '</span><span class="nws-alerts-heading-scope">Local Weather Alerts</span>';
-            } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
-                $return_value .= '<span class="nws-alerts-heading-location">United States</span><span class="nws-alerts-heading-scope">National Weather Alerts</span>';
-            } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
-                $return_value .= '<span class="nws-alerts-heading-location">' . $this->state . '</span><span class="nws-alerts-heading-scope">State Weather Alerts</span>';
-            } else {
-                $return_value .= '<span class="nws-alerts-heading-location">' . $this->city . ', ' . $this->state . '</span><span class="nws-alerts-heading-scope">Local Weather Alerts</span>';
-            }
-        } else {
-            // Stacked layout
-            if ($args['graphic'] !== false && !empty($this->entries)) {
-                $return_value .= $this->entries[0]->get_output_graphic($args['graphic'], 'nws-alerts-heading-graphic');
-            }
-
-            if ($args['location_title'] !== false) {
-                $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $args['location_title'] . '</h2>';
-            } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
-                $return_value .= '<span class="nws-alerts-heading-scope">National Weather Alerts</span><h2 class="nws-alerts-heading-location">United States</h2>';
-            } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
-                $return_value .= '<span class="nws-alerts-heading-scope">State Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $this->state . '</h2>';
-            } else {
-                $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $this->city . ', ' . $this->state . '</h2>';
-            }
-
-            if ($args['current_alert'] && !empty($this->entries)) {
-                $return_value .= $this->entries[0]->get_output_text(false);
-            } else if ($this->error) {
-                $return_value .= NWS_ALERTS_ERROR_NO_XML_SHORT;
-            }
-        }
-
-        return $return_value . $args['suffix'];
     }
 
 
@@ -639,44 +548,37 @@ class NWS_Alerts {
     */
     public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL, $classes = array(), $args = array()) {
         $return_value = '';
-        $heading_args = array();
+        $heading_args = array(
+            'classes' => array('nws-alerts-heading'),
+            'current_alert' => true,
+            'graphic' => 2,
+            'location_title' => false);
         $default_classes = array('nws-alerts-' . $display);
 
+        // CSS classes
         if (is_string($classes)) {
             $classes = explode(' ', trim($classes));
         } else if (!is_array($classes)) {
             $classes = array();
         }
         $classes = array_merge($default_classes, $classes);
+        if (empty($this->entries)) $classes[] = 'nws-alerts-no-entries';
+
+        // Heading settings
+        if (in_array('nws-alerts-widget', $classes)) {
+            $heading_args['graphic'] = false;
+        } else if ($display === NWS_ALERTS_DISPLAY_BAR) {
+            $heading_args['graphic'] = 1;
+        }
+
+        if ($heading_args['graphic'] !== false && empty($this->entries)) {
+            $heading_args['classes'][] = 'nws-alerts-heading-no-graphic';
+        }
 
         if (isset($args['location_title'])) $heading_args['location_title'] = $args['location_title'];
 
-        if (empty($this->entries)) $classes[] = 'nws-alerts-no-entries';
-
-        $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
-
-        if (in_array('nws-alerts-widget', $classes)) {
-            $heading_args['graphic'] = false;
-            $heading_args['display'] = $display;
-        } else if ($display === NWS_ALERTS_DISPLAY_BAR) {
-            $heading_args['graphic'] = 1;
-            $heading_args['display'] = $display;
-        } else {
-            $heading_args['display'] = $display;
-        }
-        $return_value .= $this->get_output_heading($heading_args);
-
-        if ($display === NWS_ALERTS_DISPLAY_FULL || $display === NWS_ALERTS_DISPLAY_BAR) {
-            $return_value .= '<section class="nws-alerts-details">';
-            if ($display === NWS_ALERTS_DISPLAY_BAR || in_array('nws-alerts-widget', $classes)) {
-                $return_value .= $this->get_output_entries(array('graphic' => 1));
-            } else {
-                $return_value .= $this->get_output_entries();
-            }
-            $return_value .= $this->get_output_google_map();
-            $return_value .= '</section>';
-        }
-        $return_value .= '</article>';
+        // Load the display template file
+        require(NWS_Alerts_Utils::get_template_path('template-display-' . $display . '.php'));
 
         return $return_value;
     }

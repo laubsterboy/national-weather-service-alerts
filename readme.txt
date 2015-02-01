@@ -95,6 +95,9 @@ Simply refreshing the page should fix the problem.
 
 = 1.3.0 =
 * Added Feature: Support for WordPress Multisite.
+* Added Feature: 'nws_alerts_template_path' filter, which can be used to specify alternative template paths.
+* Improvement: The outputting of html has been moved to templates. Default plugin templates can be overridden by copying the template files into child theme and parent theme directories and then modified.
+* Removed: NWS_Alerts->get_output_headings object method.
 
 = 1.2.0 =
 * Added Feature: The location title can now be overridden with a custom name.

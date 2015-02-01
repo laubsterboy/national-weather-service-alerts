@@ -151,6 +151,32 @@ class NWS_Alerts_Utils {
 
         return $associative_array;
     }
+
+
+
+    /*
+    * @return string
+    * @access public
+    */
+    public static function get_template_path($template_filename = false) {
+        $return_value = '';
+
+        if (is_string($template_filename)) {
+            $template_directory_paths = apply_filters('nws_alerts_template_path', array(
+                // Child Theme
+                get_stylesheet_directory() . 'plugins/national-weather-service-alerts/templates/',
+                // Parent Theme
+                get_template_directory() . 'plugins/national-weather-service-alerts/templates/',
+                // NWS Alerts
+                NWS_ALERTS_ABSPATH . 'templates/'), $template_filename);
+
+            foreach ($template_directory_paths as $path) {
+                if (file_exists($path . $template_filename)) $return_value = $path . $template_filename;
+            }
+        }
+
+        return $return_value;
+    }
 }
 
 ?>
