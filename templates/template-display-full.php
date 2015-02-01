@@ -9,7 +9,7 @@
 *   /themes/{parent-theme-name}/plugins/national-weather-service-alerts/templates/{template-name.php}
 *
 */
-print_r($this);
+
 $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
     // Heading
     $return_value .= '<section class="' . trim(implode(' ', $heading_args['classes'])) . '">';
