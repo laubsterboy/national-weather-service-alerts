@@ -18,6 +18,7 @@ $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . 
             $return_value .= $this->entries[0]->get_output_graphic($heading_args['graphic'], 'nws-alerts-heading-graphic');
         }
 
+        // Heading location and scope
         if ($heading_args['location_title'] !== false) {
             $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $heading_args['location_title'] . '</h2>';
         } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
@@ -28,6 +29,7 @@ $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . 
             $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $this->city . ', ' . $this->state . '</h2>';
         }
 
+        // Heading entry event
         if ($heading_args['current_alert'] && !empty($this->entries)) {
             $return_value .= $this->entries[0]->get_output_text(false);
         } else if ($this->error) {
