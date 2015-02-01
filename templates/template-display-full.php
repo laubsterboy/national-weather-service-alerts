@@ -19,8 +19,8 @@ $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . 
         }
 
         // Heading location and scope
-        if ($heading_args['location_title'] !== false) {
-            $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $heading_args['location_title'] . '</h2>';
+        if (isset($args['location_title'])) {
+            $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $args['location_title'] . '</h2>';
         } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
             $return_value .= '<span class="nws-alerts-heading-scope">National Weather Alerts</span><h2 class="nws-alerts-heading-location">United States</h2>';
         } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
@@ -40,7 +40,20 @@ $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . 
     // Details
     $return_value .= '<section class="nws-alerts-details">';
         // Details entries
-        $return_value .= $this->get_output_entries();
+        $return_value .= '<section class="nws-alerts-entries">';
+        if ($this->error) {
+            // Entries error
+            $return_value .= $this->error;
+        } else if (!empty($this->entries)) {
+            // Entries
+            foreach ($this->entries as $entry) {
+                $return_value .= $entry->get_output_entry();
+            }
+        } else {
+            // Entries empty
+            $return_value .= NWS_ALERTS_ERROR_NO_ENTRIES;
+        }
+        $return_value .= '</section>';
 
         // Details map
         $return_value .= $this->get_output_google_map();

@@ -507,37 +507,6 @@ class NWS_Alerts {
 
 
 
-    /**
-    * Returns the html markup for each NWS_Alerts_Entry cap_event of the NWS_Alerts
-    *
-    * @return string
-    */
-    public function get_output_entries($args = array()) {
-        $defaults = array('graphic' => 2,
-                          'prefix' => '<section>',
-                          'suffix' => '</section>');
-        $args = wp_parse_args($args, $defaults);
-
-        $args['prefix'] = NWS_Alerts_Utils::str_lreplace('>', ' class="nws-alerts-entries">', $args['prefix']);
-
-        if ($this->error) {
-            return $args['prefix'] . $this->error . $args['suffix'];
-        } else if (!empty($this->entries)) {
-            $return_value = $args['prefix'];
-
-            foreach ($this->entries as $entry) {
-                $return_value .= $entry->get_output_entry(array('graphic' => $args['graphic']));
-            }
-
-            return $return_value . $args['suffix'];
-        } else {
-            return $args['prefix'] . NWS_ALERTS_ERROR_NO_ENTRIES . $args['suffix'];
-        }
-    }
-
-
-
-
     /*
     * get_output_html
     *
@@ -551,8 +520,7 @@ class NWS_Alerts {
         $heading_args = array(
             'classes' => array('nws-alerts-heading'),
             'current_alert' => true,
-            'graphic' => 2,
-            'location_title' => false);
+            'graphic' => 2);
         $default_classes = array('nws-alerts-' . $display);
 
         // CSS classes
@@ -574,8 +542,6 @@ class NWS_Alerts {
         if ($heading_args['graphic'] === false || empty($this->entries)) {
             $heading_args['classes'][] = 'nws-alerts-heading-no-graphic';
         }
-
-        if (isset($args['location_title'])) $heading_args['location_title'] = $args['location_title'];
 
         // Load the display template file
         require(NWS_Alerts_Utils::get_template_path('template-display-' . $display . '.php'));
