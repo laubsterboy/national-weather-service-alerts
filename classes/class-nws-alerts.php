@@ -571,7 +571,7 @@ class NWS_Alerts {
             $heading_args['graphic'] = 1;
         }
 
-        if ($heading_args['graphic'] !== false || empty($this->entries)) {
+        if ($heading_args['graphic'] === false || empty($this->entries)) {
             $heading_args['classes'][] = 'nws-alerts-heading-no-graphic';
         }
 
