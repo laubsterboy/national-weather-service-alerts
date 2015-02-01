@@ -38,7 +38,7 @@ $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . 
     // Details
     $return_value .= '<section class="nws-alerts-details">';
         // Details entries
-        //$return_value .= $this->get_output_entries());
+        $return_value .= $this->get_output_entries();
 
         // Details map
         $return_value .= $this->get_output_google_map();
