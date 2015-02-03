@@ -19,7 +19,7 @@ $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . 
         }
 
         // Heading location and scope
-        if (isset($args['location_title'])) {
+        if (isset($args['location_title']) && is_string($args['location_title'])) {
             $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $args['location_title'] . '</h2>';
         } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
             $return_value .= '<span class="nws-alerts-heading-scope">National Weather Alerts</span><h2 class="nws-alerts-heading-location">United States</h2>';

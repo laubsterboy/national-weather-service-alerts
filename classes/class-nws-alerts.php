@@ -516,6 +516,9 @@ class NWS_Alerts {
     * @return string
     */
     public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL, $classes = array(), $args = array()) {
+        $args_defaults = array(
+            'location_title' => false);
+        $args = wp_parse_args($args, $args_defaults);
         $return_value = '';
         $heading_args = array(
             'classes' => array('nws-alerts-heading'),
