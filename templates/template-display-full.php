@@ -19,7 +19,7 @@ $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . 
         }
 
         // Heading location and scope
-        $return_value .= '<span class="nws-alerts-heading-location">' . $heading_args['location_title'] . '</span><span class="nws-alerts-heading-scope">' . $heading_args['scope'] . '</span>';
+        $return_value .= '<span class="nws-alerts-heading-location">' . $heading_args['location'] . '</span><span class="nws-alerts-heading-scope">' . $heading_args['scope'] . '</span>';
 
         // Heading event entry
         $return_value .= $heading_args['alert'];
