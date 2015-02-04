@@ -516,15 +516,18 @@ class NWS_Alerts {
     * @return string
     */
     public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL, $classes = array(), $args = array()) {
+        $return_value = '';
         $args_defaults = array(
             'location_title' => false);
         $args = wp_parse_args($args, $args_defaults);
-        $return_value = '';
+        $default_classes = array('nws-alerts-' . $display);
         $heading_args = array(
+            'alert' => '',
             'classes' => array('nws-alerts-heading'),
             'current_alert' => true,
-            'graphic' => 2);
-        $default_classes = array('nws-alerts-' . $display);
+            'graphic' => 2,
+            'location' => $args['location_title'],
+            'scope' > 'Local Weather Alerts');
 
         // CSS classes
         if (is_string($classes)) {
@@ -541,9 +544,28 @@ class NWS_Alerts {
         } else if ($display === NWS_ALERTS_DISPLAY_BAR) {
             $heading_args['graphic'] = 1;
         }
-
         if ($heading_args['graphic'] === false || empty($this->entries)) {
             $heading_args['classes'][] = 'nws-alerts-heading-no-graphic';
+        }
+
+        // Heading alert
+        if ($heading_args['current_alert'] && !empty($this->entries)) {
+            $heading_args['alert'] .= $this->entries[0]->get_output_text(false);
+        } else if ($this->error) {
+            $heading_args['alert'] .= NWS_ALERTS_ERROR_NO_XML_SHORT;
+        }
+
+        // Heading location and scope
+        if ($args['location_title'] !== false) {
+
+        } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
+            $heading_args['location'] = 'United States';
+            $heading_args['scope'] = 'National Weather Alerts';
+        } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
+            $heading_args['location'] = $this->state;
+            $heading_args['scope'] = 'State Weather Alerts';
+        } else {
+            $heading_args['location'] = $this->city . ', ' . $this->state;
         }
 
         // Load the display template file

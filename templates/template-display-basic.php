@@ -19,22 +19,10 @@ $return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . 
         }
 
         // Heading location and scope
-        if ($args['location_title'] !== false) {
-            $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $args['location_title'] . '</h2>';
-        } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
-            $return_value .= '<span class="nws-alerts-heading-scope">National Weather Alerts</span><h2 class="nws-alerts-heading-location">United States</h2>';
-        } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
-            $return_value .= '<span class="nws-alerts-heading-scope">State Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $this->state . '</h2>';
-        } else {
-            $return_value .= '<span class="nws-alerts-heading-scope">Local Weather Alerts</span><h2 class="nws-alerts-heading-location">' . $this->city . ', ' . $this->state . '</h2>';
-        }
+        $return_value .= '<span class="nws-alerts-heading-location">' . $heading_args['location_title'] . '</span><span class="nws-alerts-heading-scope">' . $heading_args['scope'] . '</span>';
 
         // Heading entry event
-        if ($heading_args['current_alert'] && !empty($this->entries)) {
-            $return_value .= $this->entries[0]->get_output_text(false);
-        } else if ($this->error) {
-            $return_value .= NWS_ALERTS_ERROR_NO_XML_SHORT;
-        }
+        $return_value .= $heading_args['alert'];
     $return_value .= '</section>';
 $return_value .= '</article>';
 
