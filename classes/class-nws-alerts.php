@@ -516,7 +516,6 @@ class NWS_Alerts {
     * @return string
     */
     public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL, $classes = array(), $args = array()) {
-        $return_value = '';
         $args_defaults = array(
             'location_title' => false);
         $args = wp_parse_args($args, $args_defaults);
@@ -568,10 +567,14 @@ class NWS_Alerts {
             $heading_args['location'] = $this->city . ', ' . $this->state;
         }
 
+        // Start output buffer
+        ob_start();
+
         // Load the display template file
         require(NWS_Alerts_Utils::get_template_path('template-display-' . $display . '.php'));
 
-        return $return_value;
+        // Return output buffer
+        return do_shortcode(ob_get_clean());
     }
 
 
