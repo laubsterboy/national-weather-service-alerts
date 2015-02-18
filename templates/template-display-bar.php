@@ -24,7 +24,7 @@
         <?php echo $heading_args['alert']; ?>
 
         <!-- Heading location and scope -->
-        <span class="nws-alerts-heading-location"><?php echo $heading_args['location']; ?></span><span class="nws-alerts-heading-scope"><?php echo $heading_args['scope']; ?></span>';
+        <span class="nws-alerts-heading-location"><?php echo $heading_args['location']; ?></span><span class="nws-alerts-heading-scope"><?php echo $heading_args['scope']; ?></span>
     </section>
 
     <!-- Details -->
