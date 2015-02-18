@@ -39,7 +39,7 @@
             <?php foreach ($this->entries as $entry) { ?>
                 <?php echo $entry->get_output_entry(array('graphic' => 1)); ?>
             <?php } ?>
-        <?php elseif : ?>
+        <?php else : ?>
             <!-- Entries empty -->
             <?php echo NWS_ALERTS_ERROR_NO_ENTRIES; ?>
         <?php endif; ?>
