@@ -196,6 +196,11 @@
 	line-height: 1.5;
 	margin-bottom: 1.5em;
 }
+.nws-alerts-entry:after {
+    content: "";
+    display: block;
+    clear: both;
+}
 
 
 
@@ -221,6 +226,25 @@
     float:left;
     margin-right:20px;
     display:block;
+}
+
+.nws-alerts-event-effective,
+.nws-alerts-event-expires {
+    display:inline-block;
+    width:calc(50% - 10px);
+    background-color: #fafafa;
+    padding:10px;
+    border-radius:10px;
+    margin:10px 0;
+    border-top: 1px solid #ddd;
+}
+.nws-alerts-event-effective {
+    float:left;
+    margin-right:10px;
+}
+.nws-alerts-event-expires {
+    float:right;
+    margin-left:10px;
 }
 
 /* Blizzard Warning */
