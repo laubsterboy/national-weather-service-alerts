@@ -128,9 +128,14 @@ class NWS_Alerts_Utils {
     public static function adjust_timezone_offset($date_time) {
         // The timestamp from NWS comes in as GMT and must be adjusted for UTC
         $offset = get_option('gmt_offset');
-        //$date_time->modify("$offset hours");
-        $return_value = $date_time->format('F j, Y \a\t g:ia');
-        return $return_value;
+        $date_time->modify("$offset hours");
+        return $date_time->format('F j, Y \a\t g:ia');
+    }
+
+
+
+    public static function get_date_format($date_time) {
+        return $date_time->format('F j, Y \a\t g:ia');
     }
 
 

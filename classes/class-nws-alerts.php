@@ -231,14 +231,14 @@ class NWS_Alerts {
 
                 $_entry = array(
                     'id' => isset($entry->id) ? (string)$entry->id : null,
-                    'updated' => isset($entry->updated) ? NWS_Alerts_Utils::adjust_timezone_offset(new DateTime((string)$entry->updated)) : null, // convert to date object '2013-08-30T21:31:26+00:00'
-                    'published' => isset($entry->published) ? NWS_Alerts_Utils::adjust_timezone_offset(new DateTime((string)$entry->published)) : null, // convert to date object '2013-08-30T11:33:00-05:00'
+                    'updated' => isset($entry->updated) ? NWS_Alerts_Utils::get_date_format(new DateTime((string)$entry->updated)) : null, // convert to date object '2013-08-30T21:31:26+00:00'
+                    'published' => isset($entry->published) ? NWS_Alerts_Utils::get_date_format(new DateTime((string)$entry->published)) : null, // convert to date object '2013-08-30T11:33:00-05:00'
                     'title' => isset($entry->title) ? (string)$entry->title : null,
                     'link' => isset($entry->link['href']) ? (string)$entry->link['href'] : null,
                     'summary' => isset($entry->summary) ? (string)$entry->summary : null,
                     'cap_event' => isset($entry_cap_data->event) ? (string)$entry_cap_data->event : null, // list of cap:event above
-                    'cap_effective' => isset($entry_cap_data->effective) ? NWS_Alerts_Utils::adjust_timezone_offset(new DateTime((string)$entry_cap_data->effective)) : null, // convert to date object '2013-08-30T11:33:00-05:00'
-                    'cap_expires' => isset($entry_cap_data->expires) ? NWS_Alerts_Utils::adjust_timezone_offset(new DateTime((string)$entry_cap_data->expires)) : null, // convert to date object '2013-08-30T19:00:00-05:00'
+                    'cap_effective' => isset($entry_cap_data->effective) ? NWS_Alerts_Utils::get_date_format(new DateTime((string)$entry_cap_data->effective)) : null, // convert to date object '2013-08-30T11:33:00-05:00'
+                    'cap_expires' => isset($entry_cap_data->expires) ? NWS_Alerts_Utils::get_date_format(new DateTime((string)$entry_cap_data->expires)) : null, // convert to date object '2013-08-30T19:00:00-05:00'
                     'cap_status' => isset($entry_cap_data->status) ? (string)$entry_cap_data->status : null,
                     'cap_msg_type' => isset($entry_cap_data->msgType) ? (string)$entry_cap_data->msgType : null,
                     'cap_category' => isset($entry_cap_data->category) ? (string)$entry_cap_data->category : null,
