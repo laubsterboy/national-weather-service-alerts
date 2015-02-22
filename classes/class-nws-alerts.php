@@ -526,7 +526,7 @@ class NWS_Alerts {
             'current_alert' => true,
             'graphic' => 2,
             'location' => $args['location_title'],
-            'scope' > 'Local Weather Alerts');
+            'scope' => 'Local Weather Alerts');
 
         // CSS classes
         if (is_string($classes)) {
