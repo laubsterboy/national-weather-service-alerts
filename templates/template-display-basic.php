@@ -10,20 +10,20 @@
 *
 */
 
-$return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
-    // Heading
-    $return_value .= '<section class="' . trim(implode(' ', $heading_args['classes'])) . '">';
-        // Heading graphic
-        if ($heading_args['graphic'] !== false && !empty($this->entries)) {
-            $return_value .= $this->entries[0]->get_output_graphic($heading_args['graphic'], 'nws-alerts-heading-graphic');
-        }
-
-        // Heading location and scope
-        $return_value .= '<span class="nws-alerts-heading-location">' . $heading_args['location'] . '</span><span class="nws-alerts-heading-scope">' . $heading_args['scope'] . '</span>';
-
-        // Heading entry event
-        $return_value .= $heading_args['alert'];
-    $return_value .= '</section>';
-$return_value .= '</article>';
-
 ?>
+
+<article class="nws-alerts <?php echo trim(implode(' ', $classes)); ?>" data-zip="<?php echo $this->zip; ?>" data-display="<?php echo $display; ?>" data-scope="<?php echo $this->scope; ?>" data-refresh_rate="<?php echo $this->refresh_rate; ?>">
+    <!-- Heading -->
+    <section class="<?php echo trim(implode(' ', $heading_args['classes'])); ?>">
+        <!-- Heading graphic -->
+        <?php if ($heading_args['graphic'] !== false && !empty($this->entries)) : ?>
+            <?php echo $this->entries[0]->get_output_graphic($heading_args['graphic'], 'nws-alerts-heading-graphic'); ?>
+        <?php endif; ?>
+
+        <!-- Heading location and scope -->
+        <span class="nws-alerts-heading-location"><?php echo $heading_args['location']; ?></span><span class="nws-alerts-heading-scope"><?php echo $heading_args['scope']; ?></span>
+
+        <!-- Heading entry event -->
+        <?php echo $heading_args['alert']; ?>
+    </section>
+</article>

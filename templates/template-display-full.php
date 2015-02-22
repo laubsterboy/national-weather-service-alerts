@@ -10,42 +10,42 @@
 *
 */
 
-$return_value .= '<article class="nws-alerts ' . trim(implode(' ', $classes)) . '" data-zip="' . $this->zip . '" data-display="' . $display . '" data-scope="' . $this->scope . '" data-refresh_rate="' . $this->refresh_rate . '">';
-    // Heading
-    $return_value .= '<section class="' . trim(implode(' ', $heading_args['classes'])) . '">';
-        // Heading graphic
-        if ($heading_args['graphic'] !== false && !empty($this->entries)) {
-            $return_value .= $this->entries[0]->get_output_graphic($heading_args['graphic'], 'nws-alerts-heading-graphic');
-        }
-
-        // Heading location and scope
-        $return_value .= '<span class="nws-alerts-heading-location">' . $heading_args['location'] . '</span><span class="nws-alerts-heading-scope">' . $heading_args['scope'] . '</span>';
-
-        // Heading event entry
-        $return_value .= $heading_args['alert'];
-    $return_value .= '</section>';
-
-    // Details
-    $return_value .= '<section class="nws-alerts-details">';
-        // Details entries
-        $return_value .= '<section class="nws-alerts-entries">';
-        if ($this->error) {
-            // Entries error
-            $return_value .= $this->error;
-        } else if (!empty($this->entries)) {
-            // Entries
-            foreach ($this->entries as $entry) {
-                $return_value .= $entry->get_output_entry();
-            }
-        } else {
-            // Entries empty
-            $return_value .= NWS_ALERTS_ERROR_NO_ENTRIES;
-        }
-        $return_value .= '</section>';
-
-        // Details map
-        $return_value .= $this->get_output_google_map();
-    $return_value .= '</section>';
-$return_value .= '</article>';
-
 ?>
+
+<article class="nws-alerts <?php echo trim(implode(' ', $classes)); ?>" data-zip="<?php echo $this->zip; ?>" data-display="<?php echo $display; ?>" data-scope="<?php echo $this->scope; ?>" data-refresh_rate="<?php echo $this->refresh_rate; ?>">
+    <!-- Heading -->
+    <section class="<?php echo trim(implode(' ', $heading_args['classes'])); ?>">
+        <!-- Heading graphic -->
+        <?php if ($heading_args['graphic'] !== false && !empty($this->entries)) : ?>
+            <?php echo $this->entries[0]->get_output_graphic($heading_args['graphic'], 'nws-alerts-heading-graphic'); ?>
+        <?php endif; ?>
+
+        <!-- Heading location and scope -->
+        <span class="nws-alerts-heading-location"><?php echo $heading_args['location']; ?></span><span class="nws-alerts-heading-scope"><?php echo $heading_args['scope']; ?></span>
+
+        <!-- Heading event entry -->
+        <?php echo $heading_args['alert']; ?>
+    </section>
+
+    <!-- Details -->
+    <section class="nws-alerts-details">
+        <!-- Details entries -->
+        <section class="nws-alerts-entries">
+        <?php if ($this->error) : ?>
+            <!-- Entries error -->
+            <?php echo $this->error; ?>
+        <?php elseif (!empty($this->entries)) : ?>
+            <!-- Entries -->
+            <?php foreach ($this->entries as $entry) { ?>
+                <?php echo $entry->get_output_entry(); ?>
+            <?php } ?>
+        <?php else : ?>
+            <!-- Entries empty -->
+            <?php echo NWS_ALERTS_ERROR_NO_ENTRIES; ?>
+        <?php endif; ?>
+        </section>
+
+        <!-- Details map -->
+        <?php echo $this->get_output_google_map(); ?>
+    </section>
+</article>
