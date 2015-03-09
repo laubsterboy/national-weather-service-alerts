@@ -12,7 +12,7 @@
 
 $return_value = '
     <script type="text/javascript">
-        function initialize' . $this->zip . '() {
+        function initialize' . $this->zip . $this->scope . '() {
             var mapOptions = {
                 zoom: ' . ($this->scope === NWS_ALERTS_SCOPE_COUNTY ? '8' : '6') . ',
                 center: new google.maps.LatLng(' . $this->latitude . ', ' . $this->longitude . '),
@@ -22,14 +22,14 @@ $return_value = '
 
             var nwsAlertTriangle;
 
-            var map = new google.maps.Map(document.getElementById("nws-alerts-map-' . $this->zip . '"), mapOptions);
+            var map = new google.maps.Map(document.getElementById("nws-alerts-map-' . $this->zip . $this->scope . '"), mapOptions);
 
             ' . $google_map_polys . '
         }
 
-        ' . ((defined('DOING_AJAX') && DOING_AJAX) ? ('initialize' . $this->zip . '()') : ('google.maps.event.addDomListener(window, "load", initialize' . $this->zip . ');')) . '
+        ' . ((defined('DOING_AJAX') && DOING_AJAX) ? ('initialize' . $this->zip . $this->scope . '()') : ('google.maps.event.addDomListener(window, "load", initialize' . $this->zip . $this->scope . ');')) . '
 
     </script>
-    <section id="nws-alerts-map-' . $this->zip . '" class="nws-alerts-map"></section>';
+    <section id="nws-alerts-map-' . $this->zip . $this->scope . '" class="nws-alerts-map"></section>';
 
 ?>
