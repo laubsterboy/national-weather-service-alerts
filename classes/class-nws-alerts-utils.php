@@ -172,7 +172,7 @@ class NWS_Alerts_Utils {
     public static function register_display_template($args = array()) {
         if ((isset($args['display']) && !is_string($args['display'])) ||
             (isset($args['name']) && !is_string($args['name'])) ||
-            array_key_exists($args['display'], $this::displays) ||
+            array_key_exists($args['display'], self::$displays) ||
             get_template_path('template-display-' . $args['display'] . '.php') === false) return false;
 
         self::$displays[$args['display']] = $args['name'];
