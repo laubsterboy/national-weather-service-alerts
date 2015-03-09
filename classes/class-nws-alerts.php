@@ -202,11 +202,11 @@ class NWS_Alerts {
                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                     $curl_data = curl_exec($curl);
                     $nws_alerts_xml = simplexml_load_string($curl_data, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
-                    set_site_transient('nws_alerts_xml_' . $zip, $curl_data, 180);
+                    set_site_transient('nws_alerts_xml_' . $zip . $scope, $curl_data, 180);
                 } else if (ini_get('allow_url_fopen')) {
                     // Load XML via simplexml_load_file
                     $nws_alerts_xml = simplexml_load_file($nws_alerts_xml_url, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
-                    set_site_transient('nws_alerts_xml_' . $zip, $nws_alerts_xml->asXML(), 180);
+                    set_site_transient('nws_alerts_xml_' . $zip . $scope, $nws_alerts_xml->asXML(), 180);
                 }
             } else {
                 $nws_alerts_xml = simplexml_load_string(get_site_transient('nws_alerts_xml_' . $zip), 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_ERR_NONE);
