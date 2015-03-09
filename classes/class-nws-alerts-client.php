@@ -54,6 +54,7 @@ class NWS_Alerts_Client {
         NWS_Alerts_Utils::register_display_template(array('display' => 'bar', 'name' => 'Bar'));
         NWS_Alerts_Utils::register_display_template(array('display' => 'basic', 'name' => 'Basic'));
         NWS_Alerts_Utils::register_display_template(array('display' => 'full', 'name' => 'Full'));
+        NWS_Alerts_Utils::register_display_template(array('display' => 'list', 'name' => 'List'));
     }
 
 
