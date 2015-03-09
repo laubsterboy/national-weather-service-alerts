@@ -198,14 +198,16 @@ class NWS_Alerts_Utils {
                 // NWS Alerts
                 NWS_ALERTS_ABSPATH . 'templates/'), $template_filename);
 
-            // NWS Alerts default template - in case all templates have been filtered out.
-            $template_directory_paths[] = NWS_ALERTS_ABSPATH . 'templates/template-display-full.php';
-
             foreach ($template_directory_paths as $path) {
                 if (file_exists($path . $template_filename)) {
                     $return_value = $path . $template_filename;
                     break;
                 }
+            }
+
+            // NWS Alerts default template - in case all templates have been filtered out.
+            if ($return_value === false) {
+                $return_value = NWS_ALERTS_ABSPATH . 'templates/template-display-full.php';
             }
         }
 
