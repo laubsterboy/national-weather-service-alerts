@@ -649,7 +649,7 @@ class NWS_Alerts_Admin {
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
                         $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '">';
-                            foreach (NWS_Alerts_Utils::displays as $display => $name) {
+                            foreach (NWS_Alerts_Utils::$displays as $display => $name) {
                                 $return_value .= '<option value="' . $display . '"' . selected($default, $display, false) . '>' . $name . '</option>';
                             }
                         $return_value .= '</select>';

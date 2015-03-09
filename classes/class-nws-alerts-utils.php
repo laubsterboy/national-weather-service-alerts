@@ -175,7 +175,7 @@ class NWS_Alerts_Utils {
             array_key_exists($args['display'], $this::displays) ||
             get_template_path('template-display-' . $args['display'] . '.php') === false) return false;
 
-        $this::displays[$args['display']] = $args['name'];
+        self::$displays[$args['display']] = $args['name'];
 
         return true;
     }
