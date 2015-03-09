@@ -643,15 +643,15 @@ class NWS_Alerts_Admin {
 				$return_value .= '</td>';
 			$return_value .= '</tr>';
         } else if ($control === 'display') {
-            if ($default === false) { $default = NWS_ALERTS_DISPLAY_FULL; }
+            if ($default === false) { $default = NWS_ALERTS_DISPLAY_DEFAULT; }
             $return_value .= '<tr>';
 				$return_value .= '<td><h4>Display</h4><p class="howto">Bar: Graphic, Scope, Location, and Alert Type for the most severe current alert, in a horizontal layout.</p><p class="howto">Basic: Graphic, Scope, Location, and Alert Type for the most severe current alert, but no mouse over details.</p><p class="howto">Full: Graphic, Scope, Location, and Alert Type for the most severe current alert, and mouse over for all other alerts (including Alert Descriptions and Google Map) within the scope of the designated location.</p></td>';
 				$return_value .= '<td>';
 					$return_value .= '<div class="nws-alerts-control-select-container">';
                         $return_value .= '<select data-control-parent="' . $control . '" data-control="' . $control . '" id="' . $control_id_prefix . '-' . $control . '" name="' . str_replace('-', '_', $control_id_prefix . '_' . $control) . '">';
-                            $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_BAR . '"' . selected($default, NWS_ALERTS_DISPLAY_BAR, false) . '>Bar</option>';
-                            $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_BASIC . '"' . selected($default, NWS_ALERTS_DISPLAY_BASIC, false) . '>Basic</option>';
-                            $return_value .= '<option value="' . NWS_ALERTS_DISPLAY_FULL . '"' . selected($default, NWS_ALERTS_DISPLAY_FULL, false) . '>Full</option>';
+                            foreach (NWS_Alerts_Utils::displays as $display => $name) {
+                                $return_value .= '<option value="' . $display . '"' . selected($default, $display, false) . '>' . $name . '</option>';
+                            }
                         $return_value .= '</select>';
 					$return_value .= '</div>';
 				$return_value .= '</td>';

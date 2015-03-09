@@ -10,22 +10,6 @@ class NWS_Alerts_Client {
     var $nonce_string = 'nws_alerts_nonce';
     var $nonce;
 
-    /*
-    * set_ajaxurl
-    *
-    * Is called when the NWS_Alerts plugin is activated and creates necessary database tables and populates them with data
-    *
-    * @return void
-    * @access public
-    */
-    public static function set_ajaxurl() {
-        ?>
-        <script type="text/javascript">
-            var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
-        </script>
-        <?php
-    }
-
 
 
 
@@ -40,7 +24,7 @@ class NWS_Alerts_Client {
     public static function refresh() {
 
         $s_zip = isset($_POST['zip']) ? sanitize_text_field($_POST['zip']) : '';
-		$s_display = isset($_POST['display']) ? sanitize_text_field($_POST['display']) : NWS_ALERTS_DISPLAY_FULL;
+		$s_display = isset($_POST['display']) ? sanitize_text_field($_POST['display']) : NWS_ALERTS_DISPLAY_DEFAULT;
 		$s_scope = isset($_POST['scope']) ? sanitize_text_field($_POST['scope']) : NWS_ALERTS_SCOPE_COUNTY;
         $s_location_title = isset($_POST['location_title']) ? sanitize_text_field($_POST['location_title']) : false;
         $s_classes = isset($_POST['classes']) ? sanitize_text_field($_POST['classes']) : array();
@@ -54,6 +38,22 @@ class NWS_Alerts_Client {
         echo $nws_alerts_data->get_output_html($s_display, $s_classes, array('location_title' => $s_location_title));
 
         die();
+    }
+
+
+
+    /*
+    * register_display_templates
+    *
+    * Registers the default display templates
+    *
+    * @return void
+    * @access public
+    */
+    public static function register_display_templates() {
+        NWS_Alerts_Utils::register_display_template(array('display' => 'bar', 'name' => 'Bar'));
+        NWS_Alerts_Utils::register_display_template(array('display' => 'basic', 'name' => 'Basic'));
+        NWS_Alerts_Utils::register_display_template(array('display' => 'full', 'name' => 'Full'));
     }
 
 
@@ -74,6 +74,25 @@ class NWS_Alerts_Client {
         /* JavaScript */
         wp_enqueue_script('nws-alerts-js', NWS_ALERTS_URL . 'js/nws-alerts.js', array('jquery'), null, true);
         wp_enqueue_script('google-map-api', 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather&sensor=false', false, null, false);
+    }
+
+
+
+
+    /*
+    * set_ajaxurl
+    *
+    * Is called when the NWS_Alerts plugin is activated and creates necessary database tables and populates them with data
+    *
+    * @return void
+    * @access public
+    */
+    public static function set_ajaxurl() {
+        ?>
+        <script type="text/javascript">
+            var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+        </script>
+        <?php
     }
 
 

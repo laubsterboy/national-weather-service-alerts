@@ -515,7 +515,7 @@ class NWS_Alerts {
     * @param NWS_Alerts $nws_alerts a full populated NWS_Alerts object
     * @return string
     */
-    public function get_output_html($display = NWS_ALERTS_DISPLAY_FULL, $classes = array(), $args = array()) {
+    public function get_output_html($display = NWS_ALERTS_DISPLAY_DEFAULT, $classes = array(), $args = array()) {
         $args_defaults = array(
             'location_title' => false);
         $args = wp_parse_args($args, $args_defaults);

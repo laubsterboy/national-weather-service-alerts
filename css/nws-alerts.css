@@ -8,7 +8,8 @@
     box-sizing:border-box;
     opacity:1;
 }
-.nws-alerts:hover {
+.nws-alerts:hover,
+.nws-alerts-page-builder-index-fix {
     z-index:10000;
 }
 .nws-alerts:after {
