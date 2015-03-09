@@ -18,7 +18,7 @@ class NWS_Alerts_Widget extends WP_Widget {
                                 'state' => false,
                                 'county' => false,
                                 'location_title' => false,
-                                'display' => NWS_ALERTS_DISPLAY_FULL,
+                                'display' => NWS_ALERTS_DISPLAY_DEFAULT,
                                 'scope' => NWS_ALERTS_SCOPE_COUNTY);
 	}
 
@@ -112,9 +112,9 @@ class NWS_Alerts_Widget extends WP_Widget {
         <p>
             <label for="<?php echo $this->get_field_id('display'); ?>">Display:</label>
             <select class="widefat" id="<?php echo $this->get_field_id('display'); ?>" name="<?php echo $this->get_field_name('display'); ?>">
-                <option value="<?php echo NWS_ALERTS_DISPLAY_BAR ?>"<?php selected($instance['display'], NWS_ALERTS_DISPLAY_BAR) ?>><?php echo NWS_ALERTS_DISPLAY_BAR ?></option>
-                <option value="<?php echo NWS_ALERTS_DISPLAY_BASIC ?>"<?php selected($instance['display'], NWS_ALERTS_DISPLAY_BASIC) ?>><?php echo NWS_ALERTS_DISPLAY_BASIC ?></option>
-                <option value="<?php echo NWS_ALERTS_DISPLAY_FULL ?>"<?php selected($instance['display'], NWS_ALERTS_DISPLAY_FULL) ?>><?php echo NWS_ALERTS_DISPLAY_FULL ?></option>
+                <?php foreach (NWS_Alerts_Utils::$displays as $display => $name) { ?>
+                    <option value="<?php echo $display; ?>"<?php selected($instance['display'], $display) ?>><?php echo $name ?></option>
+                <?php } ?>
             </select>
         </p>
         <p>
