@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+.widget_nws_alert_widget:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+
 .nws-alerts {
     position:relative;
     z-index:3;
@@ -73,9 +79,12 @@
 .nws-alerts-heading .nws-alerts-heading-scope {
     display:block;
     margin:0 0 0 70px;
-    font-size: 0.9em;
-    color: #888;
+    font-size:0.9em;
+    color:#888;
     line-height:1.5;
+}
+.widget-title .nws-alerts-heading-scope {
+	color:inherit;
 }
 .nws-alerts-heading .nws-alerts-heading-location {
     clear:none;
