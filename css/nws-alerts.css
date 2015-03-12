@@ -53,12 +53,12 @@
 
 .nws-alerts-heading {
     position:relative;
+    margin-bottom:1em;
     z-index:1;
-    padding:20px;
     box-sizing:border-box;
     white-space:nowrap;
 }
-.nws-alerts-collapsible .nws-alerts-heading {float:left;}
+.nws-alerts-collapsible .nws-alerts-heading {float:left; margin-bottom:0; padding:20px;}
 .nws-alerts-bar .nws-alerts-heading {float:none; color:#000;}
 .nws-alerts-bar-fix .nws-alerts-heading {float:left;}
 .nws-alerts-widget .nws-alerts-heading {padding:0 0 20px 0;}
@@ -227,17 +227,18 @@
 
 .nws-alerts-entry-graphic {
     float:left;
-    margin-right:20px;
+    margin-right:10px;
     display:block;
 }
 
 .nws-alerts-event-effective,
 .nws-alerts-event-expires {
     display:inline-block;
+    width:45%;
     width:calc(50% - 10px);
-    background-color: #fafafa;
+    background-color: #f1f1f1;
     padding:10px;
-    border-radius:10px;
+    border-radius:3px;
     margin:10px 0;
     border-top: 1px solid #ddd;
 }
