@@ -12,7 +12,7 @@
 
 ?>
 
-<article class="nws-alerts <?php echo trim(implode(' ', $classes)); ?>" data-zip="<?php echo $this->zip; ?>" data-display="<?php echo $display; ?>" data-scope="<?php echo $this->scope ?>" data-refresh_rate="<?php echo $this->refresh_rate; ?>">
+<article class="nws-alerts nws-alerts-collapsible <?php echo trim(implode(' ', $classes)); ?>" data-zip="<?php echo $this->zip; ?>" data-display="<?php echo $display; ?>" data-scope="<?php echo $this->scope ?>" data-refresh_rate="<?php echo $this->refresh_rate; ?>">
     <!-- Heading -->
     <section class="<?php echo trim(implode(' ', $heading_args['classes'])); ?>">
         <!-- Heading graphic -->
