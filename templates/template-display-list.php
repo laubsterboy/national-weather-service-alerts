@@ -14,7 +14,7 @@
 
 <article class="nws-alerts <?php echo trim(implode(' ', $classes)); ?>" data-zip="<?php echo $this->zip; ?>" data-display="<?php echo $display; ?>" data-scope="<?php echo $this->scope; ?>" data-refresh_rate="<?php echo $this->refresh_rate; ?>">
     <!-- Heading -->
-    <section class="<?php echo trim(implode(' ', $heading_args['classes'])); ?>">
+    <section class="<?php echo trim(implode(' ', $heading_args['classes'])); ?> nws-alerts-heading-no-graphic">
         <!-- Heading location and scope -->
         <span class="nws-alerts-heading-location"><?php echo $heading_args['location']; ?></span><span class="nws-alerts-heading-scope"><?php echo $heading_args['scope']; ?></span>
     </section>
