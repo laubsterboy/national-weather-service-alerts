@@ -21,7 +21,12 @@
         <?php endif; ?>
 
         <!-- Heading location and scope -->
-        <span class="nws-alerts-heading-location"><?php echo $heading_args['location']; ?></span><span class="nws-alerts-heading-scope"><?php echo $heading_args['scope']; ?></span>
+        <?php if (isset($args['widget'])) { ?>
+            <?php echo $args['widget_before_title']; ?><span class="nws-alerts-heading-scope"><?php echo $heading_args['scope']; ?></span><?php echo $args['widget_after_title']; ?>
+            <span class="nws-alerts-heading-location"><?php echo $heading_args['location']; ?></span>
+        <?php } else { ?>
+            <span class="nws-alerts-heading-location"><?php echo $heading_args['location']; ?></span><span class="nws-alerts-heading-scope"><?php echo $heading_args['scope']; ?></span>
+        <?php } ?>
 
         <!-- Heading event entry -->
         <?php echo $heading_args['alert']; ?>
