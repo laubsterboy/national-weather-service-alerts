@@ -242,7 +242,7 @@ class NWS_Alerts_Entry {
         // Size
 		if ($details) {
             $return_value = '<span class="nws-alerts-event nws-alerts-color-' . $this->cap_event_slug . '">' . $this->cap_event . '</span><br />';
-            $return_value .= ucwords(strtolower($this->summary)) . ' ...<a href="' . $this->id . '">Read More</a>.<br />';
+            $return_value .= ucwords(strtolower($this->summary)) . ' ...<a href="' . $this->id . '" target="_blank">Read More</a>.<br />';
             $return_value .= '<span class="nws-alerts-event-effective nws-alerts-style-callout"><strong>Effective:</strong> ' . $this->cap_effective . '</span>';
             $return_value .= '<span class="nws-alerts-event-expires nws-alerts-style-callout"><strong>Expires:</strong> ' . $this->cap_expires . '</span>';
             $return_value .= '<span class="nws-alerts-event-area nws-alerts-style-callout"><strong>Target Area:</strong> ' . $this->cap_area_desc . '</span>';
