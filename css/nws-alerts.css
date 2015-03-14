@@ -245,11 +245,6 @@
     display:inline-block;
     width:45%;
     width:calc(50% - 10px);
-    background-color: #f1f1f1;
-    padding:10px;
-    border-radius:3px;
-    margin:10px 0;
-    border-top: 1px solid #ddd;
 }
 .nws-alerts-event-effective {
     float:left;
@@ -357,6 +352,17 @@
 .nws-alerts-color-avalanche-watch,
 .nws-alerts-color-frost-advisory {color:#11ccff;}
 
+
+
+
+/* Styles */
+.nws-alerts-style-callout {
+	margin:10px 0;
+    padding:10px;
+    border-radius:3px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #ddd;
+}
 
 
 
