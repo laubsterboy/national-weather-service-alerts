@@ -244,15 +244,19 @@
 .nws-alerts-event-expires {
     display:inline-block;
     width:45%;
-    width:calc(50% - 10px);
+    width:calc(50% - 5px);
 }
 .nws-alerts-event-effective {
     float:left;
-    margin-right:10px;
+    margin-right:5px;
 }
 .nws-alerts-event-expires {
     float:right;
-    margin-left:10px;
+    margin-left:5px;
+}
+.nws-alerts-event-area {
+	display:block;
+	clear:both;
 }
 
 /* Blizzard Warning */
