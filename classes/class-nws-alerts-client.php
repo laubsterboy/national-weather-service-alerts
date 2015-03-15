@@ -98,36 +98,30 @@ class NWS_Alerts_Client {
 
 
 
-
     /*
+    * buffer_start
     *
+    * Is called by wp_head and starts an output buffer so that the NWS Alerts Bar can be added immediately after the <body> tag.
+    *
+    * @return void
+    * @access public
     */
-    public static function buffer_callback($buffer) {
-        if (NWS_ALERTS_BODY_CLASS_SUPPORT) {
-            $nws_alerts_data = new NWS_Alerts(array('zip' => NWS_ALERTS_BAR_ZIP,
-                                                    'city' => NWS_ALERTS_BAR_CITY,
-                                                    'state' => NWS_ALERTS_BAR_STATE,
-                                                    'county' => NWS_ALERTS_BAR_COUNTY,
-                                                    'scope' => NWS_ALERTS_BAR_SCOPE));
-            $classes = '';
-            if (NWS_ALERTS_BAR_FIX) $classes .= 'nws-alerts-bar-fix';
-            $location_title = false;
-            if (NWS_ALERTS_BAR_LOCATION_TITLE !== false && NWS_ALERTS_BAR_LOCATION_TITLE !== '') $location_title = NWS_ALERTS_BAR_LOCATION_TITLE;
-
-            $body_tag_start_pos = stripos($buffer, '<body');
-            $body_tag_end_pos = stripos($buffer, '>', $body_tag_start_pos) + 1;
-            $buffer = substr_replace($buffer, $nws_alerts_data->get_output_html(NWS_ALERTS_DISPLAY_BAR, $classes, array('location_title' => $location_title)), $body_tag_end_pos, 0);
-        }
-
-        return $buffer;
-    }
-
     public static function buffer_start() {
         if (NWS_ALERTS_BAR_ENABLED) {
             ob_start();
         }
     }
 
+
+
+    /*
+    * buffer_end
+    *
+    * Is called by wp_footer and clears the previously started output buffer and adds the NWS Alerts Bar immediately after the <body> tag.
+    *
+    * @return void
+    * @access public
+    */
     public static function buffer_end() {
         if (NWS_ALERTS_BAR_ENABLED) {
             $buffer = ob_get_clean();
