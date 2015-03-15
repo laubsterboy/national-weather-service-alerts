@@ -111,6 +111,7 @@ Simply refreshing the page should fix the problem.
 * Added Feature: Support for WordPress Multisite.
 * Added Feature: 'nws_alerts_template_path' filter, which can be used to specify alternative template paths.
 * Added Feature: 'nws-alerts-page-builder-index-fix' CSS class that is unused, but intended to be added via page builder (Visual Composer, Beaver Builder, etc) to ensure that NWS Alerts display on top of surrounding content.
+* Added Feature: New display templates can be created and added by calling NWS_Alerts_Utils::register_display_template.
 * Improvement: The outputting of html has been moved to templates. Default plugin templates can be overridden by copying the template files into child theme and parent theme directories and then modified.
 * Removed: NWS_Alerts->get_output_headings object method.
 * Fixed: Alert effective and expiration times. They're no longer adjusted to the WordPress gmt_offset for the site.
