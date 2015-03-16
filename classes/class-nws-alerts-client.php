@@ -22,7 +22,6 @@ class NWS_Alerts_Client {
     * @access public
     */
     public static function refresh() {
-
         $s_zip = isset($_POST['zip']) ? sanitize_text_field($_POST['zip']) : '';
 		$s_display = isset($_POST['display']) ? sanitize_text_field($_POST['display']) : NWS_ALERTS_DISPLAY_DEFAULT;
 		$s_scope = isset($_POST['scope']) ? sanitize_text_field($_POST['scope']) : NWS_ALERTS_SCOPE_COUNTY;

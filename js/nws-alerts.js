@@ -15,8 +15,8 @@ Author URI: http://www.laubsterboy.com
             display = $(this).data('display'),
             scope = $(this).data('scope'),
             classes = $(this).attr('class'),
-            locationTitle = $(this).find('.nws-alerts-heading-location'),
-            refreshRate = parseInt($(this).data('refresh_rate')) * 60000,
+            locationTitle = $(this).find('.nws-alerts-heading-location').text(),
+            refreshRate = parseInt($(this).data('refresh_rate')) * 1000,
             element = this;
 
         setTimeout(function () {
