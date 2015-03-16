@@ -116,6 +116,7 @@ Simply refreshing the page should fix the problem.
 * Improvement: Each Alert entry now includes the Target Area.
 * Removed: NWS_Alerts->get_output_headings object method.
 * Fixed: Alert effective and expiration times. They're no longer adjusted to the WordPress gmt_offset for the site.
+* Fixed: Auto updating alerts via AJAX. This was broken in update 1.2.0.
 
 = 1.2.0 =
 * Added Feature: The location title can now be overridden with a custom name.
