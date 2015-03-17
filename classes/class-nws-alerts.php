@@ -119,6 +119,8 @@ class NWS_Alerts {
     */
     public $refresh_rate = 15;
 
+
+
     /**
     * NWS_Alerts constructor $args, $nws_alerts_data
     */
@@ -292,16 +294,17 @@ class NWS_Alerts {
         * "Shelter in Place Warning"
         */
         $allowed_alert_types = apply_filters('nws_alerts_allowed_alert_types',
-                                     array('Tornado Warning',
-                                           'Severe Thunderstorm Warning',
-                                           'Flash Flood Warning',
-                                           'Flood Warning',
-                                           'Blizzard Warning',
-                                           'Winter Storm Warning',
-                                           'Freeze Warning',
-                                           'Dust Storm Warning',
-                                           'High Wind Warning'),
-                                     $args);
+                                             array('Tornado Warning',
+                                                   'Severe Thunderstorm Warning',
+                                                   'Flash Flood Warning',
+                                                   'Flood Warning',
+                                                   'Blizzard Warning',
+                                                   'Winter Storm Warning',
+                                                   'Freeze Warning',
+                                                   'Dust Storm Warning',
+                                                   'High Wind Warning'
+                                             ),
+                                             $args);
 
         /*
         * msg types
@@ -517,16 +520,16 @@ class NWS_Alerts {
     */
     public function get_output_html($display = NWS_ALERTS_DISPLAY_DEFAULT, $classes = array(), $args = array()) {
         $args_defaults = array(
-            'location_title' => false);
+            'location_title' => false,
+            'default_classes' => array('nws-alerts' . $display),
+            'heading' => array(
+                'alert' => '',
+                'classes' => array('nws-alerts-heading'),
+                'current_alert' => true,
+                'graphic' => 2,
+                'location' => $args['location_title'],
+                'scope' => 'Local Weather Alerts'));
         $args = wp_parse_args($args, $args_defaults);
-        $default_classes = array('nws-alerts-' . $display);
-        $heading_args = array(
-            'alert' => '',
-            'classes' => array('nws-alerts-heading'),
-            'current_alert' => true,
-            'graphic' => 2,
-            'location' => $args['location_title'],
-            'scope' => 'Local Weather Alerts');
 
         // CSS classes
         if (is_string($classes)) {
@@ -534,37 +537,37 @@ class NWS_Alerts {
         } else if (!is_array($classes)) {
             $classes = array();
         }
-        $classes = array_merge($default_classes, $classes);
-        if (empty($this->entries)) $classes[] = 'nws-alerts-no-entries';
+        $classes = array_merge($args['default_classes'], $classes);
+        if (empty($this->entries)) $args['default_classes'][] = 'nws-alerts-no-entries';
 
         // Heading settings
         if (in_array('nws-alerts-widget', $classes)) {
-            $heading_args['graphic'] = false;
+            $args['heading']['graphic'] = false;
         } else if ($display === NWS_ALERTS_DISPLAY_BAR) {
-            $heading_args['graphic'] = 1;
+            $args['heading']['graphic'] = 1;
         }
-        if ($heading_args['graphic'] === false || empty($this->entries)) {
-            $heading_args['classes'][] = 'nws-alerts-heading-no-graphic';
+        if ($args['heading']['graphic'] === false || empty($this->entries)) {
+            $args['heading']['classes'][] = 'nws-alerts-heading-no-graphic';
         }
 
         // Heading alert
-        if ($heading_args['current_alert'] && !empty($this->entries)) {
-            $heading_args['alert'] .= $this->entries[0]->get_output_text(false);
+        if ($args['heading']['current_alert'] && !empty($this->entries)) {
+            $args['heading']['alert'] .= $this->entries[0]->get_output_text(false);
         } else if ($this->error) {
-            $heading_args['alert'] .= NWS_ALERTS_ERROR_NO_XML_SHORT;
+            $args['heading']['alert'] .= NWS_ALERTS_ERROR_NO_XML_SHORT;
         }
 
         // Heading location and scope
         if ($args['location_title'] !== false) {
 
         } else if ($this->scope === NWS_ALERTS_SCOPE_NATIONAL) {
-            $heading_args['location'] = 'United States';
-            $heading_args['scope'] = 'National Weather Alerts';
+            $args['heading']['location'] = 'United States';
+            $args['heading']['scope'] = 'National Weather Alerts';
         } else if ($this->scope === NWS_ALERTS_SCOPE_STATE) {
-            $heading_args['location'] = $this->state;
-            $heading_args['scope'] = 'State Weather Alerts';
+            $args['heading']['location'] = $this->state;
+            $args['heading']['scope'] = 'State Weather Alerts';
         } else {
-            $heading_args['location'] = $this->city . ', ' . $this->state;
+            $args['heading']['location'] = $this->city . ', ' . $this->state;
         }
 
         // Start output buffer
