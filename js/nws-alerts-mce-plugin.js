@@ -22,6 +22,7 @@
             controlValues.location_title = '';
             controlValues.display = 'full';
             controlValues.scope = 'county';
+            controlValues.limit = 0;
 
             controlValuesDefaults = $.extend({}, controlValues);
 
@@ -106,6 +107,7 @@
             if (controlValues.location_title !== controlValuesDefaults.location_title) { shortcode += ' location_title="' + controlValues.location_title + '"'; }
             if (controlValues.display !== controlValuesDefaults.display) { shortcode += ' display="' + controlValues.display + '"'; }
             if (controlValues.scope !== controlValuesDefaults.scope) { shortcode += ' scope="' + controlValues.scope + '"'; }
+            if (controlValues.limit !== controlValuesDefaults.limit) { shortcode += ' limit="' + controlValues.limit + '"'; }
 
             shortcode += ']';
 

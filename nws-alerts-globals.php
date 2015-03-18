@@ -27,6 +27,7 @@ define('NWS_ALERTS_BAR_STATE', get_option('nws_alerts_alerts_bar_state'));
 define('NWS_ALERTS_BAR_COUNTY', get_option('nws_alerts_alerts_bar_county'));
 define('NWS_ALERTS_BAR_LOCATION_TITLE', get_option('nws_alerts_alerts_bar_location_title'));
 define('NWS_ALERTS_BAR_SCOPE', get_option('nws_alerts_alerts_bar_scope'));
+define('NWS_ALERTS_BAR_LIMIT', get_option('nws_alerts_alerts_bar_limit'));
 define('NWS_ALERTS_BAR_FIX', get_option('nws_alerts_alerts_bar_fix'));
 
 define('NWS_ALERTS_TABLES_BUILT', filter_var(get_site_option('nws_alerts_tables_built'), FILTER_VALIDATE_BOOLEAN));

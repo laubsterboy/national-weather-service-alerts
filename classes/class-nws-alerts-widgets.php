@@ -19,7 +19,8 @@ class NWS_Alerts_Widget extends WP_Widget {
                                 'county' => false,
                                 'location_title' => false,
                                 'display' => NWS_ALERTS_DISPLAY_DEFAULT,
-                                'scope' => NWS_ALERTS_SCOPE_COUNTY);
+                                'scope' => NWS_ALERTS_SCOPE_COUNTY,
+                                'limit' => 0);
 	}
 
 
@@ -39,7 +40,7 @@ class NWS_Alerts_Widget extends WP_Widget {
         if ($instance['scope'] !== NWS_ALERTS_SCOPE_NATIONAL && $instance['scope'] !== NWS_ALERTS_SCOPE_STATE && $instance['scope'] !== NWS_ALERTS_SCOPE_COUNTY) $instance['scope'] = NWS_ALERTS_SCOPE_COUNTY;
 
         if (!empty($instance['zip']) || (!empty($instance['city']) && !empty($instance['state'])) || (!empty($instance['state']) && !empty($instance['county']))) {
-            $nws_alert_data = new NWS_Alerts(array('zip' => $instance['zip'], 'city' => $instance['city'], 'state' => $instance['state'], 'county' => $instance['county'], 'scope' => $instance['scope']));
+            $nws_alert_data = new NWS_Alerts(array('zip' => $instance['zip'], 'city' => $instance['city'], 'state' => $instance['state'], 'county' => $instance['county'], 'scope' => $instance['scope'], 'limit' => $instance['limit']));
 
             echo $args['before_widget'];
             echo $nws_alert_data->get_output_html($instance['display'], 'nws-alerts-widget', array('location_title' => $instance['location_title'], 'widget' => true, 'widget_before_title' => $args['before_title'], 'widget_after_title' => $args['after_title']));
@@ -125,6 +126,10 @@ class NWS_Alerts_Widget extends WP_Widget {
                 <option value="<?php echo NWS_ALERTS_SCOPE_NATIONAL ?>"<?php selected($instance['scope'], NWS_ALERTS_SCOPE_NATIONAL) ?>><?php echo NWS_ALERTS_SCOPE_NATIONAL ?></option>
             </select>
         </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('limit'); ?>">Limit:</label>
+            <input class="widefat" id="<?php echo $this->get_field_id('limit'); ?>" name="<?php echo $this->get_field_name('limit'); ?>" type="text" value="<?php echo esc_attr($instance['limit']); ?>">
+		</p>
 		<?php
 	}
 }
