@@ -113,6 +113,13 @@ class NWS_Alerts {
     public $scope = NWS_ALERTS_SCOPE_COUNTY;
 
     /**
+    * Limit the number of entries.
+    *
+    * @var int
+    */
+    public $limit = 0;
+
+    /**
     * The refresh_rate (in minutes), determined by the alert types. More severe alerts will be refreshed more often.
     *
     * @var int
@@ -139,7 +146,8 @@ class NWS_Alerts {
                           'city' => false,
                           'state' => false,
                           'county' => false,
-                          'scope' => NWS_ALERTS_SCOPE_COUNTY);
+                          'scope' => NWS_ALERTS_SCOPE_COUNTY,
+                          'limit' => 0);
         $args = wp_parse_args($args, $defaults);
 
         $zip = ($args['zip'] === false || empty($args['zip'])) ? false : sanitize_text_field($args['zip']);
@@ -339,6 +347,7 @@ class NWS_Alerts {
         $this->county = $county;
         $this->county_code = $county_code;
         $this->scope = $scope;
+        $this->limit = $args['limit'];
 
         if (!empty($nws_alerts_data) && !empty($nws_alerts_data['entries'])) {
             // Store first level $nws_alerts_data values in class attributes
@@ -475,6 +484,13 @@ class NWS_Alerts {
             }
         }
 
+        /*
+        * Limit the number of events if necessary
+        *
+        * @since 1.3.0
+        */
+        if ($this->limit > 0) $entries = array_slice($entries, 0, $this->limit);
+
         $this->entries = $entries;
 
         // Set NWS Alerts refresh_rate - If top alerts are extreme or have potential to produce life threatening storms change the refresh_rate to 5 minutes
@@ -527,9 +543,10 @@ class NWS_Alerts {
                 'classes' => array('nws-alerts-heading'),
                 'current_alert' => true,
                 'graphic' => 2,
-                'location' => $args['location_title'],
+                'location' => false,
                 'scope' => 'Local Weather Alerts'));
         $args = wp_parse_args($args, $args_defaults);
+        $args['heading']['location'] = $args['location_title'];
 
         // CSS classes
         if (is_string($classes)) {
@@ -569,6 +586,14 @@ class NWS_Alerts {
         } else {
             $args['heading']['location'] = $this->city . ', ' . $this->state;
         }
+
+        // Saved settings - to be used to auto update the NWS Alerts on the front end
+        $settings = json_encode(array('zip' => $this->zip,
+                                      'scope' => $this->scope,
+                                      'refresh_rate' => $this->refresh_rate,
+                                      'limit' => $this->limit,
+                                      'display' => $display,
+                                      'location_title' => $args['location_title']));
 
         // Start output buffer
         ob_start();
