@@ -12,7 +12,7 @@
 
 ?>
 
-<article class="nws-alerts <?php echo trim(implode(' ', $classes)); ?>" data-settings="<?php echo $this->settings; ?>">
+<article class="nws-alerts <?php echo trim(implode(' ', $classes)); ?>" data-settings="<?php echo $settings; ?>">
     <!-- Heading -->
     <section class="<?php echo trim(implode(' ', $args['heading']['classes'])); ?>">
         <!-- Heading graphic -->
