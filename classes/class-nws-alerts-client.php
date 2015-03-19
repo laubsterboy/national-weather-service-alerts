@@ -22,6 +22,8 @@ class NWS_Alerts_Client {
     * @access public
     */
     public static function refresh() {
+        echo $_POST;
+        die();
         if (isset($_POST['settings'])) {
             $settings = json_encode($_POST['settings'], true);
 
