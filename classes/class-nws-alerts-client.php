@@ -22,29 +22,21 @@ class NWS_Alerts_Client {
     * @access public
     */
     public static function refresh() {
-        print_r($_POST);
-        die();
-        if (isset($_POST['settings'])) {
-            $settings = json_encode($_POST['settings'], true);
+        $s_zip = isset($_POST['zip']) ? sanitize_text_field($_POST['zip']) : '';
+        $s_scope = isset($_POST['scope']) ? sanitize_text_field($_POST['scope']) : NWS_ALERTS_SCOPE_COUNTY;
+        $s_limit = isset($_POST['limit']) ? sanitize_text_field($_POST['limit']) : '';
+        $s_display = isset($_POST['display']) ? sanitize_text_field($_POST['display']) : NWS_ALERTS_DISPLAY_DEFAULT;
+        $s_classes = isset($_POST['classes']) ? sanitize_text_field($_POST['classes']) : array();
+        $s_location_title = isset($_POST['location_title']) ? sanitize_text_field($_POST['location_title']) : false;
 
-            $s_zip = isset($settings['zip']) ? sanitize_text_field($settings['zip']) : '';
-            $s_scope = isset($settings['scope']) ? sanitize_text_field($settings['scope']) : NWS_ALERTS_SCOPE_COUNTY;
-            $s_limit = isset($settings['limit']) ? sanitize_text_field($settings['limit']) : '';
-            $s_display = isset($settings['display']) ? sanitize_text_field($settings['display']) : NWS_ALERTS_DISPLAY_DEFAULT;
-            $s_classes = isset($settings['classes']) ? sanitize_text_field($settings['classes']) : array();
-            $s_location_title = isset($settings['location_title']) ? sanitize_text_field($settings['location_title']) : false;
-
-            if (empty($s_zip) || empty($s_display) || empty($s_scope)) {
-                echo 0;
-                die();
-            }
-
-            $nws_alerts_data = new NWS_Alerts(array('zip' => $s_zip, 'scope' => $s_scope, 'limit' => $s_limit));
-
-            echo $nws_alerts_data->get_output_html($s_display, $s_classes, array('location_title' => $s_location_title));
-        } else {
+        if (empty($s_zip) || empty($s_display) || empty($s_scope)) {
             echo 0;
+            die();
         }
+
+        $nws_alerts_data = new NWS_Alerts(array('zip' => $s_zip, 'scope' => $s_scope, 'limit' => $s_limit));
+
+        echo $nws_alerts_data->get_output_html($s_display, $s_classes, array('location_title' => $s_location_title));
 
         die();
     }

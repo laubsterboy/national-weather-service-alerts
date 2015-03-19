@@ -11,8 +11,14 @@ Author URI: http://www.laubsterboy.com
     "use strict";
 
     function setup() {
-        var settings = JSON.stringify($(this).data('settings')),
-            refreshRate = parseInt($(this).data('refresh-rate')) * 1000,
+        var settings = $(this).data('settings'),
+            zip = settings.zip,
+            scope = settings.scope,
+            limit = settings.limit,
+            display = settings.display,
+            classes = settings.classes,
+            locationTitle = settings.location_title,
+            refreshRate = parseInt(settings.refresh_rate) * 1000,
             element = this;
 
         setTimeout(function () {
