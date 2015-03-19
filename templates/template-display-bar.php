@@ -12,9 +12,9 @@
 
 ?>
 
-<article class="nws-alerts nws-alerts-collapsible <?php echo trim(implode(' ', $classes)); ?>" data-settings="<?php echo $settings; ?>">
+<article class="nws-alerts nws-alerts-collapsible <?php echo $classes; ?>" data-settings="<?php echo $settings; ?>">
     <!-- Heading -->
-    <section class="<?php echo trim(implode(' ', $args['heading']['classes'])); ?>">
+    <section class="<?php echo $args['heading']['classes']; ?>">
         <!-- Heading graphic -->
         <?php if ($args['heading']['graphic'] !== false && !empty($this->entries)) : ?>
             <?php echo $this->entries[0]->get_output_graphic($args['heading']['graphic'], 'nws-alerts-heading-graphic'); ?>

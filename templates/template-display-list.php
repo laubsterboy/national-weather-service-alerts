@@ -12,9 +12,9 @@
 
 ?>
 
-<article class="nws-alerts <?php echo trim(implode(' ', $classes)); ?>" data-settings="<?php echo $settings; ?>">
+<article class="nws-alerts <?php echo $classes; ?>" data-settings="<?php echo $settings; ?>">
     <!-- Heading -->
-    <section class="<?php echo trim(implode(' ', $args['heading']['classes'])); ?> nws-alerts-heading-no-graphic">
+    <section class="<?php echo $args['heading']['classes']; ?> nws-alerts-heading-no-graphic">
         <!-- Heading location and scope -->
         <?php if (isset($args['widget'])) { ?>
             <?php echo $args['widget_before_title']; ?><span class="nws-alerts-heading-scope"><?php echo $args['heading']['scope']; ?></span><?php echo $args['widget_after_title']; ?>
