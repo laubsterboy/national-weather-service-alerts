@@ -11,7 +11,7 @@ Author URI: http://www.laubsterboy.com
     "use strict";
 
     function setup() {
-        var settings = $(this).data('zip'),
+        var settings = $(this).data('settings'),
             refreshRate = parseInt($(this).data('refresh-rate')) * 1000,
             element = this;
 
