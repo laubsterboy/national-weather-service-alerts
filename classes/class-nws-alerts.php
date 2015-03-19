@@ -588,12 +588,12 @@ class NWS_Alerts {
         }
 
         // Saved settings - to be used to auto update the NWS Alerts on the front end
-        $settings = json_encode(array('zip' => $this->zip,
-                                      'scope' => $this->scope,
-                                      'limit' => $this->limit,
-                                      'display' => $display,
-                                      'classes' => $classes,
-                                      'location_title' => $args['location_title']));
+        $settings = htmlspecialchars (json_encode(array('zip' => $this->zip,
+                                                        'scope' => $this->scope,
+                                                        'limit' => $this->limit,
+                                                        'display' => $display,
+                                                        'classes' => $classes,
+                                                        'location_title' => $args['location_title'])), ENT_QUOTES, 'UTF-8');
 
         // Start output buffer
         ob_start();
