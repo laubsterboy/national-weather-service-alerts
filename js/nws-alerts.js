@@ -27,7 +27,13 @@ Author URI: http://www.laubsterboy.com
                 url: ajaxurl,
                 data: {
                     action: 'nws_alerts_refresh',
-                    settings: settings
+                    zip: zip,
+                    scope: scope,
+                    limit: limit,
+                    display: display,
+                    classes: classes,
+                    location_title: locationTitle,
+                    refresh_rate: refreshRate
                 },
                 success: function (html, textStatus, jqXHR) {
                     if (html != 0) update(html, element);

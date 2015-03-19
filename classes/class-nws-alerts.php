@@ -587,6 +587,10 @@ class NWS_Alerts {
             $args['heading']['location'] = $this->city . ', ' . $this->state;
         }
 
+        // Classes to space separated string
+        $classes = trim(implode(' ', $classes));
+        $args['heading']['classes'] = trim(implode(' ', $args['heading']['classes']))
+
         // Saved settings - to be used to auto update the NWS Alerts on the front end
         $settings = htmlspecialchars (json_encode(array('zip' => $this->zip,
                                                         'scope' => $this->scope,
