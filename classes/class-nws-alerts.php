@@ -590,9 +590,9 @@ class NWS_Alerts {
         // Saved settings - to be used to auto update the NWS Alerts on the front end
         $settings = json_encode(array('zip' => $this->zip,
                                       'scope' => $this->scope,
-                                      'refresh_rate' => $this->refresh_rate,
                                       'limit' => $this->limit,
                                       'display' => $display,
+                                      'classes' => $classes,
                                       'location_title' => $args['location_title']));
 
         // Start output buffer
