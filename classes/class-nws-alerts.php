@@ -537,7 +537,7 @@ class NWS_Alerts {
     public function get_output_html($display = NWS_ALERTS_DISPLAY_DEFAULT, $classes = array(), $args = array()) {
         $args_defaults = array(
             'location_title' => false,
-            'default_classes' => array('nws-alerts' . $display),
+            'default_classes' => array('nws-alerts-' . $display),
             'heading' => array(
                 'alert' => '',
                 'classes' => array('nws-alerts-heading'),
@@ -554,7 +554,7 @@ class NWS_Alerts {
         } else if (!is_array($classes)) {
             $classes = array();
         }
-        $classes = array_merge($args['default_classes'], $classes);
+        $classes = array_unique(array_merge($args['default_classes'], $classes));
         if (empty($this->entries)) $args['default_classes'][] = 'nws-alerts-no-entries';
 
         // Heading settings
