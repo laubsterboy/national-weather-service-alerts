@@ -23,8 +23,6 @@ class NWS_Alerts_Client {
     */
     public static function refresh() {
         if (isset($_POST['settings'])) {
-            echo $_POST['settings'];
-            die();
             $settings = $_POST['settings'];
 
             $s_zip = isset($settings['zip']) ? sanitize_text_field($settings['zip']) : '';
