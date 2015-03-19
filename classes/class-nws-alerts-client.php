@@ -23,7 +23,7 @@ class NWS_Alerts_Client {
     */
     public static function refresh() {
         if (isset($_POST['settings'])) {
-            $settings = $_POST['settings'];
+            $settings = json_encode($_POST['settings'], true);
 
             $s_zip = isset($settings['zip']) ? sanitize_text_field($settings['zip']) : '';
             $s_scope = isset($settings['scope']) ? sanitize_text_field($settings['scope']) : NWS_ALERTS_SCOPE_COUNTY;
