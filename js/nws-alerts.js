@@ -11,12 +11,8 @@ Author URI: http://www.laubsterboy.com
     "use strict";
 
     function setup() {
-        var zip = $(this).data('zip'),
-            display = $(this).data('display'),
-            scope = $(this).data('scope'),
-            classes = $(this).attr('class'),
-            locationTitle = $(this).find('.nws-alerts-heading-location').text(),
-            refreshRate = parseInt($(this).data('refresh_rate')) * 1000,
+        var settings = $(this).data('zip'),
+            refreshRate = parseInt($(this).data('refresh-rate')) * 1000,
             element = this;
 
         setTimeout(function () {
@@ -25,11 +21,7 @@ Author URI: http://www.laubsterboy.com
                 url: ajaxurl,
                 data: {
                     action: 'nws_alerts_refresh',
-                    zip: zip,
-                    display: display,
-                    scope: scope,
-                    location_title: locationTitle,
-                    classes: classes
+                    settings: settings
                 },
                 success: function (html, textStatus, jqXHR) {
                     if (html != 0) update(html, element);
