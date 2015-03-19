@@ -597,7 +597,7 @@ class NWS_Alerts {
                                                         'limit' => $this->limit,
                                                         'display' => $display,
                                                         'classes' => $classes,
-                                                        'location_title' => $args['location_title'],
+                                                        'location_title' => $args['heading']['location'],
                                                         'refresh_rate' => $this->refresh_rate)), ENT_QUOTES, 'UTF-8');
 
         // Start output buffer
