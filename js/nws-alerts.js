@@ -18,7 +18,7 @@ Author URI: http://www.laubsterboy.com
             display = settings.display,
             classes = settings.classes,
             locationTitle = settings.location_title,
-            refreshRate = parseInt(settings.refresh_rate) * 1000,
+            refreshRate = parseInt(settings.refresh_rate) * 60000,
             element = this;
 
         setTimeout(function () {
