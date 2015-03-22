@@ -192,11 +192,10 @@
     width:100%;
     height:auto;
     overflow:auto;
-    color:#333;
 }
 .nws-alerts-entries ul {
-    margin:0;
-    padding:0;
+	margin:0;
+	padding:0;
 }
 .nws-alerts-entries li {
     margin:0;
@@ -207,6 +206,7 @@
 	max-height:0;
 	padding:20px;
 	transition:max-height 300ms;
+	color:#333;
 }
 .nws-alerts-collapsible:hover .nws-alerts-entries {
     max-height:200px;
@@ -370,12 +370,20 @@
 
 /* Styles */
 .nws-alerts-style-callout {
-    box-sizing:border-box;
+	box-sizing:border-box;
 	margin:10px 0;
     padding:10px;
     border-radius:3px;
     background-color: #f1f1f1;
     border-top: 1px solid #ddd;
+    color:#333;
+}
+.nws-alerts-widget .nws-alerts-style-callout {
+	border:none;
+	padding-left:0;
+	padding-right:0;
+	color:inherit;
+	background-color:transparent;
 }
 
 
