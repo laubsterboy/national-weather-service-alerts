@@ -194,6 +194,15 @@
     overflow:auto;
     color:#333;
 }
+.nws-alerts-entries ul {
+    margin:0;
+    padding:0;
+}
+.nws-alerts-entries li {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
 .nws-alerts-collapsible .nws-alerts-entries {
 	max-height:0;
 	padding:20px;
@@ -361,6 +370,7 @@
 
 /* Styles */
 .nws-alerts-style-callout {
+    box-sizing:border-box;
 	margin:10px 0;
     padding:10px;
     border-radius:3px;
