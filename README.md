@@ -53,6 +53,7 @@
                     <li>Option: bar</li>
                     <li>Option: basic</li>
                     <li>Option: full</li>
+                    <li>Option: list</</li>
                 </ul>
             </li>
             <li>Default: full</li>
@@ -73,11 +74,18 @@
             <li>Required: No</li>
         </ul>
     </li>
+    <li><strong>limit</strong>
+        <ul>
+            <li>Value: Any valid integer, though 0 results in no limit</li>
+            <li>Default: empty</li>
+            <li>Required: No</li>
+        </ul>
+    </li>
 </ul>
 <h4>Example</h4>
-<pre>[nws_alerts zip="90001" city="Los Angeles" state="California" county="Los Angeles" display="full" scope="county"]</pre>
+<pre>[nws_alerts zip="90001" city="Los Angeles" state="California" county="Los Angeles" display="full" scope="county" limit="3"]</pre>
 <h4>Example for a theme page template</h4>
-<pre>echo do_shortcode('[nws_alerts zip="90001" city="Los Angeles" state="California" county="Los Angeles" display="full" scope="county"]');</pre>
+<pre>echo do_shortcode('[nws_alerts zip="90001" city="Los Angeles" state="California" county="Los Angeles" display="full" scope="county" limit="3"]');</pre>
 
 <h2>Reference</h2>
 <h3>Filters</h3>
@@ -150,6 +158,36 @@
                     <li><em>(array)</em> Arguments used to create the NWS_Alert instance.</li>
                 </ul>
             </li>
+        </ul>
+    </li>
+</ul>
+<strong>nws_alerts_template_path</strong>
+<ul>
+    <li>Source File: <a href="https://github.com/laubsterboy/national-weather-service-alerts/blob/master/classes/class-nws-alerts-utils.php">classes/class-nws-alerts-utils.php</a></li>
+    <li>Use: Can be used to specify an alternative location for display templates, by modifying the $paths array, to be used with a plugin or a custom location within a theme.</li>
+    <li>Parameters:
+        <ul>
+            <li>$paths
+                <ul>
+                    <li><em>(array)</em> The default array of paths used to search for a display template. The first path is the child theme, second is the parent theme, and the last is the NWS Alerts plugin directory. For theme directories the paths include 'plugins/national-weather-service-alerts/templates/'.</li>
+                </ul>
+            </li>
+            <li>$template_filename
+                <ul>
+                    <li><em>(string)</em> The filename of the current display template being searched for.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Functions</h3>
+<strong>NWS_Alerts_Utils::register_display_template</strong>
+<ul>
+    <li>Source File: <a href="https://github.com/laubsterboy/national-weather-service-alerts/blob/master/classes/class-nws-alerts-utils.php">classes/class-nws-alerts-utils.php</a></li>
+    <li>Parameters:
+        <ul>
+            <li>$args = array('display' => 'identifier', 'name' => 'Title')</li>
         </ul>
     </li>
 </ul>

@@ -3,8 +3,8 @@
 Contributors: laubsterboy
 Tags: National Weather Service, NWS, Storm Prediction Center, SPC, Alert, Weather, Storm, Severe, Tornado, Thunder, Flood
 Requires at least: 3.1
-Tested up to: 4.0.1
-Stable tag: 1.2.0
+Tested up to: 4.1.1
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -148,7 +148,7 @@ Simply refreshing the page should fix the problem.
 == Upgrade Notice ==
 
 = 1.3.0 =
-* Added support for WordPress Multisite, fixed bugs
+* Added support for WordPress Multisite, fixed bugs, display settings now use templates, and the number of alert entries shown can be limited.
 
 = 1.2.0 =
 * Improved compatibility with web hosts for fetching NWS Alerts, and alerts are now cached when possible. Added new display features.
